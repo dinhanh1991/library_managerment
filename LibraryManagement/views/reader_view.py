@@ -96,10 +96,7 @@ class ReaderView(BaseView):
         table.add_column("TÊN ĐỘC GIẢ", style="bold white")
         table.add_column("ĐANG MƯỢN", justify="center", style="bold green")
 
-        active_ids = {
-            borrower.borrower_id
-            for borrower in self.service.borrower_repo.load_borrowers()
-        }
+        active_ids = self.service.get_active_reader_ids()
         for index, reader in enumerate(readers, start=1):
             table.add_row(
                 str(index),
