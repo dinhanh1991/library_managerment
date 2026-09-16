@@ -30,7 +30,7 @@ class LibraryView(BaseView):
 
     def get_dashboard_stats(self):
         books = self.service.get_all_books()
-        active_borrowers = self.service.borrower_repo.load_borrowers()
+        active_borrowers = self.service.get_active_borrowers()
         overdue = self.service.get_overdue_borrowers()
         total_books = len(books)
         total_available = sum(1 for book in books if book.quantity > 0)
@@ -53,8 +53,8 @@ class LibraryView(BaseView):
 
     def get_time_window_stats(self, days=30, as_of=None):
         as_of = as_of or date.today()
-        active_borrowers = self.service.borrower_repo.load_borrowers()
-        returned_borrowers = self.service.return_history_repo.load_history()
+        active_borrowers = self.service.get_active_borrowers()
+        returned_borrowers = self.service.get_return_history()
         books = {book.book_id: book for book in self.service.get_all_books()}
 
         active_window = []
