@@ -1,9 +1,13 @@
 class BookService:
-    def __init__(self, service):
-        self.service = service
+    def __init__(self, repository, borrower_repo, normalize_text, validate_number, refresh_structures):
+        self.repository = repository
+        self.borrower_repo = borrower_repo
+        self.normalize_text = normalize_text
+        self.validate_number = validate_number
+        self.refresh_structures = refresh_structures
 
     def get_all_books(self):
-        return self.service.repository.load_books()
+        return self.repository.load_books()
 
     @staticmethod
     def _is_valid_text(value):
@@ -19,38 +23,38 @@ class BookService:
         if not self._is_valid_text(book.author):
             return False
         if (
-            not self.service._is_valid_non_negative_number(book.quantity)
-            or not self.service._is_valid_non_negative_number(book.publish_year)
+            not self.validate_number(book.quantity)
+            or not self.validate_number(book.publish_year)
         ):
             return False
 
         book_id = book.book_id.strip()
-        books = self.service.repository.load_books()
+        books = self.repository.load_books()
         for existing in books:
-            if self.service._normalize_text(existing.book_id) == book_id:
+            if self.normalize_text(existing.book_id) == book_id:
                 return False
 
         book.book_id = book_id
         book.title = book.title.strip()
         book.author = book.author.strip()
         books.append(book)
-        self.service.repository.save_books(books)
-        self.service._refresh_structures()
+        self.repository.save_books(books)
+        self.refresh_structures()
         return True
 
     def remove_book(self, book_id):
-        book_id = self.service._normalize_text(book_id)
+        book_id = self.normalize_text(book_id)
         if not book_id:
             return False
-        books = self.service.repository.load_books()
-        borrowers = self.service.borrower_repo.load_borrowers()
-        if any(self.service._normalize_text(item.book_id) == book_id for item in borrowers):
+        books = self.repository.load_books()
+        borrowers = self.borrower_repo.load_borrowers()
+        if any(self.normalize_text(item.book_id) == book_id for item in borrowers):
             return False
         for book in books:
-            if self.service._normalize_text(book.book_id) == book_id:
+            if self.normalize_text(book.book_id) == book_id:
                 books.remove(book)
-                self.service.repository.save_books(books)
-                self.service._refresh_structures()
+                self.repository.save_books(books)
+                self.refresh_structures()
                 return True
         return False
 
@@ -64,8 +68,8 @@ class BookService:
         if not self._is_valid_text(updated_book.author):
             return False
         if (
-            not self.service._is_valid_non_negative_number(updated_book.quantity)
-            or not self.service._is_valid_non_negative_number(updated_book.publish_year)
+            not self.validate_number(updated_book.quantity)
+            or not self.validate_number(updated_book.publish_year)
         ):
             return False
 
@@ -73,30 +77,30 @@ class BookService:
         updated_book.book_id = book_id
         updated_book.title = updated_book.title.strip()
         updated_book.author = updated_book.author.strip()
-        books = self.service.repository.load_books()
-        borrowers = self.service.borrower_repo.load_borrowers()
-        if any(self.service._normalize_text(item.book_id) == book_id for item in borrowers):
+        books = self.repository.load_books()
+        borrowers = self.borrower_repo.load_borrowers()
+        if any(self.normalize_text(item.book_id) == book_id for item in borrowers):
             return False
         for i, book in enumerate(books):
-            if self.service._normalize_text(book.book_id) == book_id:
+            if self.normalize_text(book.book_id) == book_id:
                 books[i] = updated_book
-                self.service.repository.save_books(books)
-                self.service._refresh_structures()
+                self.repository.save_books(books)
+                self.refresh_structures()
                 return True
         return False
 
     def search_books_by_title(self, key_work):
-        keyword = self.service._normalize_text(key_work).lower()
+        keyword = self.normalize_text(key_work).lower()
         if not keyword:
             return []
-        books = self.service.repository.load_books()
+        books = self.repository.load_books()
         return [book for book in books if keyword in str(book.title or "").lower()]
 
     def search_books_by_author(self, author):
-        keyword = self.service._normalize_text(author).lower()
+        keyword = self.normalize_text(author).lower()
         if not keyword:
             return []
-        books = self.service.repository.load_books()
+        books = self.repository.load_books()
         return [book for book in books if keyword in str(book.author or "").lower()]
 
     def search_books_advanced(
@@ -108,7 +112,7 @@ class BookService:
         isbn=None,
         availability=None,
     ):
-        books = self.service.repository.load_books()
+        books = self.repository.load_books()
         results = []
 
         text_filters = {
