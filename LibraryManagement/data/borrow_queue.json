@@ -1,11 +1,1 @@
-[
-    {
-        "borrower_id": "DG003",
-        "name": "Hà Văn Hạnh",
-        "book_id": "S002",
-        "borrow_date": "2026-09-10",
-        "due_date": "2026-09-24",
-        "return_date": null,
-        "status": "pending"
-    }
-]
+[]

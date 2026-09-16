@@ -26,5 +26,9 @@
     {
         "reader_id": "DG009",
         "name": "Trân Thị Lý"
+    },
+    {
+        "reader_id": "R202",
+        "name": "Reader Borrow"
     }
 ]
