@@ -16,18 +16,25 @@ class BookRepository:
             with open(self.FILE_PATH, "r", encoding="utf-8") as file:
                 data = json.load(file)
 
-                books = []
+            if not isinstance(data, list):
+                raise ValueError("Dữ liệu sách phải có dạng danh sách JSON.")
 
-                # Chuyển dữ liệu thành đối tượng Book
-                for item in data:
-                    book = Book.from_dict(item)
-                    books.append(book)
+            books = []
 
-                return books
+            # Chuyển dữ liệu thành đối tượng Book
+            for item in data:
+                if not isinstance(item, dict):
+                    raise ValueError("Mỗi dữ liệu sách phải có dạng object JSON.")
+                book = Book.from_dict(item)
+                books.append(book)
+
+            return books
 
         # Nếu file chưa tồn tại thì trả về danh sách rỗng
         except FileNotFoundError:
             return []
+        except json.JSONDecodeError as e:
+            raise ValueError(f"File dữ liệu sách không hợp lệ: {e}") from e
 
     # Lưu danh sách sách vào file
     def save_books(self, books):
