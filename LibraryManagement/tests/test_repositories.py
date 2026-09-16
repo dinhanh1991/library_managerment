@@ -97,6 +97,29 @@ class RepositoryTestCase(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self._load(repository_class)
 
+    def test_model_json_requires_required_fields(self):
+        invalid_data = [
+            (Book, {"book_id": "B001", "title": "Python"}),
+            (Borrower, {"borrower_id": "DG001", "name": "Anh"}),
+            (Reader, {"reader_id": "DG001"}),
+        ]
+        for model_class, data in invalid_data:
+            with self.subTest(model=model_class.__name__):
+                with self.assertRaises(ValueError):
+                    model_class.from_dict(data)
+
+    def test_model_json_rejects_invalid_values(self):
+        invalid_data = [
+            (Book, {"book_id": "B001", "title": "Python", "author": "Anh", "publish_year": 2024, "quantity": -1}),
+            (Book, {"book_id": "B001", "title": "Python", "author": "Anh", "publish_year": "2024", "quantity": 1}),
+            (Borrower, {"borrower_id": "DG001", "name": "Anh", "book_id": "B001", "status": "unknown"}),
+            (Reader, {"reader_id": "", "name": "Anh"}),
+        ]
+        for model_class, data in invalid_data:
+            with self.subTest(model=model_class.__name__):
+                with self.assertRaises(ValueError):
+                    model_class.from_dict(data)
+
     def test_book_repository_round_trip(self):
         path = self.temp_path / "books.json"
         BookRepository.FILE_PATH = path
