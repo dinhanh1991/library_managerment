@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from datetime import date
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
@@ -79,6 +80,35 @@ class TestReturnBookBorrowed(unittest.TestCase):
         self.assertEqual(returned.book_id, "B001")
         self.assertEqual(returned.status, "returned")
         self.assertEqual(returned.return_date, date.today().isoformat())
+
+    def test_return_rolls_back_when_borrower_save_fails(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        self.assertTrue(self.service.book_borrow(borrower))
+        self.assertIsNotNone(self.service.process_next_borrower())
+
+        original_save = self.borrower_repo.save_borrowers
+        calls = 0
+
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("simulated borrower save failure")
+            return original_save(data)
+
+        with patch.object(self.borrower_repo, "save_borrowers", side_effect=fail_once):
+            with self.assertRaises(OSError):
+                self.service.return_book(Borrower("C001", "Wrong Name", "B001"))
+
+        book = self.book_repo.load_books()[0]
+        self.assertEqual(book.quantity, 2)
+        active = self.borrower_repo.load_borrowers()
+        self.assertEqual(len(active), 1)
+        self.assertEqual(active[0].status, "borrowed")
+        self.assertEqual(self.return_history_repo.load_history(), [])
+        self.assertEqual(len(self.service.borrow_queue.items), 0)
+        self.assertEqual(self.queue_repo.load_queue(), [])
+        self.assertEqual(self.service.return_stack.items, [])
 
 
 if __name__ == "__main__":
