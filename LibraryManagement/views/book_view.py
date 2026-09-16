@@ -1,6 +1,3 @@
-
-from rich.table import Table
-
 from LibraryManagement.views.base_view import BaseView
 from LibraryManagement.models.book import Book
 from LibraryManagement.utils.logging_config import LOGGER
@@ -40,10 +37,6 @@ class BookView(BaseView):
             " [0] 🔙 Quay lại"
         )
         self.render_menu("📖 QUẢN LÝ SÁCH", menu_content, accent="green")
-
-    # ============================================================
-    # TẠM DỪNG MÀN HÌNH
-    # ============================================================
 
     # ============================================================
     # CHỨC NĂNG THÊM SÁCH
@@ -276,6 +269,12 @@ class BookView(BaseView):
     # HIỂN THỊ TẤT CẢ SÁCH
     # ============================================================
 
+    @staticmethod
+    def get_book_status(book):
+        if book.quantity > 0:
+            return "Có sẵn"
+        return "Hết"
+
     def display_books(self):
 
         # Lấy toàn bộ sách từ Service
@@ -286,10 +285,11 @@ class BookView(BaseView):
         table = create_book_table("📚 DANH SÁCH SÁCH")
 
         if not books:
-            table.add_row("-", "Không có sách trong thư viện", "-", "-", "-")
+            table.add_row("-", "Không có sách trong thư viện", "-", "-", "-", "-")
         else:
             for book in books:
-                add_book_to_table(table, book)
+                status = self.get_book_status(book)
+                add_book_to_table(table, book, status=status)
 
         # Hiển thị bảng
         self.console.print(table)
@@ -327,7 +327,8 @@ class BookView(BaseView):
         self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
         table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
         for book in results:
-            add_book_to_table(table, book)
+            status = self.get_book_status(book)
+            add_book_to_table(table, book, status=status)
         self.console.print(table)
 
         self.pause()
@@ -363,7 +364,8 @@ class BookView(BaseView):
         self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
         table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
         for book in results:
-            add_book_to_table(table, book)
+            status = self.get_book_status(book)
+            add_book_to_table(table, book, status=status)
         self.console.print(table)
 
         self.pause()
@@ -379,7 +381,7 @@ class BookView(BaseView):
         author = input("👉 Tác giả (để trống nếu không muốn lọc): ").strip() or None
         genre = input("👉 Thể loại (để trống nếu không muốn lọc): ").strip() or None
         publish_year = input("👉 Năm xuất bản (để trống nếu không muốn lọc): ").strip() or None
-        isbn = input("👉 ISBN (để trống nếu không muốn lọc): ").strip() or None
+        isbn = input("👉 ISBN (để trống nếu không có): ").strip() or None
         availability = input("👉 Tình trạng [all/available/unavailable] (mặc định all): ").strip().lower() or "all"
 
         if availability not in {"all", "available", "unavailable"}:
@@ -403,7 +405,8 @@ class BookView(BaseView):
         self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
         table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
         for book in results:
-            add_book_to_table(table, book)
+            status = self.get_book_status(book)
+            add_book_to_table(table, book, status=status)
         self.console.print(table)
         self.pause()
 
