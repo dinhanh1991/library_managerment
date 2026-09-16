@@ -25,11 +25,20 @@ class FakeQueueRepository:
         self.saved_queue = list(borrowers)
 
 
+class TestQueue:
+    def __init__(self):
+        self.items = []
+
+    def dequeue(self):
+        if not self.items:
+            return None
+        return self.items.pop(0)
+
+
 class TestBorrowQueueConsistency(unittest.TestCase):
     def setUp(self):
         self.service = LibraryService.__new__(LibraryService)
-        self.service.borrow_queue = type("TestQueue", (), {})()
-        self.service.borrow_queue.items = []
+        self.service.borrow_queue = TestQueue()
         self.service.borrower_repo = FakeBorrowerRepository([])
         self.service.queue_repo = FakeQueueRepository()
 
