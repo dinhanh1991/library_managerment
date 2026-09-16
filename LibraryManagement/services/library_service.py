@@ -1,15 +1,10 @@
-from copy import deepcopy
 from datetime import date
 
-from LibraryManagement.models.reader import Reader
-from LibraryManagement.data_structures.queue import Queue
-from LibraryManagement.data_structures.stack import Stack
-from LibraryManagement.data_structures.linked_list import BookLinkedList
-from LibraryManagement.data_structures.bts import BinarySearchTree
 from LibraryManagement.services.book_service import BookService
 from LibraryManagement.services.reader_service import ReaderService
 from LibraryManagement.services.borrow_service import BorrowService
 from LibraryManagement.services.return_service import ReturnService
+from LibraryManagement.services.library_state import LibraryState
 
 
 class LibraryService:
@@ -35,18 +30,60 @@ class LibraryService:
         self.reader_repo = reader_repo or ReaderRepository()
         self.return_history_repo = return_history_repo or ReturnHistoryRepository()
 
-        self.borrow_queue = Queue()
-        self.return_stack = Stack()
-        self.book_linked_list = BookLinkedList()
-        self.book_bst = BinarySearchTree()
+        self.state = LibraryState(
+            self.repository,
+            self.borrower_repo,
+            self.queue_repo,
+            self.reader_repo,
+            self.return_history_repo,
+        )
 
-        self.book_service = BookService(self)
-        self.reader_service = ReaderService(self)
-        self.borrow_service = BorrowService(self)
-        self.return_service = ReturnService(self)
+        self.borrow_queue = self.state.borrow_queue
+        self.return_stack = self.state.return_stack
+        self.book_linked_list = self.state.book_linked_list
+        self.book_bst = self.state.book_bst
 
         self._load_queue()
         self._refresh_structures()
+
+        self.book_service = BookService(
+            repository=self.repository,
+            borrower_repo=self.borrower_repo,
+            normalize_text=self._normalize_text,
+            validate_number=self._is_valid_non_negative_number,
+            refresh_structures=self._refresh_structures,
+        )
+        self.reader_service = ReaderService(
+            reader_repo=self.reader_repo,
+            borrower_repo=self.borrower_repo,
+            queue_repo=self.queue_repo,
+            return_history_repo=self.return_history_repo,
+            borrow_queue=self.borrow_queue,
+            normalize_text=self._normalize_text,
+            rollback=self._rollback,
+        )
+        self.borrow_service = BorrowService(
+            repository=self.repository,
+            borrower_repo=self.borrower_repo,
+            reader_repo=self.reader_repo,
+            queue_repo=self.queue_repo,
+            borrow_queue=self.borrow_queue,
+            normalize_text=self._normalize_text,
+            ensure_reader=self._ensure_reader,
+            refresh_structures=self._refresh_structures,
+            rollback=self._rollback,
+        )
+        self.return_service = ReturnService(
+            repository=self.repository,
+            borrower_repo=self.borrower_repo,
+            queue_repo=self.queue_repo,
+            return_history_repo=self.return_history_repo,
+            borrow_queue=self.borrow_queue,
+            return_stack=self.return_stack,
+            normalize_text=self._normalize_text,
+            refresh_structures=self._refresh_structures,
+            rollback=self._rollback,
+        )
 
     @staticmethod
     def _normalize_text(value):
@@ -63,9 +100,8 @@ class LibraryService:
         )
 
     def _load_queue(self):
-        self.borrow_queue = Queue()
-        for borrower in self.queue_repo.load_queue():
-            self.borrow_queue.enqueue(borrower)
+        self.state.load_queue()
+        self.borrow_queue = self.state.borrow_queue
 
     @staticmethod
     def _is_overdue(borrower, as_of):
@@ -78,27 +114,10 @@ class LibraryService:
         return due_date < as_of
 
     def _ensure_reader(self, borrower):
-        readers = self.reader_repo.load_readers()
-        if any(reader.reader_id == borrower.borrower_id for reader in readers):
-            return
-        readers.append(Reader(borrower.borrower_id, borrower.name))
-        self.reader_repo.save_readers(readers)
+        self.state.ensure_reader(borrower)
 
     def _rollback(self, snapshots):
-        for repository, data in snapshots:
-            try:
-                if repository is self.repository:
-                    repository.save_books(data)
-                elif repository is self.borrower_repo:
-                    repository.save_borrowers(data)
-                elif repository is self.queue_repo:
-                    repository.save_queue(data)
-                elif repository is self.reader_repo:
-                    repository.save_readers(data)
-                elif repository is self.return_history_repo:
-                    repository.save_history(data)
-            except OSError:
-                pass
+        self.state.rollback(snapshots)
 
     def get_overdue_borrowers(self, current_date=None):
         current_date = current_date or date.today()
@@ -135,22 +154,21 @@ class LibraryService:
         return self.book_service.get_all_books()
 
     def build_book_linked_list(self):
-        books = self.repository.load_books()
-        self.book_linked_list = BookLinkedList()
-        for book in books:
-            self.book_linked_list.add_book(book)
+        self.state.refresh_structures()
+        self.book_linked_list = self.state.book_linked_list
+        self.book_bst = self.state.book_bst
         return self.book_linked_list
 
     def build_book_bst(self):
-        books = self.repository.load_books()
-        self.book_bst = BinarySearchTree()
-        for book in books:
-            self.book_bst.insert(book)
+        self.state.refresh_structures()
+        self.book_linked_list = self.state.book_linked_list
+        self.book_bst = self.state.book_bst
         return self.book_bst
 
     def _refresh_structures(self):
-        self.book_linked_list = self.build_book_linked_list()
-        self.book_bst = self.build_book_bst()
+        self.state.refresh_structures()
+        self.book_linked_list = self.state.book_linked_list
+        self.book_bst = self.state.book_bst
 
     # Book facade methods
     def add_book(self, book):
@@ -207,8 +225,6 @@ class LibraryService:
         return self.borrow_service.book_borrow(borrower)
 
     def process_next_borrower(self):
-        if not hasattr(self, "borrow_service"):
-            self.borrow_service = BorrowService(self)
         return self.borrow_service.process_next_borrower()
 
     # Return facade methods
