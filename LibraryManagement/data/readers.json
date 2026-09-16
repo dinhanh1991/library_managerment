@@ -1,0 +1,30 @@
+[
+    {
+        "reader_id": "DG001",
+        "name": "Nguyễn Văn A"
+    },
+    {
+        "reader_id": "DG002",
+        "name": "Trần Văn B"
+    },
+    {
+        "reader_id": "DG003",
+        "name": "Hà Văn Hạnh"
+    },
+    {
+        "reader_id": "DG004",
+        "name": "Lê Đình Anh"
+    },
+    {
+        "reader_id": "DG006",
+        "name": "Trần Quang Minh"
+    },
+    {
+        "reader_id": "DG007",
+        "name": "Nguyễn Minh Quang"
+    },
+    {
+        "reader_id": "DG009",
+        "name": "Trân Thị Lý"
+    }
+]

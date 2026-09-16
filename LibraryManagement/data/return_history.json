@@ -1,0 +1,20 @@
+[
+    {
+        "borrower_id": "DG009",
+        "name": "Trân Thị Lý",
+        "book_id": "S005",
+        "borrow_date": "2026-08-01",
+        "due_date": "2026-08-15",
+        "return_date": "2026-08-14",
+        "status": "returned"
+    },
+    {
+        "borrower_id": "DG001",
+        "name": "Nguyễn Văn A",
+        "book_id": "S001",
+        "borrow_date": "2026-09-01",
+        "due_date": "2026-09-15",
+        "return_date": "2026-09-16",
+        "status": "returned"
+    }
+]

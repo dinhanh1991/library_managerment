@@ -1,0 +1,47 @@
+[
+    {
+        "borrower_id": "DG002",
+        "name": "Trần Văn B",
+        "book_id": "S002",
+        "borrow_date": "2026-09-08",
+        "due_date": "2026-09-22",
+        "return_date": null,
+        "status": "borrowed"
+    },
+    {
+        "borrower_id": "DG003",
+        "name": "Hà Văn Hạnh",
+        "book_id": "S002",
+        "borrow_date": "2026-09-10",
+        "due_date": "2026-09-24",
+        "return_date": null,
+        "status": "pending"
+    },
+    {
+        "borrower_id": "DG004",
+        "name": "Lê Đình Anh",
+        "book_id": "S004",
+        "borrow_date": "2026-09-05",
+        "due_date": "2026-09-19",
+        "return_date": null,
+        "status": "borrowed"
+    },
+    {
+        "borrower_id": "DG006",
+        "name": "Trần Quang Minh",
+        "book_id": "S004",
+        "borrow_date": "2026-09-12",
+        "due_date": "2026-09-26",
+        "return_date": null,
+        "status": "borrowed"
+    },
+    {
+        "borrower_id": "DG007",
+        "name": "Nguyễn Minh Quang",
+        "book_id": "S004",
+        "borrow_date": "2026-09-14",
+        "due_date": "2026-09-28",
+        "return_date": null,
+        "status": "borrowed"
+    }
+]
