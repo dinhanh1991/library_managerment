@@ -31,6 +31,10 @@ class LibraryService:
     def _normalize_text(value):
         return str(value or "").strip()
 
+    @staticmethod
+    def _is_valid_non_negative_number(value):
+        return isinstance(value, (int, float)) and not isinstance(value, bool) and value >= 0
+
     def _load_queue(self):
         self.borrow_queue = Queue()
         for borrower in self.queue_repo.load_queue():
@@ -82,7 +86,11 @@ class LibraryService:
         if book is None:
             return False
         book_id = self._normalize_text(book.book_id)
-        if not book_id or book.quantity < 0 or book.publish_year < 0:
+        if (
+            not book_id
+            or not self._is_valid_non_negative_number(book.quantity)
+            or not self._is_valid_non_negative_number(book.publish_year)
+        ):
             return False
         books = self.repository.load_books()
         for existing in books:
@@ -111,7 +119,11 @@ class LibraryService:
         return False
 
     def update_book(self, updated_book):
-        if updated_book is None or updated_book.quantity < 0 or updated_book.publish_year < 0:
+        if (
+            updated_book is None
+            or not self._is_valid_non_negative_number(updated_book.quantity)
+            or not self._is_valid_non_negative_number(updated_book.publish_year)
+        ):
             return False
         book_id = self._normalize_text(updated_book.book_id)
         if not book_id:
