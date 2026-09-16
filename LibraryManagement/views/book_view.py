@@ -70,9 +70,7 @@ class BookView(BaseView):
         else:
             books = self.service.get_all_books()
             is_existing = any(item.book_id == book_id for item in books)
-            borrowers = self.service.borrower_repo.load_borrowers()
-            is_active = any(item.book_id == book_id for item in borrowers)
-            if is_existing and is_active:
+            if is_existing and self.service.is_book_borrowed(book_id):
                 print_info_warning("Sách đang được mượn, không thể xóa.")
             else:
                 print_info_error("Không tìm thấy sách!")
