@@ -217,7 +217,10 @@ class LibraryService:
                         changed = True
                 if changed:
                     self.borrower_repo.save_borrowers(borrowers)
-                    self._load_queue()
+
+                    for queued_borrower in self.borrow_queue.items:
+                        if queued_borrower.borrower_id == reader_id:
+                            queued_borrower.name = name
                     self.queue_repo.save_queue(self.borrow_queue.items)
                 return True
         return False
