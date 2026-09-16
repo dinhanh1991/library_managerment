@@ -122,11 +122,13 @@ tests/
 ├── test_data_structures.py
 ├── test_library_service.py
 ├── test_reader_business_rules.py
+├── test_repositories.py
 ├── test_return_book_borrowed.py
 ├── test_search_business_rules.py
 ├── test_sorting_business_rules.py
 ├── test_ui_and_input.py
-└── test_update_book_borrowing.py
+├── test_update_book_borrowing.py
+└── test_book_numeric_validation.py
 ```
 
 Các nhóm test bao phủ:
@@ -135,6 +137,7 @@ Các nhóm test bao phủ:
 - Quy tắc mượn sách.
 - Queue và tính nhất quán khi xử lý hàng đợi.
 - Queue, Stack, Linked List và Binary Search Tree.
+- Repository: JSON hợp lệ, JSON lỗi, dữ liệu sai cấu trúc và lỗi ghi file.
 - Return và đồng bộ lịch sử trả.
 - Reader CRUD, lịch sử và quá hạn.
 - Tìm kiếm nâng cao.
@@ -142,11 +145,13 @@ Các nhóm test bao phủ:
 - Input và các luồng UI chính.
 - Chặn cập nhật/xóa sách khi có giao dịch đang hoạt động.
 
-Chạy toàn bộ test bằng:
+Chạy toàn bộ test từ thư mục `LibraryManagement` bằng:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+GitHub Actions cũng chạy toàn bộ unit test trên Python 3.12 khi push hoặc tạo pull request vào `main`.
 
 ## 6. Cấu trúc project
 
@@ -240,10 +245,16 @@ Di chuyển vào thư mục chương trình:
 cd library_managerment/LibraryManagement
 ```
 
-Cài thư viện:
+Cài thư viện cho chương trình và unit test:
 
 ```bash
-pip install rich matplotlib
+pip install rich
+```
+
+Nếu chạy benchmark và tạo biểu đồ:
+
+```bash
+pip install matplotlib
 ```
 
 Chạy chương trình:
