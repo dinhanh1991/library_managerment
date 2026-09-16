@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from LibraryManagement.data_structures.bst import BinarySearchTree
+from LibraryManagement.data_structures.bts import BinarySearchTree
 from LibraryManagement.data_structures.linked_list import BookLinkedList
 from LibraryManagement.data_structures.queue import Queue
 from LibraryManagement.data_structures.stack import Stack
