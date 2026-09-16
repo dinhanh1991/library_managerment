@@ -6,6 +6,17 @@ from LibraryManagement.views.base_view import BaseView
 
 
 class ReaderView(BaseView):
+    def _prompt_required(self, prompt, label):
+        value = input(prompt).strip()
+        if value:
+            return value
+
+        self.console.print(
+            f"\n[bold yellow]⚠️ {label} không được để trống.[/bold yellow]"
+        )
+        self.pause()
+        return None
+
     def show_menu(self):
         menu_content = (
             " [1] ➕ Thêm độc giả\n"
@@ -20,12 +31,11 @@ class ReaderView(BaseView):
 
     def add_reader(self):
         self.show_section("===== ➕ THÊM ĐỘC GIẢ =====")
-        reader_id = input("Nhập mã độc giả: ").strip()
-        name = input("Nhập tên độc giả: ").strip()
-
-        if not reader_id or not name:
-            self.console.print("\n[bold yellow]⚠️ Mã và tên độc giả không được để trống.[/bold yellow]")
-            self.pause()
+        reader_id = self._prompt_required("Nhập mã độc giả: ", "Mã độc giả")
+        if reader_id is None:
+            return
+        name = self._prompt_required("Nhập tên độc giả: ", "Tên độc giả")
+        if name is None:
             return
 
         if self.service.add_reader(Reader(reader_id, name)):
@@ -36,12 +46,11 @@ class ReaderView(BaseView):
 
     def update_reader(self):
         self.show_section("===== ✏️ SỬA ĐỘC GIẢ =====")
-        reader_id = input("Nhập mã độc giả cần sửa: ").strip()
-        name = input("Nhập tên mới: ").strip()
-
-        if not reader_id or not name:
-            self.console.print("\n[bold yellow]⚠️ Mã và tên độc giả không được để trống.[/bold yellow]")
-            self.pause()
+        reader_id = self._prompt_required("Nhập mã độc giả cần sửa: ", "Mã độc giả")
+        if reader_id is None:
+            return
+        name = self._prompt_required("Nhập tên mới: ", "Tên độc giả")
+        if name is None:
             return
 
         if self.service.update_reader(Reader(reader_id, name)):
@@ -52,11 +61,8 @@ class ReaderView(BaseView):
 
     def delete_reader(self):
         self.show_section("===== 🗑️ XÓA ĐỘC GIẢ =====")
-        reader_id = input("Nhập mã độc giả cần xóa: ").strip()
-
-        if not reader_id:
-            self.console.print("\n[bold yellow]⚠️ Mã độc giả không được để trống.[/bold yellow]")
-            self.pause()
+        reader_id = self._prompt_required("Nhập mã độc giả cần xóa: ", "Mã độc giả")
+        if reader_id is None:
             return
 
         if not self.confirm_action("Bạn có chắc chắn muốn xóa độc giả này không?"):
@@ -106,10 +112,10 @@ class ReaderView(BaseView):
         self.pause()
 
     def display_history(self):
-        reader_id = input("Nhập mã độc giả cần xem lịch sử: ").strip()
-        if not reader_id:
-            self.console.print("\n[bold yellow]⚠️ Mã độc giả không được để trống.[/bold yellow]")
-            self.pause()
+        reader_id = self._prompt_required(
+            "Nhập mã độc giả cần xem lịch sử: ", "Mã độc giả"
+        )
+        if reader_id is None:
             return
 
         history = self.service.get_reader_history(reader_id)

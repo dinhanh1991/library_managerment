@@ -62,12 +62,14 @@ class BookView(BaseView):
 
         publish_year = prompt_int("Nhập năm xuất bản: ", "Năm xuất bản", min_value=0)
         quantity = prompt_int("Nhập số lượng: ", "Số lượng", min_value=0)
+        category = prompt_field("Nhập thể loại (nhấn Enter để đặt mặc định): ", "Thể loại", allow_empty=True) or "Chưa phân loại"
+        isbn = prompt_field("Nhập ISBN (nhấn Enter nếu không có): ", "ISBN", allow_empty=True) or ""
 
         if publish_year is None or quantity is None:
             self.pause()
             return
 
-        book = Book(book_id, title, author, publish_year, quantity)
+        book = Book(book_id, title, author, publish_year, quantity, category=category, isbn=isbn)
 
         # ========================================================
         # XÁC NHẬN TRƯỚC KHI THÊM
@@ -211,19 +213,32 @@ class BookView(BaseView):
             "\n[bold yellow]--- Nhập thông tin mới ---[/bold yellow]"
         )
 
-        title = input(
-            "Tên sách mới: "
-        ).strip()
+        title = input("Tên sách mới (Enter để giữ): ").strip() or book.title
+        author = input("Tác giả mới (Enter để giữ): ").strip() or book.author
+        category = input("Thể loại mới (Enter để giữ): ").strip() or book.category
+        isbn = input("ISBN mới (Enter để giữ): ").strip() or book.isbn
 
-        author = input(
-            "Tác giả mới: "
-        ).strip()
+        raw_publish_year = input("Năm xuất bản mới (Enter để giữ): ").strip()
+        if raw_publish_year:
+            try:
+                publish_year = int(raw_publish_year)
+            except ValueError:
+                print_info_error("Năm xuất bản không hợp lệ.")
+                self.pause()
+                return
+        else:
+            publish_year = book.publish_year
 
-        publish_year = prompt_int("Năm xuất bản mới: ", "Năm xuất bản", min_value=0)
-        quantity = prompt_int("Số lượng mới: ", "Số lượng", min_value=0)
-        if publish_year is None or quantity is None:
-            self.pause()
-            return
+        raw_quantity = input("Số lượng mới (Enter để giữ): ").strip()
+        if raw_quantity:
+            try:
+                quantity = int(raw_quantity)
+            except ValueError:
+                print_info_error("Số lượng không hợp lệ.")
+                self.pause()
+                return
+        else:
+            quantity = book.quantity
 
         # Tạo đối tượng Book chứa thông tin mới
         updated_book = Book(
@@ -231,7 +246,9 @@ class BookView(BaseView):
             title,
             author,
             publish_year,
-            quantity
+            quantity,
+            category=category,
+            isbn=isbn,
         )
 
         # ========================================================

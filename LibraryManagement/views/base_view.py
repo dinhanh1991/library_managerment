@@ -27,7 +27,10 @@ class BaseView:
         return colors["default"]
 
     def pause(self):
-        input("\n👉 Nhấn Enter để tiếp tục...")
+        try:
+            input("\n👉 Nhấn Enter để tiếp tục...")
+        except (EOFError, KeyboardInterrupt):
+            return
 
     def show_section(self, title):
         accent = self.get_accent_color(title)

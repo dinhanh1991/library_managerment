@@ -4,3548 +4,4571 @@
         "title": "Lập trình Python",
         "author": "Nguyễn Văn A",
         "publish_year": 2024,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S002",
         "title": "Cấu Trức Dữ Liệu Nâng Cao",
         "author": "Trần Phi Vũ",
         "publish_year": 2026,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S001",
         "title": "Trăm năm cô đơn",
         "author": "Gabriel García Márquez",
         "publish_year": 2012,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S004",
         "title": "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
         "author": "Nguyễn Nhật Ánh",
         "publish_year": 2010,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S007",
         "title": "Lý Thuyết Trò Chơi",
         "author": "Dương Tử Hàm",
         "publish_year": 2025,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S006",
         "title": "Cuốn theo chiều gió",
         "author": "Margaret Mitchell",
         "publish_year": 2022,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S005",
         "title": "Kiêu Hãnh và dịnh mênh",
         "author": "Jame austen",
         "publish_year": 2020,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S008",
         "title": "Lập trình Java 1",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2025,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S009",
         "title": "Lập trình C++ 2",
         "author": "Trần Văn Nam",
         "publish_year": 2011,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S010",
         "title": "Lập trình C# 3",
         "author": "Lê Minh Hoàng",
         "publish_year": 2012,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S011",
         "title": "Lập trình JavaScript 4",
         "author": "Phạm Văn Long",
         "publish_year": 2012,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S012",
         "title": "Lập trình Python nâng cao 5",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2022,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S013",
         "title": "Cơ sở dữ liệu 6",
         "author": "Hoàng Minh Đức",
         "publish_year": 2010,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S014",
         "title": "MySQL cơ bản 7",
         "author": "Vũ Thành Công",
         "publish_year": 2012,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S015",
         "title": "SQL Server 8",
         "author": "Bùi Quang Huy",
         "publish_year": 2020,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S016",
         "title": "Thiết kế Web 9",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2012,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S017",
         "title": "HTML và CSS 10",
         "author": "Trần Thị Mai",
         "publish_year": 2016,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S018",
         "title": "Spring Boot 11",
         "author": "Phạm Thị Hương",
         "publish_year": 2024,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S019",
         "title": "Phát triển ứng dụng Web 12",
         "author": "Lê Thu Hà",
         "publish_year": 2026,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S020",
         "title": "Cấu trúc dữ liệu 13",
         "author": "Đặng Văn Sơn",
         "publish_year": 2020,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S021",
         "title": "Giải thuật 14",
         "author": "Ngô Minh Anh",
         "publish_year": 2016,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S022",
         "title": "Trí tuệ nhân tạo 15",
         "author": "Dương Quốc Việt",
         "publish_year": 2012,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S023",
         "title": "Machine Learning 16",
         "author": "Phan Văn Khải",
         "publish_year": 2025,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S024",
         "title": "Deep Learning 17",
         "author": "John Smith",
         "publish_year": 2015,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S025",
         "title": "Mạng máy tính 18",
         "author": "Michael Brown",
         "publish_year": 2020,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S026",
         "title": "Hệ điều hành 19",
         "author": "David Wilson",
         "publish_year": 2025,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S027",
         "title": "Công nghệ phần mềm 20",
         "author": "Robert Taylor",
         "publish_year": 2012,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S028",
         "title": "Phân tích thiết kế hệ thống 21",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2010,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S029",
         "title": "An toàn thông tin 22",
         "author": "Trần Văn Nam",
         "publish_year": 2026,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S030",
         "title": "Điện toán đám mây 23",
         "author": "Lê Minh Hoàng",
         "publish_year": 2013,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S031",
         "title": "Phát triển Game 24",
         "author": "Phạm Văn Long",
         "publish_year": 2019,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S032",
         "title": "Unity cơ bản 25",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2018,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S033",
         "title": "Lập trình Java 26",
         "author": "Hoàng Minh Đức",
         "publish_year": 2020,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S034",
         "title": "Lập trình C++ 27",
         "author": "Vũ Thành Công",
         "publish_year": 2013,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S035",
         "title": "Lập trình C# 28",
         "author": "Bùi Quang Huy",
         "publish_year": 2021,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S036",
         "title": "Lập trình JavaScript 29",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2024,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S037",
         "title": "Lập trình Python nâng cao 30",
         "author": "Trần Thị Mai",
         "publish_year": 2012,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S038",
         "title": "Cơ sở dữ liệu 31",
         "author": "Phạm Thị Hương",
         "publish_year": 2026,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S039",
         "title": "MySQL cơ bản 32",
         "author": "Lê Thu Hà",
         "publish_year": 2018,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S040",
         "title": "SQL Server 33",
         "author": "Đặng Văn Sơn",
         "publish_year": 2014,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S041",
         "title": "Thiết kế Web 34",
         "author": "Ngô Minh Anh",
         "publish_year": 2024,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S042",
         "title": "HTML và CSS 35",
         "author": "Dương Quốc Việt",
         "publish_year": 2019,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S043",
         "title": "Spring Boot 36",
         "author": "Phan Văn Khải",
         "publish_year": 2014,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S044",
         "title": "Phát triển ứng dụng Web 37",
         "author": "John Smith",
         "publish_year": 2019,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S045",
         "title": "Cấu trúc dữ liệu 38",
         "author": "Michael Brown",
         "publish_year": 2017,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S046",
         "title": "Giải thuật 39",
         "author": "David Wilson",
         "publish_year": 2012,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S047",
         "title": "Trí tuệ nhân tạo 40",
         "author": "Robert Taylor",
         "publish_year": 2026,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S048",
         "title": "Machine Learning 41",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2016,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S049",
         "title": "Deep Learning 42",
         "author": "Trần Văn Nam",
         "publish_year": 2021,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S050",
         "title": "Mạng máy tính 43",
         "author": "Lê Minh Hoàng",
         "publish_year": 2022,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S051",
         "title": "Hệ điều hành 44",
         "author": "Phạm Văn Long",
         "publish_year": 2026,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S052",
         "title": "Công nghệ phần mềm 45",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2014,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S053",
         "title": "Phân tích thiết kế hệ thống 46",
         "author": "Hoàng Minh Đức",
         "publish_year": 2025,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S054",
         "title": "An toàn thông tin 47",
         "author": "Vũ Thành Công",
         "publish_year": 2010,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S055",
         "title": "Điện toán đám mây 48",
         "author": "Bùi Quang Huy",
         "publish_year": 2020,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S056",
         "title": "Phát triển Game 49",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2024,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S057",
         "title": "Unity cơ bản 50",
         "author": "Trần Thị Mai",
         "publish_year": 2013,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S058",
         "title": "Lập trình Java 51",
         "author": "Phạm Thị Hương",
         "publish_year": 2026,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S059",
         "title": "Lập trình C++ 52",
         "author": "Lê Thu Hà",
         "publish_year": 2025,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S060",
         "title": "Lập trình C# 53",
         "author": "Đặng Văn Sơn",
         "publish_year": 2011,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S061",
         "title": "Lập trình JavaScript 54",
         "author": "Ngô Minh Anh",
         "publish_year": 2012,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S062",
         "title": "Lập trình Python nâng cao 55",
         "author": "Dương Quốc Việt",
         "publish_year": 2013,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S063",
         "title": "Cơ sở dữ liệu 56",
         "author": "Phan Văn Khải",
         "publish_year": 2013,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S064",
         "title": "MySQL cơ bản 57",
         "author": "John Smith",
         "publish_year": 2017,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S065",
         "title": "SQL Server 58",
         "author": "Michael Brown",
         "publish_year": 2024,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S066",
         "title": "Thiết kế Web 59",
         "author": "David Wilson",
         "publish_year": 2017,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S067",
         "title": "HTML và CSS 60",
         "author": "Robert Taylor",
         "publish_year": 2013,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S068",
         "title": "Spring Boot 61",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2026,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S069",
         "title": "Phát triển ứng dụng Web 62",
         "author": "Trần Văn Nam",
         "publish_year": 2014,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S070",
         "title": "Cấu trúc dữ liệu 63",
         "author": "Lê Minh Hoàng",
         "publish_year": 2025,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S071",
         "title": "Giải thuật 64",
         "author": "Phạm Văn Long",
         "publish_year": 2015,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S072",
         "title": "Trí tuệ nhân tạo 65",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2011,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S073",
         "title": "Machine Learning 66",
         "author": "Hoàng Minh Đức",
         "publish_year": 2010,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S074",
         "title": "Deep Learning 67",
         "author": "Vũ Thành Công",
         "publish_year": 2022,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S075",
         "title": "Mạng máy tính 68",
         "author": "Bùi Quang Huy",
         "publish_year": 2015,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S076",
         "title": "Hệ điều hành 69",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2018,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S077",
         "title": "Công nghệ phần mềm 70",
         "author": "Trần Thị Mai",
         "publish_year": 2017,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S078",
         "title": "Phân tích thiết kế hệ thống 71",
         "author": "Phạm Thị Hương",
         "publish_year": 2017,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S079",
         "title": "An toàn thông tin 72",
         "author": "Lê Thu Hà",
         "publish_year": 2026,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S080",
         "title": "Điện toán đám mây 73",
         "author": "Đặng Văn Sơn",
         "publish_year": 2023,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S081",
         "title": "Phát triển Game 74",
         "author": "Ngô Minh Anh",
         "publish_year": 2017,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S082",
         "title": "Unity cơ bản 75",
         "author": "Dương Quốc Việt",
         "publish_year": 2019,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S083",
         "title": "Lập trình Java 76",
         "author": "Phan Văn Khải",
         "publish_year": 2021,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S084",
         "title": "Lập trình C++ 77",
         "author": "John Smith",
         "publish_year": 2016,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S085",
         "title": "Lập trình C# 78",
         "author": "Michael Brown",
         "publish_year": 2015,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S086",
         "title": "Lập trình JavaScript 79",
         "author": "David Wilson",
         "publish_year": 2017,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S087",
         "title": "Lập trình Python nâng cao 80",
         "author": "Robert Taylor",
         "publish_year": 2011,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S088",
         "title": "Cơ sở dữ liệu 81",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2021,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S089",
         "title": "MySQL cơ bản 82",
         "author": "Trần Văn Nam",
         "publish_year": 2024,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S090",
         "title": "SQL Server 83",
         "author": "Lê Minh Hoàng",
         "publish_year": 2010,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S091",
         "title": "Thiết kế Web 84",
         "author": "Phạm Văn Long",
         "publish_year": 2025,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S092",
         "title": "HTML và CSS 85",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2015,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S093",
         "title": "Spring Boot 86",
         "author": "Hoàng Minh Đức",
         "publish_year": 2015,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S094",
         "title": "Phát triển ứng dụng Web 87",
         "author": "Vũ Thành Công",
         "publish_year": 2023,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S095",
         "title": "Cấu trúc dữ liệu 88",
         "author": "Bùi Quang Huy",
         "publish_year": 2010,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S096",
         "title": "Giải thuật 89",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2023,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S097",
         "title": "Trí tuệ nhân tạo 90",
         "author": "Trần Thị Mai",
         "publish_year": 2017,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S098",
         "title": "Machine Learning 91",
         "author": "Phạm Thị Hương",
         "publish_year": 2021,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S099",
         "title": "Deep Learning 92",
         "author": "Lê Thu Hà",
         "publish_year": 2014,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S100",
         "title": "Mạng máy tính 93",
         "author": "Đặng Văn Sơn",
         "publish_year": 2019,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S101",
         "title": "Hệ điều hành 94",
         "author": "Ngô Minh Anh",
         "publish_year": 2020,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S102",
         "title": "Công nghệ phần mềm 95",
         "author": "Dương Quốc Việt",
         "publish_year": 2021,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S103",
         "title": "Phân tích thiết kế hệ thống 96",
         "author": "Phan Văn Khải",
         "publish_year": 2021,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S104",
         "title": "An toàn thông tin 97",
         "author": "John Smith",
         "publish_year": 2019,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S105",
         "title": "Điện toán đám mây 98",
         "author": "Michael Brown",
         "publish_year": 2013,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S106",
         "title": "Phát triển Game 99",
         "author": "David Wilson",
         "publish_year": 2021,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S107",
         "title": "Unity cơ bản 100",
         "author": "Robert Taylor",
         "publish_year": 2020,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S108",
         "title": "Lập trình Java 101",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2010,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S109",
         "title": "Lập trình C++ 102",
         "author": "Trần Văn Nam",
         "publish_year": 2024,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S110",
         "title": "Lập trình C# 103",
         "author": "Lê Minh Hoàng",
         "publish_year": 2019,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S111",
         "title": "Lập trình JavaScript 104",
         "author": "Phạm Văn Long",
         "publish_year": 2020,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S112",
         "title": "Lập trình Python nâng cao 105",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2015,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S113",
         "title": "Cơ sở dữ liệu 106",
         "author": "Hoàng Minh Đức",
         "publish_year": 2020,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S114",
         "title": "MySQL cơ bản 107",
         "author": "Vũ Thành Công",
         "publish_year": 2011,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S115",
         "title": "SQL Server 108",
         "author": "Bùi Quang Huy",
         "publish_year": 2013,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S116",
         "title": "Thiết kế Web 109",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2014,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S117",
         "title": "HTML và CSS 110",
         "author": "Trần Thị Mai",
         "publish_year": 2018,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S118",
         "title": "Spring Boot 111",
         "author": "Phạm Thị Hương",
         "publish_year": 2018,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S119",
         "title": "Phát triển ứng dụng Web 112",
         "author": "Lê Thu Hà",
         "publish_year": 2019,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S120",
         "title": "Cấu trúc dữ liệu 113",
         "author": "Đặng Văn Sơn",
         "publish_year": 2010,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S121",
         "title": "Giải thuật 114",
         "author": "Ngô Minh Anh",
         "publish_year": 2011,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S122",
         "title": "Trí tuệ nhân tạo 115",
         "author": "Dương Quốc Việt",
         "publish_year": 2013,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S123",
         "title": "Machine Learning 116",
         "author": "Phan Văn Khải",
         "publish_year": 2025,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S124",
         "title": "Deep Learning 117",
         "author": "John Smith",
         "publish_year": 2014,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S125",
         "title": "Mạng máy tính 118",
         "author": "Michael Brown",
         "publish_year": 2011,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S126",
         "title": "Hệ điều hành 119",
         "author": "David Wilson",
         "publish_year": 2022,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S127",
         "title": "Công nghệ phần mềm 120",
         "author": "Robert Taylor",
         "publish_year": 2012,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S128",
         "title": "Phân tích thiết kế hệ thống 121",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2012,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S129",
         "title": "An toàn thông tin 122",
         "author": "Trần Văn Nam",
         "publish_year": 2012,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S130",
         "title": "Điện toán đám mây 123",
         "author": "Lê Minh Hoàng",
         "publish_year": 2026,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S131",
         "title": "Phát triển Game 124",
         "author": "Phạm Văn Long",
         "publish_year": 2010,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S132",
         "title": "Unity cơ bản 125",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2026,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S133",
         "title": "Lập trình Java 126",
         "author": "Hoàng Minh Đức",
         "publish_year": 2024,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S134",
         "title": "Lập trình C++ 127",
         "author": "Vũ Thành Công",
         "publish_year": 2016,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S135",
         "title": "Lập trình C# 128",
         "author": "Bùi Quang Huy",
         "publish_year": 2016,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S136",
         "title": "Lập trình JavaScript 129",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2010,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S137",
         "title": "Lập trình Python nâng cao 130",
         "author": "Trần Thị Mai",
         "publish_year": 2021,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S138",
         "title": "Cơ sở dữ liệu 131",
         "author": "Phạm Thị Hương",
         "publish_year": 2023,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S139",
         "title": "MySQL cơ bản 132",
         "author": "Lê Thu Hà",
         "publish_year": 2010,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S140",
         "title": "SQL Server 133",
         "author": "Đặng Văn Sơn",
         "publish_year": 2014,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S141",
         "title": "Thiết kế Web 134",
         "author": "Ngô Minh Anh",
         "publish_year": 2022,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S142",
         "title": "HTML và CSS 135",
         "author": "Dương Quốc Việt",
         "publish_year": 2016,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S143",
         "title": "Spring Boot 136",
         "author": "Phan Văn Khải",
         "publish_year": 2024,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S144",
         "title": "Phát triển ứng dụng Web 137",
         "author": "John Smith",
         "publish_year": 2026,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S145",
         "title": "Cấu trúc dữ liệu 138",
         "author": "Michael Brown",
         "publish_year": 2010,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S146",
         "title": "Giải thuật 139",
         "author": "David Wilson",
         "publish_year": 2024,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S147",
         "title": "Trí tuệ nhân tạo 140",
         "author": "Robert Taylor",
         "publish_year": 2013,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S148",
         "title": "Machine Learning 141",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2015,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S149",
         "title": "Deep Learning 142",
         "author": "Trần Văn Nam",
         "publish_year": 2019,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S150",
         "title": "Mạng máy tính 143",
         "author": "Lê Minh Hoàng",
         "publish_year": 2024,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S151",
         "title": "Hệ điều hành 144",
         "author": "Phạm Văn Long",
         "publish_year": 2017,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S152",
         "title": "Công nghệ phần mềm 145",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2023,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S153",
         "title": "Phân tích thiết kế hệ thống 146",
         "author": "Hoàng Minh Đức",
         "publish_year": 2023,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S154",
         "title": "An toàn thông tin 147",
         "author": "Vũ Thành Công",
         "publish_year": 2014,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S155",
         "title": "Điện toán đám mây 148",
         "author": "Bùi Quang Huy",
         "publish_year": 2017,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S156",
         "title": "Phát triển Game 149",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2018,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S157",
         "title": "Unity cơ bản 150",
         "author": "Trần Thị Mai",
         "publish_year": 2018,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S158",
         "title": "Lập trình Java 151",
         "author": "Phạm Thị Hương",
         "publish_year": 2020,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S159",
         "title": "Lập trình C++ 152",
         "author": "Lê Thu Hà",
         "publish_year": 2025,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S160",
         "title": "Lập trình C# 153",
         "author": "Đặng Văn Sơn",
         "publish_year": 2011,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S161",
         "title": "Lập trình JavaScript 154",
         "author": "Ngô Minh Anh",
         "publish_year": 2010,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S162",
         "title": "Lập trình Python nâng cao 155",
         "author": "Dương Quốc Việt",
         "publish_year": 2022,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S163",
         "title": "Cơ sở dữ liệu 156",
         "author": "Phan Văn Khải",
         "publish_year": 2013,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S164",
         "title": "MySQL cơ bản 157",
         "author": "John Smith",
         "publish_year": 2010,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S165",
         "title": "SQL Server 158",
         "author": "Michael Brown",
         "publish_year": 2012,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S166",
         "title": "Thiết kế Web 159",
         "author": "David Wilson",
         "publish_year": 2011,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S167",
         "title": "HTML và CSS 160",
         "author": "Robert Taylor",
         "publish_year": 2013,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S168",
         "title": "Spring Boot 161",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2024,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S169",
         "title": "Phát triển ứng dụng Web 162",
         "author": "Trần Văn Nam",
         "publish_year": 2026,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S170",
         "title": "Cấu trúc dữ liệu 163",
         "author": "Lê Minh Hoàng",
         "publish_year": 2022,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S171",
         "title": "Giải thuật 164",
         "author": "Phạm Văn Long",
         "publish_year": 2015,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S172",
         "title": "Trí tuệ nhân tạo 165",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2017,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S173",
         "title": "Machine Learning 166",
         "author": "Hoàng Minh Đức",
         "publish_year": 2025,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S174",
         "title": "Deep Learning 167",
         "author": "Vũ Thành Công",
         "publish_year": 2025,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S175",
         "title": "Mạng máy tính 168",
         "author": "Bùi Quang Huy",
         "publish_year": 2015,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S176",
         "title": "Hệ điều hành 169",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2019,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S177",
         "title": "Công nghệ phần mềm 170",
         "author": "Trần Thị Mai",
         "publish_year": 2015,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S178",
         "title": "Phân tích thiết kế hệ thống 171",
         "author": "Phạm Thị Hương",
         "publish_year": 2013,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S179",
         "title": "An toàn thông tin 172",
         "author": "Lê Thu Hà",
         "publish_year": 2019,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S180",
         "title": "Điện toán đám mây 173",
         "author": "Đặng Văn Sơn",
         "publish_year": 2023,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S181",
         "title": "Phát triển Game 174",
         "author": "Ngô Minh Anh",
         "publish_year": 2010,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S182",
         "title": "Unity cơ bản 175",
         "author": "Dương Quốc Việt",
         "publish_year": 2013,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S183",
         "title": "Lập trình Java 176",
         "author": "Phan Văn Khải",
         "publish_year": 2026,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S184",
         "title": "Lập trình C++ 177",
         "author": "John Smith",
         "publish_year": 2025,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S185",
         "title": "Lập trình C# 178",
         "author": "Michael Brown",
         "publish_year": 2022,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S186",
         "title": "Lập trình JavaScript 179",
         "author": "David Wilson",
         "publish_year": 2016,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S187",
         "title": "Lập trình Python nâng cao 180",
         "author": "Robert Taylor",
         "publish_year": 2025,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S188",
         "title": "Cơ sở dữ liệu 181",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2013,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S189",
         "title": "MySQL cơ bản 182",
         "author": "Trần Văn Nam",
         "publish_year": 2019,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S190",
         "title": "SQL Server 183",
         "author": "Lê Minh Hoàng",
         "publish_year": 2018,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S191",
         "title": "Thiết kế Web 184",
         "author": "Phạm Văn Long",
         "publish_year": 2018,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S192",
         "title": "HTML và CSS 185",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2010,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S193",
         "title": "Spring Boot 186",
         "author": "Hoàng Minh Đức",
         "publish_year": 2021,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S194",
         "title": "Phát triển ứng dụng Web 187",
         "author": "Vũ Thành Công",
         "publish_year": 2018,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S195",
         "title": "Cấu trúc dữ liệu 188",
         "author": "Bùi Quang Huy",
         "publish_year": 2012,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S196",
         "title": "Giải thuật 189",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2025,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S197",
         "title": "Trí tuệ nhân tạo 190",
         "author": "Trần Thị Mai",
         "publish_year": 2015,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S198",
         "title": "Machine Learning 191",
         "author": "Phạm Thị Hương",
         "publish_year": 2025,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S199",
         "title": "Deep Learning 192",
         "author": "Lê Thu Hà",
         "publish_year": 2014,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S200",
         "title": "Mạng máy tính 193",
         "author": "Đặng Văn Sơn",
         "publish_year": 2011,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S201",
         "title": "Hệ điều hành 194",
         "author": "Ngô Minh Anh",
         "publish_year": 2017,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S202",
         "title": "Công nghệ phần mềm 195",
         "author": "Dương Quốc Việt",
         "publish_year": 2022,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S203",
         "title": "Phân tích thiết kế hệ thống 196",
         "author": "Phan Văn Khải",
         "publish_year": 2015,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S204",
         "title": "An toàn thông tin 197",
         "author": "John Smith",
         "publish_year": 2013,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S205",
         "title": "Điện toán đám mây 198",
         "author": "Michael Brown",
         "publish_year": 2016,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S206",
         "title": "Phát triển Game 199",
         "author": "David Wilson",
         "publish_year": 2024,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S207",
         "title": "Unity cơ bản 200",
         "author": "Robert Taylor",
         "publish_year": 2011,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S208",
         "title": "Lập trình Java 201",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2020,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S209",
         "title": "Lập trình C++ 202",
         "author": "Trần Văn Nam",
         "publish_year": 2016,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S210",
         "title": "Lập trình C# 203",
         "author": "Lê Minh Hoàng",
         "publish_year": 2016,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S211",
         "title": "Lập trình JavaScript 204",
         "author": "Phạm Văn Long",
         "publish_year": 2010,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S212",
         "title": "Lập trình Python nâng cao 205",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2024,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S213",
         "title": "Cơ sở dữ liệu 206",
         "author": "Hoàng Minh Đức",
         "publish_year": 2015,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S214",
         "title": "MySQL cơ bản 207",
         "author": "Vũ Thành Công",
         "publish_year": 2022,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S215",
         "title": "SQL Server 208",
         "author": "Bùi Quang Huy",
         "publish_year": 2023,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S216",
         "title": "Thiết kế Web 209",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2015,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S217",
         "title": "HTML và CSS 210",
         "author": "Trần Thị Mai",
         "publish_year": 2024,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S218",
         "title": "Spring Boot 211",
         "author": "Phạm Thị Hương",
         "publish_year": 2016,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S219",
         "title": "Phát triển ứng dụng Web 212",
         "author": "Lê Thu Hà",
         "publish_year": 2019,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S220",
         "title": "Cấu trúc dữ liệu 213",
         "author": "Đặng Văn Sơn",
         "publish_year": 2012,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S221",
         "title": "Giải thuật 214",
         "author": "Ngô Minh Anh",
         "publish_year": 2013,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S222",
         "title": "Trí tuệ nhân tạo 215",
         "author": "Dương Quốc Việt",
         "publish_year": 2015,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S223",
         "title": "Machine Learning 216",
         "author": "Phan Văn Khải",
         "publish_year": 2016,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S224",
         "title": "Deep Learning 217",
         "author": "John Smith",
         "publish_year": 2021,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S225",
         "title": "Mạng máy tính 218",
         "author": "Michael Brown",
         "publish_year": 2022,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S226",
         "title": "Hệ điều hành 219",
         "author": "David Wilson",
         "publish_year": 2022,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S227",
         "title": "Công nghệ phần mềm 220",
         "author": "Robert Taylor",
         "publish_year": 2014,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S228",
         "title": "Phân tích thiết kế hệ thống 221",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2025,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S229",
         "title": "An toàn thông tin 222",
         "author": "Trần Văn Nam",
         "publish_year": 2018,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S230",
         "title": "Điện toán đám mây 223",
         "author": "Lê Minh Hoàng",
         "publish_year": 2023,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S231",
         "title": "Phát triển Game 224",
         "author": "Phạm Văn Long",
         "publish_year": 2017,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S232",
         "title": "Unity cơ bản 225",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2021,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S233",
         "title": "Lập trình Java 226",
         "author": "Hoàng Minh Đức",
         "publish_year": 2023,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S234",
         "title": "Lập trình C++ 227",
         "author": "Vũ Thành Công",
         "publish_year": 2020,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S235",
         "title": "Lập trình C# 228",
         "author": "Bùi Quang Huy",
         "publish_year": 2010,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S236",
         "title": "Lập trình JavaScript 229",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2017,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S237",
         "title": "Lập trình Python nâng cao 230",
         "author": "Trần Thị Mai",
         "publish_year": 2012,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S238",
         "title": "Cơ sở dữ liệu 231",
         "author": "Phạm Thị Hương",
         "publish_year": 2017,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S239",
         "title": "MySQL cơ bản 232",
         "author": "Lê Thu Hà",
         "publish_year": 2024,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S240",
         "title": "SQL Server 233",
         "author": "Đặng Văn Sơn",
         "publish_year": 2018,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S241",
         "title": "Thiết kế Web 234",
         "author": "Ngô Minh Anh",
         "publish_year": 2021,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S242",
         "title": "HTML và CSS 235",
         "author": "Dương Quốc Việt",
         "publish_year": 2018,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S243",
         "title": "Spring Boot 236",
         "author": "Phan Văn Khải",
         "publish_year": 2021,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S244",
         "title": "Phát triển ứng dụng Web 237",
         "author": "John Smith",
         "publish_year": 2012,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S245",
         "title": "Cấu trúc dữ liệu 238",
         "author": "Michael Brown",
         "publish_year": 2013,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S246",
         "title": "Giải thuật 239",
         "author": "David Wilson",
         "publish_year": 2025,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S247",
         "title": "Trí tuệ nhân tạo 240",
         "author": "Robert Taylor",
         "publish_year": 2010,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S248",
         "title": "Machine Learning 241",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2016,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S249",
         "title": "Deep Learning 242",
         "author": "Trần Văn Nam",
         "publish_year": 2014,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S250",
         "title": "Mạng máy tính 243",
         "author": "Lê Minh Hoàng",
         "publish_year": 2021,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S251",
         "title": "Hệ điều hành 244",
         "author": "Phạm Văn Long",
         "publish_year": 2010,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S252",
         "title": "Công nghệ phần mềm 245",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2016,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S253",
         "title": "Phân tích thiết kế hệ thống 246",
         "author": "Hoàng Minh Đức",
         "publish_year": 2017,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S254",
         "title": "An toàn thông tin 247",
         "author": "Vũ Thành Công",
         "publish_year": 2018,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S255",
         "title": "Điện toán đám mây 248",
         "author": "Bùi Quang Huy",
         "publish_year": 2018,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S256",
         "title": "Phát triển Game 249",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2023,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S257",
         "title": "Unity cơ bản 250",
         "author": "Trần Thị Mai",
         "publish_year": 2023,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S258",
         "title": "Lập trình Java 251",
         "author": "Phạm Thị Hương",
         "publish_year": 2023,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S259",
         "title": "Lập trình C++ 252",
         "author": "Lê Thu Hà",
         "publish_year": 2026,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S260",
         "title": "Lập trình C# 253",
         "author": "Đặng Văn Sơn",
         "publish_year": 2010,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S261",
         "title": "Lập trình JavaScript 254",
         "author": "Ngô Minh Anh",
         "publish_year": 2025,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S262",
         "title": "Lập trình Python nâng cao 255",
         "author": "Dương Quốc Việt",
         "publish_year": 2015,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S263",
         "title": "Cơ sở dữ liệu 256",
         "author": "Phan Văn Khải",
         "publish_year": 2026,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S264",
         "title": "MySQL cơ bản 257",
         "author": "John Smith",
         "publish_year": 2015,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S265",
         "title": "SQL Server 258",
         "author": "Michael Brown",
         "publish_year": 2010,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S266",
         "title": "Thiết kế Web 259",
         "author": "David Wilson",
         "publish_year": 2010,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S267",
         "title": "HTML và CSS 260",
         "author": "Robert Taylor",
         "publish_year": 2024,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S268",
         "title": "Spring Boot 261",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2013,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S269",
         "title": "Phát triển ứng dụng Web 262",
         "author": "Trần Văn Nam",
         "publish_year": 2021,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S270",
         "title": "Cấu trúc dữ liệu 263",
         "author": "Lê Minh Hoàng",
         "publish_year": 2021,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S271",
         "title": "Giải thuật 264",
         "author": "Phạm Văn Long",
         "publish_year": 2014,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S272",
         "title": "Trí tuệ nhân tạo 265",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2010,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S273",
         "title": "Machine Learning 266",
         "author": "Hoàng Minh Đức",
         "publish_year": 2025,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S274",
         "title": "Deep Learning 267",
         "author": "Vũ Thành Công",
         "publish_year": 2022,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S275",
         "title": "Mạng máy tính 268",
         "author": "Bùi Quang Huy",
         "publish_year": 2011,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S276",
         "title": "Hệ điều hành 269",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2013,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S277",
         "title": "Công nghệ phần mềm 270",
         "author": "Trần Thị Mai",
         "publish_year": 2016,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S278",
         "title": "Phân tích thiết kế hệ thống 271",
         "author": "Phạm Thị Hương",
         "publish_year": 2013,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S279",
         "title": "An toàn thông tin 272",
         "author": "Lê Thu Hà",
         "publish_year": 2021,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S280",
         "title": "Điện toán đám mây 273",
         "author": "Đặng Văn Sơn",
         "publish_year": 2024,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S281",
         "title": "Phát triển Game 274",
         "author": "Ngô Minh Anh",
         "publish_year": 2014,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S282",
         "title": "Unity cơ bản 275",
         "author": "Dương Quốc Việt",
         "publish_year": 2026,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S283",
         "title": "Lập trình Java 276",
         "author": "Phan Văn Khải",
         "publish_year": 2019,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S284",
         "title": "Lập trình C++ 277",
         "author": "John Smith",
         "publish_year": 2022,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S285",
         "title": "Lập trình C# 278",
         "author": "Michael Brown",
         "publish_year": 2012,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S286",
         "title": "Lập trình JavaScript 279",
         "author": "David Wilson",
         "publish_year": 2022,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S287",
         "title": "Lập trình Python nâng cao 280",
         "author": "Robert Taylor",
         "publish_year": 2014,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S288",
         "title": "Cơ sở dữ liệu 281",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2015,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S289",
         "title": "MySQL cơ bản 282",
         "author": "Trần Văn Nam",
         "publish_year": 2024,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S290",
         "title": "SQL Server 283",
         "author": "Lê Minh Hoàng",
         "publish_year": 2012,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S291",
         "title": "Thiết kế Web 284",
         "author": "Phạm Văn Long",
         "publish_year": 2015,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S292",
         "title": "HTML và CSS 285",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2017,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S293",
         "title": "Spring Boot 286",
         "author": "Hoàng Minh Đức",
         "publish_year": 2014,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S294",
         "title": "Phát triển ứng dụng Web 287",
         "author": "Vũ Thành Công",
         "publish_year": 2023,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S295",
         "title": "Cấu trúc dữ liệu 288",
         "author": "Bùi Quang Huy",
         "publish_year": 2021,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S296",
         "title": "Giải thuật 289",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2011,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S297",
         "title": "Trí tuệ nhân tạo 290",
         "author": "Trần Thị Mai",
         "publish_year": 2018,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S298",
         "title": "Machine Learning 291",
         "author": "Phạm Thị Hương",
         "publish_year": 2022,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S299",
         "title": "Deep Learning 292",
         "author": "Lê Thu Hà",
         "publish_year": 2023,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S300",
         "title": "Mạng máy tính 293",
         "author": "Đặng Văn Sơn",
         "publish_year": 2014,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S301",
         "title": "Hệ điều hành 294",
         "author": "Ngô Minh Anh",
         "publish_year": 2025,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S302",
         "title": "Công nghệ phần mềm 295",
         "author": "Dương Quốc Việt",
         "publish_year": 2011,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S303",
         "title": "Phân tích thiết kế hệ thống 296",
         "author": "Phan Văn Khải",
         "publish_year": 2014,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S304",
         "title": "An toàn thông tin 297",
         "author": "John Smith",
         "publish_year": 2011,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S305",
         "title": "Điện toán đám mây 298",
         "author": "Michael Brown",
         "publish_year": 2022,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S306",
         "title": "Phát triển Game 299",
         "author": "David Wilson",
         "publish_year": 2015,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S307",
         "title": "Unity cơ bản 300",
         "author": "Robert Taylor",
         "publish_year": 2022,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S308",
         "title": "Lập trình Java 301",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2015,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S309",
         "title": "Lập trình C++ 302",
         "author": "Trần Văn Nam",
         "publish_year": 2020,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S310",
         "title": "Lập trình C# 303",
         "author": "Lê Minh Hoàng",
         "publish_year": 2013,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S311",
         "title": "Lập trình JavaScript 304",
         "author": "Phạm Văn Long",
         "publish_year": 2018,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S312",
         "title": "Lập trình Python nâng cao 305",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2021,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S313",
         "title": "Cơ sở dữ liệu 306",
         "author": "Hoàng Minh Đức",
         "publish_year": 2018,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S314",
         "title": "MySQL cơ bản 307",
         "author": "Vũ Thành Công",
         "publish_year": 2017,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S315",
         "title": "SQL Server 308",
         "author": "Bùi Quang Huy",
         "publish_year": 2018,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S316",
         "title": "Thiết kế Web 309",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2017,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S317",
         "title": "HTML và CSS 310",
         "author": "Trần Thị Mai",
         "publish_year": 2019,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S318",
         "title": "Spring Boot 311",
         "author": "Phạm Thị Hương",
         "publish_year": 2014,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S319",
         "title": "Phát triển ứng dụng Web 312",
         "author": "Lê Thu Hà",
         "publish_year": 2019,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S320",
         "title": "Cấu trúc dữ liệu 313",
         "author": "Đặng Văn Sơn",
         "publish_year": 2023,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S321",
         "title": "Giải thuật 314",
         "author": "Ngô Minh Anh",
         "publish_year": 2016,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S322",
         "title": "Trí tuệ nhân tạo 315",
         "author": "Dương Quốc Việt",
         "publish_year": 2018,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S323",
         "title": "Machine Learning 316",
         "author": "Phan Văn Khải",
         "publish_year": 2022,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S324",
         "title": "Deep Learning 317",
         "author": "John Smith",
         "publish_year": 2018,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S325",
         "title": "Mạng máy tính 318",
         "author": "Michael Brown",
         "publish_year": 2023,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S326",
         "title": "Hệ điều hành 319",
         "author": "David Wilson",
         "publish_year": 2024,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S327",
         "title": "Công nghệ phần mềm 320",
         "author": "Robert Taylor",
         "publish_year": 2018,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S328",
         "title": "Phân tích thiết kế hệ thống 321",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2021,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S329",
         "title": "An toàn thông tin 322",
         "author": "Trần Văn Nam",
         "publish_year": 2026,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S330",
         "title": "Điện toán đám mây 323",
         "author": "Lê Minh Hoàng",
         "publish_year": 2018,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S331",
         "title": "Phát triển Game 324",
         "author": "Phạm Văn Long",
         "publish_year": 2012,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S332",
         "title": "Unity cơ bản 325",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2020,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S333",
         "title": "Lập trình Java 326",
         "author": "Hoàng Minh Đức",
         "publish_year": 2021,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S334",
         "title": "Lập trình C++ 327",
         "author": "Vũ Thành Công",
         "publish_year": 2024,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S335",
         "title": "Lập trình C# 328",
         "author": "Bùi Quang Huy",
         "publish_year": 2024,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S336",
         "title": "Lập trình JavaScript 329",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2017,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S337",
         "title": "Lập trình Python nâng cao 330",
         "author": "Trần Thị Mai",
         "publish_year": 2022,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S338",
         "title": "Cơ sở dữ liệu 331",
         "author": "Phạm Thị Hương",
         "publish_year": 2023,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S339",
         "title": "MySQL cơ bản 332",
         "author": "Lê Thu Hà",
         "publish_year": 2018,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S340",
         "title": "SQL Server 333",
         "author": "Đặng Văn Sơn",
         "publish_year": 2026,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S341",
         "title": "Thiết kế Web 334",
         "author": "Ngô Minh Anh",
         "publish_year": 2025,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S342",
         "title": "HTML và CSS 335",
         "author": "Dương Quốc Việt",
         "publish_year": 2026,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S343",
         "title": "Spring Boot 336",
         "author": "Phan Văn Khải",
         "publish_year": 2015,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S344",
         "title": "Phát triển ứng dụng Web 337",
         "author": "John Smith",
         "publish_year": 2014,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S345",
         "title": "Cấu trúc dữ liệu 338",
         "author": "Michael Brown",
         "publish_year": 2014,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S346",
         "title": "Giải thuật 339",
         "author": "David Wilson",
         "publish_year": 2014,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S347",
         "title": "Trí tuệ nhân tạo 340",
         "author": "Robert Taylor",
         "publish_year": 2015,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S348",
         "title": "Machine Learning 341",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2021,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S349",
         "title": "Deep Learning 342",
         "author": "Trần Văn Nam",
         "publish_year": 2019,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S350",
         "title": "Mạng máy tính 343",
         "author": "Lê Minh Hoàng",
         "publish_year": 2014,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S351",
         "title": "Hệ điều hành 344",
         "author": "Phạm Văn Long",
         "publish_year": 2016,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S352",
         "title": "Công nghệ phần mềm 345",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2011,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S353",
         "title": "Phân tích thiết kế hệ thống 346",
         "author": "Hoàng Minh Đức",
         "publish_year": 2013,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S354",
         "title": "An toàn thông tin 347",
         "author": "Vũ Thành Công",
         "publish_year": 2011,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S355",
         "title": "Điện toán đám mây 348",
         "author": "Bùi Quang Huy",
         "publish_year": 2026,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S356",
         "title": "Phát triển Game 349",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2024,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S357",
         "title": "Unity cơ bản 350",
         "author": "Trần Thị Mai",
         "publish_year": 2026,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S358",
         "title": "Lập trình Java 351",
         "author": "Phạm Thị Hương",
         "publish_year": 2016,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S359",
         "title": "Lập trình C++ 352",
         "author": "Lê Thu Hà",
         "publish_year": 2024,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S360",
         "title": "Lập trình C# 353",
         "author": "Đặng Văn Sơn",
         "publish_year": 2024,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S361",
         "title": "Lập trình JavaScript 354",
         "author": "Ngô Minh Anh",
         "publish_year": 2018,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S362",
         "title": "Lập trình Python nâng cao 355",
         "author": "Dương Quốc Việt",
         "publish_year": 2010,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S363",
         "title": "Cơ sở dữ liệu 356",
         "author": "Phan Văn Khải",
         "publish_year": 2016,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S364",
         "title": "MySQL cơ bản 357",
         "author": "John Smith",
         "publish_year": 2015,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S365",
         "title": "SQL Server 358",
         "author": "Michael Brown",
         "publish_year": 2014,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S366",
         "title": "Thiết kế Web 359",
         "author": "David Wilson",
         "publish_year": 2022,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S367",
         "title": "HTML và CSS 360",
         "author": "Robert Taylor",
         "publish_year": 2026,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S368",
         "title": "Spring Boot 361",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2010,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S369",
         "title": "Phát triển ứng dụng Web 362",
         "author": "Trần Văn Nam",
         "publish_year": 2019,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S370",
         "title": "Cấu trúc dữ liệu 363",
         "author": "Lê Minh Hoàng",
         "publish_year": 2018,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S371",
         "title": "Giải thuật 364",
         "author": "Phạm Văn Long",
         "publish_year": 2026,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S372",
         "title": "Trí tuệ nhân tạo 365",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2014,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S373",
         "title": "Machine Learning 366",
         "author": "Hoàng Minh Đức",
         "publish_year": 2010,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S374",
         "title": "Deep Learning 367",
         "author": "Vũ Thành Công",
         "publish_year": 2014,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S375",
         "title": "Mạng máy tính 368",
         "author": "Bùi Quang Huy",
         "publish_year": 2026,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S376",
         "title": "Hệ điều hành 369",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2012,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S377",
         "title": "Công nghệ phần mềm 370",
         "author": "Trần Thị Mai",
         "publish_year": 2024,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S378",
         "title": "Phân tích thiết kế hệ thống 371",
         "author": "Phạm Thị Hương",
         "publish_year": 2014,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S379",
         "title": "An toàn thông tin 372",
         "author": "Lê Thu Hà",
         "publish_year": 2025,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S380",
         "title": "Điện toán đám mây 373",
         "author": "Đặng Văn Sơn",
         "publish_year": 2024,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S381",
         "title": "Phát triển Game 374",
         "author": "Ngô Minh Anh",
         "publish_year": 2020,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S382",
         "title": "Unity cơ bản 375",
         "author": "Dương Quốc Việt",
         "publish_year": 2012,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S383",
         "title": "Lập trình Java 376",
         "author": "Phan Văn Khải",
         "publish_year": 2021,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S384",
         "title": "Lập trình C++ 377",
         "author": "John Smith",
         "publish_year": 2020,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S385",
         "title": "Lập trình C# 378",
         "author": "Michael Brown",
         "publish_year": 2023,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S386",
         "title": "Lập trình JavaScript 379",
         "author": "David Wilson",
         "publish_year": 2011,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S387",
         "title": "Lập trình Python nâng cao 380",
         "author": "Robert Taylor",
         "publish_year": 2019,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S388",
         "title": "Cơ sở dữ liệu 381",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2026,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S389",
         "title": "MySQL cơ bản 382",
         "author": "Trần Văn Nam",
         "publish_year": 2017,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S390",
         "title": "SQL Server 383",
         "author": "Lê Minh Hoàng",
         "publish_year": 2025,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S391",
         "title": "Thiết kế Web 384",
         "author": "Phạm Văn Long",
         "publish_year": 2017,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S392",
         "title": "HTML và CSS 385",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2019,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S393",
         "title": "Spring Boot 386",
         "author": "Hoàng Minh Đức",
         "publish_year": 2018,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S394",
         "title": "Phát triển ứng dụng Web 387",
         "author": "Vũ Thành Công",
         "publish_year": 2013,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S395",
         "title": "Cấu trúc dữ liệu 388",
         "author": "Bùi Quang Huy",
         "publish_year": 2015,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S396",
         "title": "Giải thuật 389",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2020,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S397",
         "title": "Trí tuệ nhân tạo 390",
         "author": "Trần Thị Mai",
         "publish_year": 2018,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S398",
         "title": "Machine Learning 391",
         "author": "Phạm Thị Hương",
         "publish_year": 2013,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S399",
         "title": "Deep Learning 392",
         "author": "Lê Thu Hà",
         "publish_year": 2018,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S400",
         "title": "Mạng máy tính 393",
         "author": "Đặng Văn Sơn",
         "publish_year": 2011,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S401",
         "title": "Hệ điều hành 394",
         "author": "Ngô Minh Anh",
         "publish_year": 2026,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S402",
         "title": "Công nghệ phần mềm 395",
         "author": "Dương Quốc Việt",
         "publish_year": 2014,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S403",
         "title": "Phân tích thiết kế hệ thống 396",
         "author": "Phan Văn Khải",
         "publish_year": 2021,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S404",
         "title": "An toàn thông tin 397",
         "author": "John Smith",
         "publish_year": 2023,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S405",
         "title": "Điện toán đám mây 398",
         "author": "Michael Brown",
         "publish_year": 2024,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S406",
         "title": "Phát triển Game 399",
         "author": "David Wilson",
         "publish_year": 2020,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S407",
         "title": "Unity cơ bản 400",
         "author": "Robert Taylor",
         "publish_year": 2010,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S408",
         "title": "Lập trình Java 401",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2019,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S409",
         "title": "Lập trình C++ 402",
         "author": "Trần Văn Nam",
         "publish_year": 2025,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S410",
         "title": "Lập trình C# 403",
         "author": "Lê Minh Hoàng",
         "publish_year": 2021,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S411",
         "title": "Lập trình JavaScript 404",
         "author": "Phạm Văn Long",
         "publish_year": 2019,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S412",
         "title": "Lập trình Python nâng cao 405",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2026,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S413",
         "title": "Cơ sở dữ liệu 406",
         "author": "Hoàng Minh Đức",
         "publish_year": 2026,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S414",
         "title": "MySQL cơ bản 407",
         "author": "Vũ Thành Công",
         "publish_year": 2023,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S415",
         "title": "SQL Server 408",
         "author": "Bùi Quang Huy",
         "publish_year": 2026,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S416",
         "title": "Thiết kế Web 409",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2022,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S417",
         "title": "HTML và CSS 410",
         "author": "Trần Thị Mai",
         "publish_year": 2016,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S418",
         "title": "Spring Boot 411",
         "author": "Phạm Thị Hương",
         "publish_year": 2018,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S419",
         "title": "Phát triển ứng dụng Web 412",
         "author": "Lê Thu Hà",
         "publish_year": 2012,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S420",
         "title": "Cấu trúc dữ liệu 413",
         "author": "Đặng Văn Sơn",
         "publish_year": 2020,
-        "quantity": 15
+        "quantity": 15,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S421",
         "title": "Giải thuật 414",
         "author": "Ngô Minh Anh",
         "publish_year": 2022,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S422",
         "title": "Trí tuệ nhân tạo 415",
         "author": "Dương Quốc Việt",
         "publish_year": 2014,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S423",
         "title": "Machine Learning 416",
         "author": "Phan Văn Khải",
         "publish_year": 2023,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S424",
         "title": "Deep Learning 417",
         "author": "John Smith",
         "publish_year": 2010,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S425",
         "title": "Mạng máy tính 418",
         "author": "Michael Brown",
         "publish_year": 2026,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S426",
         "title": "Hệ điều hành 419",
         "author": "David Wilson",
         "publish_year": 2010,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S427",
         "title": "Công nghệ phần mềm 420",
         "author": "Robert Taylor",
         "publish_year": 2014,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S428",
         "title": "Phân tích thiết kế hệ thống 421",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2013,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S429",
         "title": "An toàn thông tin 422",
         "author": "Trần Văn Nam",
         "publish_year": 2024,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S430",
         "title": "Điện toán đám mây 423",
         "author": "Lê Minh Hoàng",
         "publish_year": 2026,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S431",
         "title": "Phát triển Game 424",
         "author": "Phạm Văn Long",
         "publish_year": 2022,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S432",
         "title": "Unity cơ bản 425",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2011,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S433",
         "title": "Lập trình Java 426",
         "author": "Hoàng Minh Đức",
         "publish_year": 2023,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S434",
         "title": "Lập trình C++ 427",
         "author": "Vũ Thành Công",
         "publish_year": 2024,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S435",
         "title": "Lập trình C# 428",
         "author": "Bùi Quang Huy",
         "publish_year": 2020,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S436",
         "title": "Lập trình JavaScript 429",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2019,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S437",
         "title": "Lập trình Python nâng cao 430",
         "author": "Trần Thị Mai",
         "publish_year": 2011,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S438",
         "title": "Cơ sở dữ liệu 431",
         "author": "Phạm Thị Hương",
         "publish_year": 2017,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S439",
         "title": "MySQL cơ bản 432",
         "author": "Lê Thu Hà",
         "publish_year": 2013,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S440",
         "title": "SQL Server 433",
         "author": "Đặng Văn Sơn",
         "publish_year": 2024,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S441",
         "title": "Thiết kế Web 434",
         "author": "Ngô Minh Anh",
         "publish_year": 2024,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S442",
         "title": "HTML và CSS 435",
         "author": "Dương Quốc Việt",
         "publish_year": 2010,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S443",
         "title": "Spring Boot 436",
         "author": "Phan Văn Khải",
         "publish_year": 2011,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S444",
         "title": "Phát triển ứng dụng Web 437",
         "author": "John Smith",
         "publish_year": 2022,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S445",
         "title": "Cấu trúc dữ liệu 438",
         "author": "Michael Brown",
         "publish_year": 2010,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S446",
         "title": "Giải thuật 439",
         "author": "David Wilson",
         "publish_year": 2024,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S447",
         "title": "Trí tuệ nhân tạo 440",
         "author": "Robert Taylor",
         "publish_year": 2013,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S448",
         "title": "Machine Learning 441",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2012,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S449",
         "title": "Deep Learning 442",
         "author": "Trần Văn Nam",
         "publish_year": 2010,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S450",
         "title": "Mạng máy tính 443",
         "author": "Lê Minh Hoàng",
         "publish_year": 2011,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S451",
         "title": "Hệ điều hành 444",
         "author": "Phạm Văn Long",
         "publish_year": 2024,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S452",
         "title": "Công nghệ phần mềm 445",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2017,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S453",
         "title": "Phân tích thiết kế hệ thống 446",
         "author": "Hoàng Minh Đức",
         "publish_year": 2015,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S454",
         "title": "An toàn thông tin 447",
         "author": "Vũ Thành Công",
         "publish_year": 2019,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S455",
         "title": "Điện toán đám mây 448",
         "author": "Bùi Quang Huy",
         "publish_year": 2016,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S456",
         "title": "Phát triển Game 449",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2025,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S457",
         "title": "Unity cơ bản 450",
         "author": "Trần Thị Mai",
         "publish_year": 2017,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S458",
         "title": "Lập trình Java 451",
         "author": "Phạm Thị Hương",
         "publish_year": 2013,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S459",
         "title": "Lập trình C++ 452",
         "author": "Lê Thu Hà",
         "publish_year": 2014,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S460",
         "title": "Lập trình C# 453",
         "author": "Đặng Văn Sơn",
         "publish_year": 2010,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S461",
         "title": "Lập trình JavaScript 454",
         "author": "Ngô Minh Anh",
         "publish_year": 2024,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S462",
         "title": "Lập trình Python nâng cao 455",
         "author": "Dương Quốc Việt",
         "publish_year": 2020,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S463",
         "title": "Cơ sở dữ liệu 456",
         "author": "Phan Văn Khải",
         "publish_year": 2013,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S464",
         "title": "MySQL cơ bản 457",
         "author": "John Smith",
         "publish_year": 2016,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S465",
         "title": "SQL Server 458",
         "author": "Michael Brown",
         "publish_year": 2018,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S466",
         "title": "Thiết kế Web 459",
         "author": "David Wilson",
         "publish_year": 2019,
-        "quantity": 14
+        "quantity": 14,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S467",
         "title": "HTML và CSS 460",
         "author": "Robert Taylor",
         "publish_year": 2019,
-        "quantity": 12
+        "quantity": 12,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S468",
         "title": "Spring Boot 461",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2022,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S469",
         "title": "Phát triển ứng dụng Web 462",
         "author": "Trần Văn Nam",
         "publish_year": 2023,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S470",
         "title": "Cấu trúc dữ liệu 463",
         "author": "Lê Minh Hoàng",
         "publish_year": 2024,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S471",
         "title": "Giải thuật 464",
         "author": "Phạm Văn Long",
         "publish_year": 2024,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S472",
         "title": "Trí tuệ nhân tạo 465",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2012,
-        "quantity": 7
+        "quantity": 7,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S473",
         "title": "Machine Learning 466",
         "author": "Hoàng Minh Đức",
         "publish_year": 2017,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S474",
         "title": "Deep Learning 467",
         "author": "Vũ Thành Công",
         "publish_year": 2021,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S475",
         "title": "Mạng máy tính 468",
         "author": "Bùi Quang Huy",
         "publish_year": 2016,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S476",
         "title": "Hệ điều hành 469",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2025,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S477",
         "title": "Công nghệ phần mềm 470",
         "author": "Trần Thị Mai",
         "publish_year": 2022,
-        "quantity": 17
+        "quantity": 17,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S478",
         "title": "Phân tích thiết kế hệ thống 471",
         "author": "Phạm Thị Hương",
         "publish_year": 2025,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S479",
         "title": "An toàn thông tin 472",
         "author": "Lê Thu Hà",
         "publish_year": 2026,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S480",
         "title": "Điện toán đám mây 473",
         "author": "Đặng Văn Sơn",
         "publish_year": 2021,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S481",
         "title": "Phát triển Game 474",
         "author": "Ngô Minh Anh",
         "publish_year": 2011,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S482",
         "title": "Unity cơ bản 475",
         "author": "Dương Quốc Việt",
         "publish_year": 2025,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S483",
         "title": "Lập trình Java 476",
         "author": "Phan Văn Khải",
         "publish_year": 2015,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S484",
         "title": "Lập trình C++ 477",
         "author": "John Smith",
         "publish_year": 2020,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S485",
         "title": "Lập trình C# 478",
         "author": "Michael Brown",
         "publish_year": 2022,
-        "quantity": 18
+        "quantity": 18,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S486",
         "title": "Lập trình JavaScript 479",
         "author": "David Wilson",
         "publish_year": 2012,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S487",
         "title": "Lập trình Python nâng cao 480",
         "author": "Robert Taylor",
         "publish_year": 2018,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S488",
         "title": "Cơ sở dữ liệu 481",
         "author": "Nguyễn Văn Bình",
         "publish_year": 2019,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S489",
         "title": "MySQL cơ bản 482",
         "author": "Trần Văn Nam",
         "publish_year": 2015,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S490",
         "title": "SQL Server 483",
         "author": "Lê Minh Hoàng",
         "publish_year": 2026,
-        "quantity": 19
+        "quantity": 19,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S491",
         "title": "Thiết kế Web 484",
         "author": "Phạm Văn Long",
         "publish_year": 2025,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S492",
         "title": "HTML và CSS 485",
         "author": "Đỗ Anh Tuấn",
         "publish_year": 2023,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Lập trình",
+        "isbn": ""
     },
     {
         "book_id": "S493",
         "title": "Spring Boot 486",
         "author": "Hoàng Minh Đức",
         "publish_year": 2020,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S494",
         "title": "Phát triển ứng dụng Web 487",
         "author": "Vũ Thành Công",
         "publish_year": 2010,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S495",
         "title": "Cấu trúc dữ liệu 488",
         "author": "Bùi Quang Huy",
         "publish_year": 2011,
-        "quantity": 11
+        "quantity": 11,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S496",
         "title": "Giải thuật 489",
         "author": "Nguyễn Thị Lan",
         "publish_year": 2016,
-        "quantity": 9
+        "quantity": 9,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S497",
         "title": "Trí tuệ nhân tạo 490",
         "author": "Trần Thị Mai",
         "publish_year": 2017,
-        "quantity": 1
+        "quantity": 1,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S498",
         "title": "Machine Learning 491",
         "author": "Phạm Thị Hương",
         "publish_year": 2023,
-        "quantity": 8
+        "quantity": 8,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S499",
         "title": "Deep Learning 492",
         "author": "Lê Thu Hà",
         "publish_year": 2010,
-        "quantity": 5
+        "quantity": 5,
+        "category": "Cấu trúc dữ liệu",
+        "isbn": ""
     },
     {
         "book_id": "S500",
         "title": "Mạng máy tính 493",
         "author": "Đặng Văn Sơn",
         "publish_year": 2020,
-        "quantity": 4
+        "quantity": 4,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S501",
         "title": "Hệ điều hành 494",
         "author": "Ngô Minh Anh",
         "publish_year": 2022,
-        "quantity": 16
+        "quantity": 16,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S502",
         "title": "Công nghệ phần mềm 495",
         "author": "Dương Quốc Việt",
         "publish_year": 2024,
-        "quantity": 20
+        "quantity": 20,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S503",
         "title": "Phân tích thiết kế hệ thống 496",
         "author": "Phan Văn Khải",
         "publish_year": 2011,
-        "quantity": 10
+        "quantity": 10,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S504",
         "title": "An toàn thông tin 497",
         "author": "John Smith",
         "publish_year": 2010,
-        "quantity": 13
+        "quantity": 13,
+        "category": "Văn học",
+        "isbn": ""
     },
     {
         "book_id": "S505",
         "title": "Điện toán đám mây 498",
         "author": "Michael Brown",
         "publish_year": 2017,
-        "quantity": 3
+        "quantity": 3,
+        "category": "Khoa học",
+        "isbn": ""
     },
     {
         "book_id": "S506",
         "title": "Phát triển Game 499",
         "author": "David Wilson",
         "publish_year": 2010,
-        "quantity": 2
+        "quantity": 2,
+        "category": "Lý thuyết trò chơi",
+        "isbn": ""
     },
     {
         "book_id": "S507",
         "title": "Unity cơ bản 500",
         "author": "Robert Taylor",
         "publish_year": 2021,
-        "quantity": 6
+        "quantity": 6,
+        "category": "Văn học",
+        "isbn": ""
+    },
+    {
+        "book_id": "S509",
+        "title": "Đảo Hải Tặc",
+        "author": "ochi oda",
+        "publish_year": 1997,
+        "quantity": 39,
+        "category": "Văn học",
+        "isbn": ""
     }
 ]

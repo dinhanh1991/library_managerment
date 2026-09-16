@@ -7,12 +7,24 @@ from LibraryManagement.models.borrower import Borrower
 
 class BorrowView(BaseView):
 
-    # ============================================================
-    # KHỞI TẠO BORROW VIEW
-    # ============================================================
-
     def __init__(self, service):
         super().__init__(service)
+
+    @staticmethod
+    def _prompt_borrow_fields():
+        borrower_id = input("Nhập mã độc giả: ").strip()
+        name = input("Nhập tên độc giả: ").strip()
+        book_id = input("Nhập mã sách muốn mượn: ").strip()
+        return borrower_id, name, book_id
+
+    def _validate_borrow_input(self, borrower_id, name, book_id):
+        if not borrower_id or not name or not book_id:
+            self.console.print(
+                "\n[bold yellow]⚠️ Mã độc giả, tên độc giả và mã sách không được để trống.[/bold yellow]"
+            )
+            self.pause()
+            return False
+        return True
 
     # ============================================================
     # HIỂN THỊ MENU QUẢN LÝ MƯỢN SÁCH
@@ -36,43 +48,13 @@ class BorrowView(BaseView):
     # ============================================================
 
     def borrow_book(self):
+        self.console.print("\n[bold cyan]===== 📚 MƯỢN SÁCH =====[/bold cyan]")
+        borrower_id, name, book_id = self._prompt_borrow_fields()
 
-        self.console.print(
-            "\n[bold cyan]===== 📚 MƯỢN SÁCH =====[/bold cyan]"
-        )
-
-        # Nhập thông tin người mượn
-        borrower_id = input(
-            "Nhập mã độc giả: "
-        ).strip()
-
-        name = input(
-            "Nhập tên độc giả: "
-        ).strip()
-
-        book_id = input(
-            "Nhập mã sách muốn mượn: "
-        ).strip()
-
-        # Kiểm tra dữ liệu nhập
-        if not borrower_id or not name or not book_id:
-
-            self.console.print(
-                "\n[bold yellow]"
-                "⚠️ Mã độc giả, tên độc giả và mã sách "
-                "không được để trống."
-                "[/bold yellow]"
-            )
-
-            self.pause()
+        if not self._validate_borrow_input(borrower_id, name, book_id):
             return
 
-        # Tạo đối tượng Borrower
-        borrower = Borrower(
-            borrower_id,
-            name,
-            book_id
-        )
+        borrower = Borrower(borrower_id, name, book_id)
 
         # ========================================================
         # XÁC NHẬN TRƯỚC KHI MƯỢN

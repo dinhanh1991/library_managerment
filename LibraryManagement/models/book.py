@@ -1,14 +1,14 @@
 class Book:
 
     # Khởi tạo thông tin sách
-    def __init__(self, book_id, title, author, publish_year, quantity, category="", isbn=""):
+    def __init__(self, book_id, title, author, publish_year, quantity, category="Chưa phân loại", isbn=""):
         self.book_id = book_id              # Mã sách
         self.title = title                  # Tên sách
         self.author = author                # Tác giả
         self.publish_year = publish_year    # Năm xuất bản
         self.quantity = quantity            # Số lượng
-        self.category = category            # Thể loại
-        self.isbn = isbn                    # Mã ISBN
+        self.category = (category or "Chưa phân loại").strip() or "Chưa phân loại"   # Thể loại
+        self.isbn = (isbn or "").strip()  # Mã ISBN
 
     # Hiển thị thông tin sách
     def __str__(self):
@@ -43,6 +43,6 @@ class Book:
             author=data.get("author"),                # Tác giả
             publish_year=data.get("publish_year"),    # Năm xuất bản
             quantity=data.get("quantity"),            # Số lượng
-            category=data.get("category", ""),      # Thể loại
+            category=data.get("category") or "Chưa phân loại",      # Thể loại
             isbn=data.get("isbn", "")               # Mã ISBN
         )
