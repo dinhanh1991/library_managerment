@@ -181,6 +181,8 @@ class LibraryService:
         return self.borrow_service.book_borrow(borrower)
 
     def process_next_borrower(self):
+        if not hasattr(self, "borrow_service"):
+            self.borrow_service = BorrowService(self)
         return self.borrow_service.process_next_borrower()
 
     # Return facade methods
