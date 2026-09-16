@@ -153,14 +153,18 @@ class LibraryService:
         try:
             normalized_year = int(publish_year) if publish_year not in (None, "") else None
         except (TypeError, ValueError):
-            normalized_year = None
+            return []
+        if normalized_year is not None and normalized_year < 0:
+            return []
         normalized_availability = (availability or "all").strip().lower()
+        if normalized_availability not in {"all", "available", "unavailable"}:
+            return []
         for book in books:
-            if normalized_title and normalized_title not in str(book.title).lower(): continue
-            if normalized_author and normalized_author not in str(book.author).lower(): continue
-            if normalized_genre and normalized_genre not in str(getattr(book, "category", "")).lower(): continue
+            if normalized_title and normalized_title not in str(book.title or "").lower(): continue
+            if normalized_author and normalized_author not in str(book.author or "").lower(): continue
+            if normalized_genre and normalized_genre not in str(getattr(book, "category", "") or "").lower(): continue
             if normalized_year is not None and book.publish_year != normalized_year: continue
-            if normalized_isbn and normalized_isbn not in str(getattr(book, "isbn", "")).lower(): continue
+            if normalized_isbn and normalized_isbn not in str(getattr(book, "isbn", "") or "").lower(): continue
             if normalized_availability == "available" and book.quantity <= 0: continue
             if normalized_availability == "unavailable" and book.quantity > 0: continue
             results.append(book)
