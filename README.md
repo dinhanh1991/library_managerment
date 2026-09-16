@@ -11,14 +11,9 @@ Chương trình mô phỏng các nghiệp vụ cơ bản của một thư viện
 ## 2. Mục tiêu
 
 - Xây dựng chương trình quản lý thư viện bằng Python.
-- Áp dụng các cấu trúc dữ liệu:
-  - Queue
-  - Stack
-  - Linked List
-  - Binary Search Tree
-- Cài đặt và sử dụng các thuật toán sắp xếp.
+- Áp dụng các cấu trúc dữ liệu: Queue, Stack, Linked List và Binary Search Tree.
+- Cài đặt các thuật toán sắp xếp và đánh giá hiệu năng.
 - Thực hiện tìm kiếm và quản lý dữ liệu sách.
-- Đánh giá hiệu năng của các thuật toán thông qua Benchmark.
 - Tổ chức chương trình theo mô hình nhiều thành phần, dễ bảo trì và mở rộng.
 
 ---
@@ -26,8 +21,6 @@ Chương trình mô phỏng các nghiệp vụ cơ bản của một thư viện
 ## 3. Chức năng chính
 
 ### 3.1. Quản lý sách
-
-Chương trình hỗ trợ:
 
 - Thêm sách.
 - Xóa sách.
@@ -37,42 +30,18 @@ Chương trình hỗ trợ:
 - Tìm kiếm sách theo tác giả.
 - Tìm kiếm nâng cao.
 
-Thông tin sách gồm:
-
-- Mã sách.
-- Tên sách.
-- Tác giả.
-- Năm xuất bản.
-- Số lượng.
-- Thể loại.
-- ISBN.
+Thông tin sách gồm: mã sách, tên sách, tác giả, năm xuất bản, số lượng, thể loại và ISBN.
 
 ### 3.2. Quản lý độc giả
 
-Chương trình hỗ trợ:
-
-- Thêm độc giả.
-- Xóa độc giả.
-- Cập nhật thông tin độc giả.
-- Hiển thị danh sách độc giả.
+- Thêm, xóa, cập nhật và hiển thị độc giả.
 - Tìm kiếm độc giả.
 
 ### 3.3. Mượn và trả sách
 
-Khi độc giả mượn sách, chương trình kiểm tra:
+Khi mượn sách, chương trình kiểm tra sách tồn tại, số lượng còn lại và trạng thái mượn của độc giả. Sau khi mượn thành công, số lượng sách và thông tin mượn được cập nhật.
 
-- Sách có tồn tại hay không.
-- Số lượng sách còn hay không.
-- Độc giả có đang mượn sách hay không.
-
-Sau khi mượn thành công, số lượng sách được cập nhật và thông tin mượn được lưu lại.
-
-Khi trả sách:
-
-- Số lượng sách được tăng lại.
-- Trạng thái mượn được cập nhật.
-- Thông tin trả sách được lưu vào lịch sử.
-- Sách được đưa vào Stack lịch sử trả.
+Khi trả sách, số lượng được tăng lại, trạng thái được cập nhật, lịch sử trả được lưu và thông tin trả được đưa vào Stack.
 
 ---
 
@@ -80,13 +49,7 @@ Khi trả sách:
 
 ## 4.1. Queue – Hàng đợi
 
-Queue được sử dụng để quản lý **hàng đợi mượn sách**.
-
-Queue hoạt động theo nguyên tắc:
-
-**FIFO – First In, First Out**
-
-Tức là người vào hàng đợi trước sẽ được xử lý trước.
+Queue được sử dụng để quản lý **hàng đợi mượn sách**, hoạt động theo nguyên tắc **FIFO – First In, First Out**.
 
 Các thao tác chính:
 
@@ -97,13 +60,7 @@ Các thao tác chính:
 
 ## 4.2. Stack – Ngăn xếp
 
-Stack được sử dụng để quản lý **lịch sử trả sách**.
-
-Stack hoạt động theo nguyên tắc:
-
-**LIFO – Last In, First Out**
-
-Tức là phần tử được thêm vào sau sẽ được lấy ra trước.
+Stack được sử dụng để quản lý **lịch sử trả sách**, hoạt động theo nguyên tắc **LIFO – Last In, First Out**.
 
 Các thao tác chính:
 
@@ -115,28 +72,17 @@ Các thao tác chính:
 
 Chương trình tự xây dựng Linked List để lưu trữ danh sách sách.
 
-Cấu trúc gồm:
-
 ```text
 Node
  ├── data
  └── next
 ```
 
-Các thao tác chính:
-
-- Thêm sách.
-- Xóa sách.
-- Tìm kiếm sách.
-- Hiển thị danh sách.
-
-Linked List sử dụng con trỏ `next` để liên kết các Node với nhau.
+Các thao tác chính: thêm, xóa, tìm kiếm và hiển thị sách.
 
 ## 4.4. Binary Search Tree
 
 Binary Search Tree được sử dụng để tổ chức và tìm kiếm sách theo `book_id`.
-
-Mỗi Node gồm:
 
 ```text
 BSTNode
@@ -153,16 +99,6 @@ Các chức năng:
 - Duyệt Preorder.
 - Duyệt Postorder.
 
-Quy tắc của Binary Search Tree:
-
-```text
-           Root
-          /    \
-       nhỏ hơn  lớn hơn
-```
-
-Trong chương trình, `book_id` được sử dụng làm khóa để so sánh.
-
 ---
 
 # 5. Các thuật toán sắp xếp
@@ -178,17 +114,9 @@ Project tự cài đặt 6 thuật toán sắp xếp:
 | Merge Sort | O(n log n) |
 | Heap Sort | O(n log n) |
 
-Các thuật toán có thể sắp xếp sách theo các khóa như:
+Các thuật toán hỗ trợ sắp xếp sách theo các khóa như `title`, `publish_year` và `book_id`.
 
-- `title`
-- `publish_year`
-- `book_id`
-
-Chương trình cũng thống kê:
-
-- Thời gian thực thi.
-- Số phép so sánh.
-- Số phép gán.
+Chương trình thống kê thời gian thực thi, số phép so sánh và số phép gán.
 
 ---
 
@@ -196,7 +124,7 @@ Chương trình cũng thống kê:
 
 Project có chương trình Benchmark để đánh giá hiệu năng của các thuật toán sắp xếp.
 
-Kích thước dữ liệu được kiểm tra:
+Kích thước dữ liệu kiểm tra:
 
 ```text
 25
@@ -220,9 +148,7 @@ Kết quả được lưu vào:
 data/benchmark_results.csv
 ```
 
-Chương trình cũng tạo biểu đồ để trực quan hóa kết quả Benchmark.
-
-Các file biểu đồ:
+Biểu đồ Benchmark:
 
 ```text
 data/benchmark_all_algorithms.png
@@ -317,8 +243,6 @@ Việc tách phần lưu trữ thành Repository giúp chương trình dễ dàn
 
 # 10. Kiến trúc chương trình
 
-Chương trình được chia thành nhiều thành phần:
-
 ```text
 View
   ↓
@@ -370,19 +294,13 @@ python main.py
 
 # 12. Chạy Benchmark
 
-Để kiểm tra hiệu năng các thuật toán sắp xếp:
-
 ```bash
 python algorithms/benchmark.py
 ```
 
-Kết quả Benchmark được lưu vào:
+Kết quả được lưu vào `data/benchmark_results.csv`.
 
-```text
-data/benchmark_results.csv
-```
-
-Sau đó có thể chạy chương trình tạo biểu đồ:
+Tạo biểu đồ:
 
 ```bash
 python algorithms/plot_benchmark.py
