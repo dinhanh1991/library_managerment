@@ -59,7 +59,8 @@ class LibraryView(BaseView):
                 borrow_date = date.fromisoformat(borrower.borrow_date)
             except ValueError:
                 continue
-            if as_of - borrow_date <= timedelta(days=days):
+            days_since_borrow = as_of - borrow_date
+            if timedelta(days=0) <= days_since_borrow <= timedelta(days=days):
                 active_window.append(borrower)
 
         category_summary = {}
