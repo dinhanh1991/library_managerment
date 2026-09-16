@@ -24,66 +24,192 @@ class LibraryService:
         from LibraryManagement.repositories.reader_repo import ReaderRepository
         from LibraryManagement.repositories.return_history_repo import ReturnHistoryRepository
 
-        self.repository = repository or BookRepository()
-        self.borrower_repo = borrower_repo or BorrowerRepository()
-        self.queue_repo = queue_repo or QueueRepository()
-        self.reader_repo = reader_repo or ReaderRepository()
-        self.return_history_repo = return_history_repo or ReturnHistoryRepository()
+        self._repository = repository or BookRepository()
+        self._borrower_repo = borrower_repo or BorrowerRepository()
+        self._queue_repo = queue_repo or QueueRepository()
+        self._reader_repo = reader_repo or ReaderRepository()
+        self._return_history_repo = return_history_repo or ReturnHistoryRepository()
 
         self.state = LibraryState(
-            self.repository,
-            self.borrower_repo,
-            self.queue_repo,
-            self.reader_repo,
-            self.return_history_repo,
+            self._repository,
+            self._borrower_repo,
+            self._queue_repo,
+            self._reader_repo,
+            self._return_history_repo,
         )
 
-        self.borrow_queue = self.state.borrow_queue
-        self.return_stack = self.state.return_stack
-        self.book_linked_list = self.state.book_linked_list
-        self.book_bst = self.state.book_bst
+        self._borrow_queue = self.state.borrow_queue
+        self._return_stack = self.state.return_stack
+        self._book_linked_list = self.state.book_linked_list
+        self._book_bst = self.state.book_bst
 
         self._load_queue()
         self._refresh_structures()
 
         self.book_service = BookService(
-            repository=self.repository,
-            borrower_repo=self.borrower_repo,
+            repository=self._repository,
+            borrower_repo=self._borrower_repo,
             normalize_text=self._normalize_text,
             validate_number=self._is_valid_non_negative_number,
             refresh_structures=self._refresh_structures,
         )
         self.reader_service = ReaderService(
-            reader_repo=self.reader_repo,
-            borrower_repo=self.borrower_repo,
-            queue_repo=self.queue_repo,
-            return_history_repo=self.return_history_repo,
-            borrow_queue=self.borrow_queue,
+            reader_repo=self._reader_repo,
+            borrower_repo=self._borrower_repo,
+            queue_repo=self._queue_repo,
+            return_history_repo=self._return_history_repo,
+            borrow_queue=self._borrow_queue,
             normalize_text=self._normalize_text,
             rollback=self._rollback,
         )
         self.borrow_service = BorrowService(
-            repository=self.repository,
-            borrower_repo=self.borrower_repo,
-            reader_repo=self.reader_repo,
-            queue_repo=self.queue_repo,
-            borrow_queue=self.borrow_queue,
+            repository=self._repository,
+            borrower_repo=self._borrower_repo,
+            reader_repo=self._reader_repo,
+            queue_repo=self._queue_repo,
+            borrow_queue=self._borrow_queue,
             normalize_text=self._normalize_text,
             ensure_reader=self._ensure_reader,
             refresh_structures=self._refresh_structures,
             rollback=self._rollback,
         )
         self.return_service = ReturnService(
-            repository=self.repository,
-            borrower_repo=self.borrower_repo,
-            queue_repo=self.queue_repo,
-            return_history_repo=self.return_history_repo,
-            borrow_queue=self.borrow_queue,
-            return_stack=self.return_stack,
+            repository=self._repository,
+            borrower_repo=self._borrower_repo,
+            queue_repo=self._queue_repo,
+            return_history_repo=self._return_history_repo,
+            borrow_queue=self._borrow_queue,
+            return_stack=self._return_stack,
             normalize_text=self._normalize_text,
             refresh_structures=self._refresh_structures,
             rollback=self._rollback,
         )
+
+    @property
+    def repository(self):
+        return self._repository
+
+    @repository.setter
+    def repository(self, value):
+        self._repository = value
+        if hasattr(self, "state"):
+            self.state.repository = value
+        if hasattr(self, "book_service"):
+            self.book_service.repository = value
+        if hasattr(self, "borrow_service"):
+            self.borrow_service.repository = value
+        if hasattr(self, "return_service"):
+            self.return_service.repository = value
+
+    @property
+    def borrower_repo(self):
+        return self._borrower_repo
+
+    @borrower_repo.setter
+    def borrower_repo(self, value):
+        self._borrower_repo = value
+        if hasattr(self, "state"):
+            self.state.borrower_repo = value
+        if hasattr(self, "book_service"):
+            self.book_service.borrower_repo = value
+        if hasattr(self, "reader_service"):
+            self.reader_service.borrower_repo = value
+        if hasattr(self, "borrow_service"):
+            self.borrow_service.borrower_repo = value
+        if hasattr(self, "return_service"):
+            self.return_service.borrower_repo = value
+
+    @property
+    def queue_repo(self):
+        return self._queue_repo
+
+    @queue_repo.setter
+    def queue_repo(self, value):
+        self._queue_repo = value
+        if hasattr(self, "state"):
+            self.state.queue_repo = value
+        if hasattr(self, "reader_service"):
+            self.reader_service.queue_repo = value
+        if hasattr(self, "borrow_service"):
+            self.borrow_service.queue_repo = value
+        if hasattr(self, "return_service"):
+            self.return_service.queue_repo = value
+
+    @property
+    def reader_repo(self):
+        return self._reader_repo
+
+    @reader_repo.setter
+    def reader_repo(self, value):
+        self._reader_repo = value
+        if hasattr(self, "state"):
+            self.state.reader_repo = value
+        if hasattr(self, "reader_service"):
+            self.reader_service.reader_repo = value
+        if hasattr(self, "borrow_service"):
+            self.borrow_service.reader_repo = value
+
+    @property
+    def return_history_repo(self):
+        return self._return_history_repo
+
+    @return_history_repo.setter
+    def return_history_repo(self, value):
+        self._return_history_repo = value
+        if hasattr(self, "state"):
+            self.state.return_history_repo = value
+        if hasattr(self, "reader_service"):
+            self.reader_service.return_history_repo = value
+        if hasattr(self, "return_service"):
+            self.return_service.return_history_repo = value
+
+    @property
+    def borrow_queue(self):
+        return self._borrow_queue
+
+    @borrow_queue.setter
+    def borrow_queue(self, value):
+        self._borrow_queue = value
+        if hasattr(self, "state"):
+            self.state.borrow_queue = value
+        if hasattr(self, "reader_service"):
+            self.reader_service.borrow_queue = value
+        if hasattr(self, "borrow_service"):
+            self.borrow_service.borrow_queue = value
+        if hasattr(self, "return_service"):
+            self.return_service.borrow_queue = value
+
+    @property
+    def return_stack(self):
+        return self._return_stack
+
+    @return_stack.setter
+    def return_stack(self, value):
+        self._return_stack = value
+        if hasattr(self, "state"):
+            self.state.return_stack = value
+        if hasattr(self, "return_service"):
+            self.return_service.return_stack = value
+
+    @property
+    def book_linked_list(self):
+        return self._book_linked_list
+
+    @book_linked_list.setter
+    def book_linked_list(self, value):
+        self._book_linked_list = value
+        if hasattr(self, "state"):
+            self.state.book_linked_list = value
+
+    @property
+    def book_bst(self):
+        return self._book_bst
+
+    @book_bst.setter
+    def book_bst(self, value):
+        self._book_bst = value
+        if hasattr(self, "state"):
+            self.state.book_bst = value
 
     @staticmethod
     def _normalize_text(value):
