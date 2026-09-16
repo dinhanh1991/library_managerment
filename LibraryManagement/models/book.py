@@ -38,6 +38,8 @@ class Book:
     @staticmethod
     def from_dict(data):
         required_fields = ["book_id", "title", "author", "publish_year", "quantity"]
+        if not isinstance(data, dict):
+            raise ValueError("Dữ liệu sách phải có dạng object JSON")
         if any(field not in data for field in required_fields):
             raise ValueError("Dữ liệu sách thiếu trường bắt buộc")
         if not isinstance(data["book_id"], str) or not data["book_id"].strip():
@@ -51,12 +53,20 @@ class Book:
         if not isinstance(data["quantity"], int) or isinstance(data["quantity"], bool) or data["quantity"] < 0:
             raise ValueError("quantity của sách không hợp lệ")
 
+        category = data.get("category")
+        if category is not None and not isinstance(category, str):
+            raise ValueError("category của sách không hợp lệ")
+
+        isbn = data.get("isbn")
+        if isbn is not None and not isinstance(isbn, str):
+            raise ValueError("isbn của sách không hợp lệ")
+
         return Book(
             book_id=data["book_id"],
             title=data["title"],
             author=data["author"],
             publish_year=data["publish_year"],
             quantity=data["quantity"],
-            category=data.get("category") or "Chưa phân loại",
-            isbn=data.get("isbn", "")
+            category=category or "Chưa phân loại",
+            isbn=isbn or ""
         )
