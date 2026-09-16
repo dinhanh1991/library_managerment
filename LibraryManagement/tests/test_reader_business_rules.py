@@ -101,6 +101,21 @@ class ReaderBusinessRulesTestCase(unittest.TestCase):
         self.assertEqual(returned.status, "returned")
         self.assertEqual(active.status, "pending")
 
+    def test_update_reader_syncs_active_transaction_name(self):
+        self.reader_repo.save_readers([Reader("R001", "Reader One")])
+        borrower = Borrower("R001", "Reader One", "B001")
+
+        self.assertTrue(self.service.book_borrow(borrower))
+        self.assertTrue(self.service.update_reader(Reader("R001", "Updated Name")))
+
+        readers = self.reader_repo.load_readers()
+        active = self.borrower_repo.load_borrowers()
+        queued = self.queue_repo.load_queue()
+
+        self.assertEqual(readers[0].name, "Updated Name")
+        self.assertEqual(active[0].name, "Updated Name")
+        self.assertEqual(queued[0].name, "Updated Name")
+
     def test_remove_reader_is_blocked_while_transaction_is_active(self):
         borrower = Borrower("R001", "Reader One", "B001")
         self.assertTrue(self.service.book_borrow(borrower))
