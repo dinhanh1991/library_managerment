@@ -359,6 +359,49 @@ class LibraryServiceTestCase(unittest.TestCase):
         self.assertNotIn("Future Reader", stats["reader_summary"])
         self.assertIn("Recent Reader", stats["reader_summary"])
 
+    def test_dashboard_current_borrowed_excludes_pending(self):
+        self.service.borrower_repo.save_borrowers([
+            Borrower(
+                "R001",
+                "Alice",
+                "B001",
+                borrow_date=date.today().isoformat(),
+                due_date=(date.today() + timedelta(days=10)).isoformat(),
+                status="borrowed",
+            ),
+            Borrower(
+                "R002",
+                "Bob",
+                "B001",
+                borrow_date=date.today().isoformat(),
+                due_date=(date.today() + timedelta(days=10)).isoformat(),
+                status="pending",
+            ),
+        ])
+
+        view = LibraryView(self.service)
+        _, _, current_borrowed, _, _ = view.get_dashboard_stats()
+
+        self.assertEqual(current_borrowed, 1)
+
+    def test_dashboard_time_window_includes_recent_returned_history(self):
+        returned = Borrower(
+            "R006",
+            "David",
+            "B002",
+            borrow_date=(date.today() - timedelta(days=10)).isoformat(),
+            due_date=(date.today() - timedelta(days=3)).isoformat(),
+            return_date=(date.today() - timedelta(days=1)).isoformat(),
+            status="returned",
+        )
+        self.return_history_repo.save_history([returned])
+
+        view = LibraryView(self.service)
+        stats = view.get_time_window_stats(days=30, as_of=date.today())
+
+        self.assertEqual(stats["status_summary"]["returned"], 1)
+        self.assertIn("David", stats["reader_summary"])
+
 
 if __name__ == "__main__":
     unittest.main()
