@@ -333,6 +333,32 @@ class LibraryServiceTestCase(unittest.TestCase):
         self.assertIn("Khoa học máy tính", stats["category_summary"])
         self.assertIn("borrowed", stats["status_summary"])
 
+    def test_dashboard_time_window_excludes_future_borrow_date(self):
+        future_borrower = Borrower(
+            "R004",
+            "Future Reader",
+            "B001",
+            borrow_date=(date.today() + timedelta(days=1)).isoformat(),
+            due_date=(date.today() + timedelta(days=15)).isoformat(),
+            status="borrowed",
+        )
+        recent_borrower = Borrower(
+            "R005",
+            "Recent Reader",
+            "B002",
+            borrow_date=(date.today() - timedelta(days=5)).isoformat(),
+            due_date=(date.today() + timedelta(days=9)).isoformat(),
+            status="borrowed",
+        )
+        self.service.borrower_repo.save_borrowers([future_borrower, recent_borrower])
+
+        view = LibraryView(self.service)
+        stats = view.get_time_window_stats(days=30, as_of=date.today())
+
+        self.assertEqual(stats["total_active"], 1)
+        self.assertNotIn("Future Reader", stats["reader_summary"])
+        self.assertIn("Recent Reader", stats["reader_summary"])
+
 
 if __name__ == "__main__":
     unittest.main()
