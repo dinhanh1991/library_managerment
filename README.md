@@ -233,34 +233,90 @@ JSON / CSV / biểu đồ
 
 ## 9. Cài đặt và chạy
 
-Clone repository:
+### 9.1. Yêu cầu môi trường
+
+- Python 3.12 hoặc mới hơn.
+- `pip` để cài đặt thư viện Python.
+- Git nếu muốn clone repository.
+
+### 9.2. Clone repository
 
 ```bash
 git clone https://github.com/dinhanh1991/library_managerment.git
-```
-
-Di chuyển vào thư mục chương trình:
-
-```bash
 cd library_managerment/LibraryManagement
 ```
 
-Cài thư viện cho chương trình và unit test:
+### 9.3. Cài đặt thư viện
+
+Cài các thư viện cần thiết cho chương trình và kiểm thử:
 
 ```bash
-pip install rich
+python -m pip install rich matplotlib
 ```
 
-Nếu chạy benchmark và tạo biểu đồ:
+> Nếu máy sử dụng `py` thay cho `python`, có thể dùng `py -m pip install rich matplotlib`.
 
-```bash
-pip install matplotlib
-```
+### 9.4. Chạy chương trình
 
-Chạy chương trình:
+Từ thư mục `LibraryManagement`, chạy:
 
 ```bash
 python main.py
+```
+
+Chương trình sẽ mở giao diện quản lý thư viện trên Console.
+
+### 9.5. Chạy toàn bộ unit test
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Nếu tất cả test thành công, cuối kết quả sẽ hiển thị dạng:
+
+```text
+Ran ... tests
+OK
+```
+
+### 9.6. Chạy benchmark
+
+Chạy benchmark để đo thời gian, số phép so sánh và số phép gán của 6 thuật toán:
+
+```bash
+python algorithms/benchmark.py
+```
+
+Kết quả được ghi vào:
+
+```text
+data/benchmark_results.csv
+```
+
+### 9.7. Tạo biểu đồ benchmark
+
+Sau khi chạy benchmark, tạo các biểu đồ bằng:
+
+```bash
+python algorithms/plot_benchmark.py
+```
+
+Các biểu đồ được tạo tại:
+
+```text
+data/benchmark_all_algorithms.png
+data/benchmark_nlogn.png
+```
+
+### 9.8. Quy trình chạy nhanh
+
+Nếu đã cài đủ thư viện, có thể chạy theo thứ tự:
+
+```bash
+python main.py
+python -m unittest discover -s tests -v
+python algorithms/benchmark.py
+python algorithms/plot_benchmark.py
 ```
 
 ## 10. Chạy benchmark
