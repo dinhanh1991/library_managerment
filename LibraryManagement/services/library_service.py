@@ -346,12 +346,30 @@ class LibraryService:
     def get_reader_history(self, reader_id):
         return self.reader_service.get_reader_history(reader_id)
 
+    def _get_borrow_service(self):
+        """Create BorrowService lazily for legacy tests using LibraryService.__new__()."""
+        if hasattr(self, "borrow_service"):
+            return self.borrow_service
+
+        self.borrow_service = BorrowService(
+            repository=getattr(self, "repository", None),
+            borrower_repo=self.borrower_repo,
+            reader_repo=getattr(self, "reader_repo", None),
+            queue_repo=self.queue_repo,
+            borrow_queue=self.borrow_queue,
+            normalize_text=self._normalize_text,
+            ensure_reader=getattr(self, "_ensure_reader", lambda borrower: None),
+            refresh_structures=getattr(self, "_refresh_structures", lambda: None),
+            rollback=getattr(self, "_rollback", lambda snapshots: None),
+        )
+        return self.borrow_service
+
     # Borrow facade methods
     def book_borrow(self, borrower):
-        return self.borrow_service.book_borrow(borrower)
+        return self._get_borrow_service().book_borrow(borrower)
 
     def process_next_borrower(self):
-        return self.borrow_service.process_next_borrower()
+        return self._get_borrow_service().process_next_borrower()
 
     # Return facade methods
     def return_book(self, borrower):
