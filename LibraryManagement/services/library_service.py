@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import date, timedelta
 
 from LibraryManagement.models.borrower import Borrower
@@ -271,10 +272,10 @@ class LibraryService:
         if any(item.borrower_id == borrower_id and item.book_id == book_id for item in self.borrow_queue.items): return False
         books = self.repository.load_books()
         readers = self.reader_repo.load_readers()
-        queue_snapshot = list(self.borrow_queue.items)
-        borrower_snapshot = list(borrowers)
-        book_snapshot = list(books)
-        reader_snapshot = list(readers)
+        queue_snapshot = deepcopy(self.borrow_queue.items)
+        borrower_snapshot = deepcopy(borrowers)
+        book_snapshot = deepcopy(books)
+        reader_snapshot = deepcopy(readers)
         book = next((item for item in books if item.book_id == book_id), None)
         if book is None or book.quantity <= 0: return False
         borrower.borrower_id, borrower.name, borrower.book_id = borrower_id, borrower_name, book_id
@@ -308,8 +309,8 @@ class LibraryService:
 
         queued_borrower = self.borrow_queue.items[0]
         borrowers = self.borrower_repo.load_borrowers()
-        borrower_snapshot = list(borrowers)
-        queue_snapshot = list(self.borrow_queue.items)
+        borrower_snapshot = deepcopy(borrowers)
+        queue_snapshot = deepcopy(self.borrow_queue.items)
 
         borrower = None
         for item in borrowers:
@@ -347,10 +348,10 @@ class LibraryService:
         if active is None or active.status not in {"pending", "borrowed"}: return False
         books = self.repository.load_books()
         history = self.return_history_repo.load_history()
-        queue_snapshot = list(self.borrow_queue.items)
-        borrower_snapshot = list(borrowers)
-        book_snapshot = list(books)
-        history_snapshot = list(history)
+        queue_snapshot = deepcopy(self.borrow_queue.items)
+        borrower_snapshot = deepcopy(borrowers)
+        book_snapshot = deepcopy(books)
+        history_snapshot = deepcopy(history)
         book = next((item for item in books if item.book_id == book_id), None)
         if book is None: return False
         book.quantity += 1
