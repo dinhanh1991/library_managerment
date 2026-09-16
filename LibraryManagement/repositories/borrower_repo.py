@@ -38,17 +38,15 @@ class BorrowerRepository:
 
     # Lưu danh sách người mượn vào file
     def save_borrowers(self, borrowers):
+        data = []
+
+        # Chuyển từng đối tượng Borrower thành Dictionary
+        for borrower in borrowers:
+            data.append(borrower.to_dict())
+
         try:
-            data = []
-
-            # Chuyển từng đối tượng Borrower thành Dictionary
-            for borrower in borrowers:
-                data.append(borrower.to_dict())
-
             # Mở file để ghi dữ liệu
             with open(self.FILE_PATH, "w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False, indent=4)
-
-        # Xử lý lỗi khi lưu file
         except OSError as e:
-            print(f"Lỗi khi lưu dữ liệu: {e}")
+            raise OSError(f"Không thể lưu dữ liệu người mượn: {e}") from e
