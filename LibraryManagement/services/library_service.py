@@ -239,14 +239,26 @@ class LibraryService:
         return True
 
     def process_next_borrower(self):
-        borrower = self.borrow_queue.dequeue()
-        if borrower is None: return None
+        if not self.borrow_queue.items:
+            return None
+
+        queued_borrower = self.borrow_queue.items[0]
         borrowers = self.borrower_repo.load_borrowers()
+
+        borrower = None
         for item in borrowers:
-            if item.borrower_id == borrower.borrower_id and item.book_id == borrower.book_id:
-                item.status = "borrowed"
+            if (
+                item.borrower_id == queued_borrower.borrower_id
+                and item.book_id == queued_borrower.book_id
+            ):
                 borrower = item
                 break
+
+        if borrower is None or borrower.status != "pending":
+            return None
+
+        borrower.status = "borrowed"
+        self.borrow_queue.dequeue()
         self.borrower_repo.save_borrowers(borrowers)
         self.queue_repo.save_queue(self.borrow_queue.items)
         return borrower
