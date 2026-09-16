@@ -275,17 +275,38 @@ class LibraryService:
 
     # Mượn sách
     def book_borrow(self, borrower):
+        # Kiểm tra dữ liệu đầu vào ở Service để nghiệp vụ không phụ thuộc View.
+        borrower_id = str(borrower.borrower_id or "").strip()
+        borrower_name = str(borrower.name or "").strip()
+        book_id = str(borrower.book_id or "").strip()
+
+        if not borrower_id:
+            print("Mã độc giả không được để trống.")
+            return False
+
+        if not borrower_name:
+            print("Tên độc giả không được để trống.")
+            return False
+
+        if not book_id:
+            print("Mã sách không được để trống.")
+            return False
+
+        # Chuẩn hóa dữ liệu trước khi xử lý và lưu xuống JSON.
+        borrower.borrower_id = borrower_id
+        borrower.name = borrower_name
+        borrower.book_id = book_id
+
         books = self.repository.load_books()
         borrowers = self.borrower_repo.load_borrowers()
 
-        active_borrower = next(
-            (
-                item
-                for item in borrowers
-                if item.borrower_id == borrower.borrower_id
-            ),
-            None,
-        )
+        # Không cho độc giả có thêm lượt mượn khi vẫn còn giao dịch hoạt động.
+        active_borrower = None
+        for item in borrowers:
+            if item.borrower_id == borrower.borrower_id:
+                active_borrower = item
+                break
+
         if active_borrower is not None:
             if self._is_overdue(active_borrower, date.today()):
                 print(f"Độc giả {borrower.borrower_id} đang có sách quá hạn.")
@@ -293,36 +314,60 @@ class LibraryService:
                 print(f"Độc giả {borrower.borrower_id} đang có sách trong hệ thống.")
             return False
 
-        for book in books:
-            if book.book_id == borrower.book_id:
-                if book.quantity <= 0:
-                    print(f"Book with ID {borrower.book_id} không có sẵn để mượn.")
-                    return False
+        # Không tạo yêu cầu mượn trùng nếu dữ liệu Queue còn tồn tại.
+        for item in self.borrow_queue.items:
+            if (
+                item.borrower_id == borrower.borrower_id
+                and item.book_id == borrower.book_id
+            ):
+                print(f"Độc giả {borrower.borrower_id} đã có yêu cầu mượn trong hàng đợi.")
+                return False
 
-                borrow_date = date.today()
-                borrower.borrow_date = borrow_date.isoformat()
-                borrower.due_date = (
-                    borrow_date + timedelta(days=self.LOAN_PERIOD_DAYS)
-                ).isoformat()
-                borrower.return_date = None
-                borrower.status = "pending"
-                self._ensure_reader(borrower)
+        # Tìm chính xác sách trước khi thay đổi số lượng.
+        book = None
+        for item in books:
+            if item.book_id == borrower.book_id:
+                book = item
+                break
 
-                book.quantity -= 1
-                self.repository.save_books(books)
-                self._refresh_structures()
+        if book is None:
+            print(f"Sách có ID {borrower.book_id} không tồn tại trong thư viện.")
+            return False
 
-                self.borrow_queue.enqueue(borrower)
-                self._save_borrow_queue()
+        # Sách phải còn ít nhất một bản để tạo yêu cầu mượn.
+        if book.quantity <= 0:
+            print(f"Sách có ID {borrower.book_id} hiện không có sẵn để mượn.")
+            return False
 
-                borrowers.append(borrower)
-                self.borrower_repo.save_borrowers(borrowers)
+        # Tạo thông tin giao dịch mượn.
+        borrow_date = date.today()
+        borrower.borrow_date = borrow_date.isoformat()
+        borrower.due_date = (
+            borrow_date + timedelta(days=self.LOAN_PERIOD_DAYS)
+        ).isoformat()
+        borrower.return_date = None
+        borrower.status = "pending"
 
-                print(f"{borrower.name} đã mượn sách '{book.title}'.")
-                return True
+        # Nếu độc giả chưa tồn tại, tự tạo hồ sơ độc giả.
+        self._ensure_reader(borrower)
 
-        print(f"Book with ID {borrower.book_id} không có sẵn để mượn.")
-        return False
+        # Giữ lại một bản sách cho yêu cầu mượn và lưu các dữ liệu liên quan.
+        book.quantity -= 1
+        self.repository.save_books(books)
+        self._refresh_structures()
+
+        self.borrow_queue.enqueue(borrower)
+        self._save_borrow_queue()
+
+        borrowers.append(borrower)
+        self.borrower_repo.save_borrowers(borrowers)
+
+        print(f"{borrower.name} đã đăng ký mượn sách '{book.title}'.")
+        print(
+            f"Hạn trả dự kiến: {borrower.due_date} | "
+            f"Trạng thái: {borrower.status}"
+        )
+        return True
 
     # Xử lý người mượn tiếp theo trong hàng đợi
     def process_next_borrower(self):
