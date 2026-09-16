@@ -57,6 +57,22 @@ class LibraryService:
         readers.append(Reader(borrower.borrower_id, borrower.name))
         self.reader_repo.save_readers(readers)
 
+    def _rollback(self, snapshots):
+        for repository, data in snapshots:
+            try:
+                if repository is self.repository:
+                    repository.save_books(data)
+                elif repository is self.borrower_repo:
+                    repository.save_borrowers(data)
+                elif repository is self.queue_repo:
+                    repository.save_queue(data)
+                elif repository is self.reader_repo:
+                    repository.save_readers(data)
+                elif repository is self.return_history_repo:
+                    repository.save_history(data)
+            except OSError:
+                pass
+
     def get_overdue_borrowers(self, current_date=None):
         current_date = current_date or date.today()
         return [item for item in self.borrower_repo.load_borrowers() if self._is_overdue(item, current_date)]
@@ -254,6 +270,11 @@ class LibraryService:
         if any(item.borrower_id == borrower_id for item in borrowers): return False
         if any(item.borrower_id == borrower_id and item.book_id == book_id for item in self.borrow_queue.items): return False
         books = self.repository.load_books()
+        readers = self.reader_repo.load_readers()
+        queue_snapshot = list(self.borrow_queue.items)
+        borrower_snapshot = list(borrowers)
+        book_snapshot = list(books)
+        reader_snapshot = list(readers)
         book = next((item for item in books if item.book_id == book_id), None)
         if book is None or book.quantity <= 0: return False
         borrower.borrower_id, borrower.name, borrower.book_id = borrower_id, borrower_name, book_id
@@ -261,13 +282,23 @@ class LibraryService:
         borrower.due_date = (date.today() + timedelta(days=14)).isoformat()
         borrower.return_date = None
         borrower.status = "pending"
-        self._ensure_reader(borrower)
-        book.quantity -= 1
-        self.repository.save_books(books)
-        self.borrow_queue.enqueue(borrower)
-        self.queue_repo.save_queue(self.borrow_queue.items)
-        borrowers.append(borrower)
-        self.borrower_repo.save_borrowers(borrowers)
+        try:
+            self._ensure_reader(borrower)
+            book.quantity -= 1
+            self.repository.save_books(books)
+            self.borrow_queue.enqueue(borrower)
+            self.queue_repo.save_queue(self.borrow_queue.items)
+            borrowers.append(borrower)
+            self.borrower_repo.save_borrowers(borrowers)
+        except OSError:
+            self._rollback([
+                (self.repository, book_snapshot),
+                (self.reader_repo, reader_snapshot),
+                (self.queue_repo, queue_snapshot),
+                (self.borrower_repo, borrower_snapshot),
+            ])
+            self.borrow_queue.items = queue_snapshot
+            raise
         self._refresh_structures()
         return True
 
@@ -277,6 +308,8 @@ class LibraryService:
 
         queued_borrower = self.borrow_queue.items[0]
         borrowers = self.borrower_repo.load_borrowers()
+        borrower_snapshot = list(borrowers)
+        queue_snapshot = list(self.borrow_queue.items)
 
         borrower = None
         for item in borrowers:
@@ -292,8 +325,16 @@ class LibraryService:
 
         borrower.status = "borrowed"
         self.borrow_queue.dequeue()
-        self.borrower_repo.save_borrowers(borrowers)
-        self.queue_repo.save_queue(self.borrow_queue.items)
+        try:
+            self.borrower_repo.save_borrowers(borrowers)
+            self.queue_repo.save_queue(self.borrow_queue.items)
+        except OSError:
+            self._rollback([
+                (self.borrower_repo, borrower_snapshot),
+                (self.queue_repo, queue_snapshot),
+            ])
+            self.borrow_queue.items = queue_snapshot
+            raise
         return borrower
 
     def return_book(self, borrower):
@@ -305,19 +346,35 @@ class LibraryService:
         active = next((item for item in borrowers if item.borrower_id == borrower_id and item.book_id == book_id), None)
         if active is None or active.status not in {"pending", "borrowed"}: return False
         books = self.repository.load_books()
+        history = self.return_history_repo.load_history()
+        queue_snapshot = list(self.borrow_queue.items)
+        borrower_snapshot = list(borrowers)
+        book_snapshot = list(books)
+        history_snapshot = list(history)
         book = next((item for item in books if item.book_id == book_id), None)
         if book is None: return False
         book.quantity += 1
         active.return_date = date.today().isoformat()
         active.status = "returned"
-        self.repository.save_books(books)
-        self.return_stack.push(active)
-        history = self.return_history_repo.load_history()
-        history.append(active)
-        self.return_history_repo.save_history(history)
-        borrowers.remove(active)
-        self.borrower_repo.save_borrowers(borrowers)
-        self.borrow_queue.items = [item for item in self.borrow_queue.items if not (item.borrower_id == borrower_id and item.book_id == book_id)]
-        self.queue_repo.save_queue(self.borrow_queue.items)
+        try:
+            self.repository.save_books(books)
+            self.return_stack.push(active)
+            history.append(active)
+            self.return_history_repo.save_history(history)
+            borrowers.remove(active)
+            self.borrower_repo.save_borrowers(borrowers)
+            self.borrow_queue.items = [item for item in self.borrow_queue.items if not (item.borrower_id == borrower_id and item.book_id == book_id)]
+            self.queue_repo.save_queue(self.borrow_queue.items)
+        except OSError:
+            self._rollback([
+                (self.repository, book_snapshot),
+                (self.return_history_repo, history_snapshot),
+                (self.borrower_repo, borrower_snapshot),
+                (self.queue_repo, queue_snapshot),
+            ])
+            self.borrow_queue.items = queue_snapshot
+            if self.return_stack.items and self.return_stack.items[-1] is active:
+                self.return_stack.items.pop()
+            raise
         self._refresh_structures()
         return True
