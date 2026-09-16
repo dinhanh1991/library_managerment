@@ -51,21 +51,21 @@ class BinarySearchTree:
 
     # Tìm kiếm sách theo mã
     def search(self, book_id):
-        curent = self.root
+        current = self.root
 
-        while curent is not None:
+        while current is not None:
 
             # Tìm thấy sách
-            if book_id == curent.book.book_id:
-                return curent.book
+            if book_id == current.book.book_id:
+                return current.book
 
             # Tìm sang cây bên trái
-            elif book_id < curent.book.book_id:
-                curent = curent.left
+            elif book_id < current.book.book_id:
+                current = current.left
 
             # Tìm sang cây bên phải
             else:
-                curent = curent.right
+                current = current.right
 
         return None
 
