@@ -12,6 +12,7 @@ from LibraryManagement.data_structures.queue import Queue
 from LibraryManagement.data_structures.stack import Stack
 from LibraryManagement.models.book import Book
 from LibraryManagement.models.borrower import Borrower
+from LibraryManagement.models.reader import Reader
 from LibraryManagement.repositories.book_repo import BookRepository
 from LibraryManagement.repositories.borrower_repo import BorrowerRepository
 from LibraryManagement.repositories.queue_repo import QueueRepository
@@ -147,6 +148,93 @@ class ServiceRollbackIOTestCase(unittest.TestCase):
         self.assertEqual(self.queue_repo.load_queue()[0].borrower_id, "C001")
         self.assertEqual(len(self.service.borrow_queue.items), 1)
         self.assertTrue(self.service.return_stack.is_empty())
+
+    def test_update_reader_rolls_back_when_borrower_save_fails(self):
+        self.reader_repo.save_readers([Reader("R001", "Old Name")])
+        self.borrower_repo.save_borrowers([
+            Borrower("R001", "Old Name", "B001", status="pending"),
+        ])
+        self.service.borrow_queue.enqueue(
+            Borrower("R001", "Old Name", "B001", status="pending")
+        )
+        self.queue_repo.save_queue(self.service.borrow_queue.items)
+
+        original_save = self.borrower_repo.save_borrowers
+        calls = 0
+
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("borrower save failure")
+            return original_save(data)
+
+        with patch.object(self.borrower_repo, "save_borrowers", side_effect=fail_once):
+            with self.assertRaises(OSError):
+                self.service.update_reader(Reader("R001", "New Name"))
+
+        self.assertEqual(self.reader_repo.load_readers()[0].name, "Old Name")
+        self.assertEqual(self.borrower_repo.load_borrowers()[0].name, "Old Name")
+        self.assertEqual(self.queue_repo.load_queue()[0].name, "Old Name")
+        self.assertEqual(self.service.borrow_queue.items[0].name, "Old Name")
+
+    def test_update_reader_rolls_back_when_queue_save_fails(self):
+        self.reader_repo.save_readers([Reader("R001", "Old Name")])
+        self.borrower_repo.save_borrowers([
+            Borrower("R001", "Old Name", "B001", status="pending"),
+        ])
+        self.service.borrow_queue.enqueue(
+            Borrower("R001", "Old Name", "B001", status="pending")
+        )
+        self.queue_repo.save_queue(self.service.borrow_queue.items)
+
+        original_save = self.queue_repo.save_queue
+        calls = 0
+
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("queue save failure")
+            return original_save(data)
+
+        with patch.object(self.queue_repo, "save_queue", side_effect=fail_once):
+            with self.assertRaises(OSError):
+                self.service.update_reader(Reader("R001", "New Name"))
+
+        self.assertEqual(self.reader_repo.load_readers()[0].name, "Old Name")
+        self.assertEqual(self.borrower_repo.load_borrowers()[0].name, "Old Name")
+        self.assertEqual(self.queue_repo.load_queue()[0].name, "Old Name")
+        self.assertEqual(self.service.borrow_queue.items[0].name, "Old Name")
+
+    def test_update_reader_rolls_back_when_reader_save_fails(self):
+        self.reader_repo.save_readers([Reader("R001", "Old Name")])
+        self.borrower_repo.save_borrowers([
+            Borrower("R001", "Old Name", "B001", status="pending"),
+        ])
+        self.service.borrow_queue.enqueue(
+            Borrower("R001", "Old Name", "B001", status="pending")
+        )
+        self.queue_repo.save_queue(self.service.borrow_queue.items)
+
+        original_save = self.reader_repo.save_readers
+        calls = 0
+
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("reader save failure")
+            return original_save(data)
+
+        with patch.object(self.reader_repo, "save_readers", side_effect=fail_once):
+            with self.assertRaises(OSError):
+                self.service.update_reader(Reader("R001", "New Name"))
+
+        self.assertEqual(self.reader_repo.load_readers()[0].name, "Old Name")
+        self.assertEqual(self.borrower_repo.load_borrowers()[0].name, "Old Name")
+        self.assertEqual(self.queue_repo.load_queue()[0].name, "Old Name")
+        self.assertEqual(self.service.borrow_queue.items[0].name, "Old Name")
 
 
 if __name__ == "__main__":
