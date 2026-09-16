@@ -13,11 +13,19 @@ class QueueRepository:
                 data = json.load(file)
         except FileNotFoundError:
             return []
+        except json.JSONDecodeError as e:
+            raise ValueError(f"File hàng đợi mượn sách không hợp lệ: {e}") from e
 
-        return [
-            Borrower.from_dict(item, default_status="pending")
-            for item in data
-        ]
+        if not isinstance(data, list):
+            raise ValueError("Dữ liệu hàng đợi phải có dạng danh sách JSON.")
+
+        queue = []
+        for item in data:
+            if not isinstance(item, dict):
+                raise ValueError("Mỗi dữ liệu hàng đợi phải có dạng object JSON.")
+            queue.append(Borrower.from_dict(item, default_status="pending"))
+
+        return queue
 
     def save_queue(self, borrowers):
         self.FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
