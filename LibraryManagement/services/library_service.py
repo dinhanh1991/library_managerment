@@ -208,6 +208,17 @@ class LibraryService:
                 updated_reader.reader_id, updated_reader.name = reader_id, name
                 readers[i] = updated_reader
                 self.reader_repo.save_readers(readers)
+
+                borrowers = self.borrower_repo.load_borrowers()
+                changed = False
+                for borrower in borrowers:
+                    if borrower.borrower_id == reader_id:
+                        borrower.name = name
+                        changed = True
+                if changed:
+                    self.borrower_repo.save_borrowers(borrowers)
+                    self._load_queue()
+                    self.queue_repo.save_queue(self.borrow_queue.items)
                 return True
         return False
 
