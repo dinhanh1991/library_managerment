@@ -15,18 +15,25 @@ from LibraryManagement.services.return_service import ReturnService
 class LibraryService:
     """Facade giữ API cũ và điều phối các service theo nghiệp vụ."""
 
-    def __init__(self):
+    def __init__(
+        self,
+        repository=None,
+        borrower_repo=None,
+        queue_repo=None,
+        reader_repo=None,
+        return_history_repo=None,
+    ):
         from LibraryManagement.repositories.book_repo import BookRepository
         from LibraryManagement.repositories.borrower_repo import BorrowerRepository
         from LibraryManagement.repositories.queue_repo import QueueRepository
         from LibraryManagement.repositories.reader_repo import ReaderRepository
         from LibraryManagement.repositories.return_history_repo import ReturnHistoryRepository
 
-        self.repository = BookRepository()
-        self.borrower_repo = BorrowerRepository()
-        self.queue_repo = QueueRepository()
-        self.reader_repo = ReaderRepository()
-        self.return_history_repo = ReturnHistoryRepository()
+        self.repository = repository or BookRepository()
+        self.borrower_repo = borrower_repo or BorrowerRepository()
+        self.queue_repo = queue_repo or QueueRepository()
+        self.reader_repo = reader_repo or ReaderRepository()
+        self.return_history_repo = return_history_repo or ReturnHistoryRepository()
 
         self.borrow_queue = Queue()
         self.return_stack = Stack()
@@ -103,6 +110,23 @@ class LibraryService:
 
     def get_active_borrowers(self):
         return self.borrower_repo.load_borrowers()
+
+    def is_book_borrowed(self, book_id):
+        book_id = self._normalize_text(book_id)
+        if not book_id:
+            return False
+        return any(
+            self._normalize_text(item.book_id) == book_id
+            for item in self.get_active_borrowers()
+            if item.status in {"pending", "borrowed"}
+        )
+
+    def get_active_reader_ids(self):
+        return {
+            borrower.borrower_id
+            for borrower in self.get_active_borrowers()
+            if borrower.status in {"pending", "borrowed"}
+        }
 
     def get_return_history(self):
         return self.return_history_repo.load_history()
