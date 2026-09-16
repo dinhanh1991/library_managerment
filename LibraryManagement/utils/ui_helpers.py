@@ -69,22 +69,28 @@ def create_book_table(title, *, show_index=False):
     table.add_column("TÁC GIẢ", style="bold yellow")
     table.add_column("NĂM", justify="center", style="bold blue")
     table.add_column("SL", justify="center", style="bold magenta")
+    table.add_column("TÌNH TRẠNG", justify="center", no_wrap=True)
     return table
 
 
-def add_book_to_table(table, book, *, index=None):
-    if book.quantity > 0:
-        status = "[bold green]Có sẵn[/bold green]"
-    elif book.book_id in {borrower.book_id for borrower in __import__('LibraryManagement.services.library_service', fromlist=['LibraryService']).LibraryService().get_overdue_borrowers()}:
-        status = "[bold red]Quá hạn[/bold red]"
-    else:
-        status = "[bold yellow]Hết[/bold yellow]"
+def add_book_to_table(table, book, *, index=None, status=None):
+    status_styles = {
+        "Có sẵn": "[bold green]Có sẵn[/bold green]",
+        "Hết": "[bold yellow]Hết[/bold yellow]",
+    }
+    display_status = status_styles.get(status, str(status or "-"))
 
-    row = [str(book.book_id), str(book.title), str(book.author), str(book.publish_year), str(book.quantity)]
+    row = [
+        str(book.book_id),
+        str(book.title),
+        str(book.author),
+        str(book.publish_year),
+        str(book.quantity),
+        display_status,
+    ]
     if index is not None:
         row.insert(0, str(index))
     table.add_row(*row)
-    table.columns[4].style = "white"
 
 
 def print_info_success(message):
