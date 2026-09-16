@@ -1,31 +1,21 @@
 from rich.table import Table
 
 from LibraryManagement.views.base_view import BaseView
-
-from LibraryManagement.algorithms.sorting import (
-    bubble_sort,
-    selection_sort,
-    insertion_sort,
-    quick_sort,
-    merge_sort,
-    heap_sort
+from LibraryManagement.algorithms.sort_strategy import (
+    BubbleSortStrategy,
+    SelectionSortStrategy,
+    InsertionSortStrategy,
+    QuickSortStrategy,
+    MergeSortStrategy,
+    HeapSortStrategy,
 )
-
 from LibraryManagement.algorithms.benchmark import run_benchmark
 
 
 class SortView(BaseView):
 
-    # ============================================================
-    # KHỞI TẠO SORT VIEW
-    # ============================================================
-
     def __init__(self, service):
         super().__init__(service)
-
-    # ============================================================
-    # HIỂN THỊ MENU SẮP XẾP
-    # ============================================================
 
     def show_menu(self):
         menu_content = (
@@ -40,234 +30,102 @@ class SortView(BaseView):
         )
         self.render_menu("📊 SẮP XẾP SÁCH", menu_content)
 
-    # ============================================================
-    # TẠM DỪNG MÀN HÌNH
-    # ============================================================
-
-    # ============================================================
-    # CHỌN TIÊU CHÍ SẮP XẾP
-    # ============================================================
-
     def choose_key(self):
-
         self.console.print(
             "\n[bold cyan]===== 🔑 TIÊU CHÍ SẮP XẾP =====[/bold cyan]"
         )
 
-        # Tạo bảng lựa chọn tiêu chí
-        table = Table(
-            header_style="bold magenta",
-            border_style="blue"
-        )
-
-        table.add_column(
-            "STT",
-            justify="center",
-            style="cyan"
-        )
-
-        table.add_column(
-            "TIÊU CHÍ",
-            style="green"
-        )
-
-        table.add_row(
-            "1",
-            "Sắp xếp theo tên sách"
-        )
-
-        table.add_row(
-            "2",
-            "Sắp xếp theo năm xuất bản"
-        )
-
+        table = Table(header_style="bold magenta", border_style="blue")
+        table.add_column("STT", justify="center", style="cyan")
+        table.add_column("TIÊU CHÍ", style="green")
+        table.add_row("1", "Sắp xếp theo tên sách")
+        table.add_row("2", "Sắp xếp theo năm xuất bản")
         self.console.print(table)
 
-        # Nhập lựa chọn
         choice = self.prompt_choice()
-
         if choice == "1":
             return "title"
-
-        elif choice == "2":
+        if choice == "2":
             return "publish_year"
 
-        else:
-            self.console.print(
-                "\n[bold red]⚠️ Lựa chọn không hợp lệ![/bold red]"
-            )
-
-            self.pause()
-
-            return None
-
-    # ============================================================
-    # TẠO BẢNG HIỂN THỊ SÁCH
-    # ============================================================
+        self.console.print("\n[bold red]⚠️ Lựa chọn không hợp lệ![/bold red]")
+        self.pause()
+        return None
 
     def create_book_table(self, title):
-
-        # Tạo bảng Rich
         table = Table(
             title=title,
             header_style="bold magenta",
-            border_style="blue"
+            border_style="blue",
         )
-
-        # Cột mã sách
-        table.add_column(
-            "MÃ SÁCH",
-            justify="center",
-            style="cyan",
-            no_wrap=True
-        )
-
-        # Cột tên sách
-        table.add_column(
-            "TÊN SÁCH",
-            style="green"
-        )
-
-        # Cột tác giả
-        table.add_column(
-            "TÁC GIẢ",
-            style="yellow"
-        )
-
-        # Cột năm xuất bản
-        table.add_column(
-            "NĂM",
-            justify="center"
-        )
-
-        # Cột số lượng
-        table.add_column(
-            "SL",
-            justify="center"
-        )
-
+        table.add_column("MÃ SÁCH", justify="center", style="cyan", no_wrap=True)
+        table.add_column("TÊN SÁCH", style="green")
+        table.add_column("TÁC GIẢ", style="yellow")
+        table.add_column("NĂM", justify="center")
+        table.add_column("SL", justify="center")
         return table
 
-    # ============================================================
-    # THÊM SÁCH VÀO BẢNG
-    # ============================================================
-
     def add_book_to_table(self, table, book):
-
         table.add_row(
             str(book.book_id),
             str(book.title),
             str(book.author),
             str(book.publish_year),
-            str(book.quantity)
+            str(book.quantity),
         )
 
-    # ============================================================
-    # SẮP XẾP SÁCH
-    # ============================================================
-
-    def sort_books(self, algorithm, algorithm_name):
-
-        # Lấy toàn bộ sách từ Service
+    def sort_books(self, strategy):
         books = self.service.get_all_books()
-
-        # Kiểm tra thư viện có sách hay không
         if not books:
-            self.console.print(
-                "\n[bold yellow]📭 Thư viện chưa có sách.[/bold yellow]"
-            )
-
+            self.console.print("\n[bold yellow]📭 Thư viện chưa có sách.[/bold yellow]")
             self.pause()
             return
 
-        # Cho người dùng chọn tiêu chí sắp xếp
         key = self.choose_key()
-
-        # Nếu lựa chọn không hợp lệ thì kết thúc
         if key is None:
             return
 
-        # Gọi thuật toán sắp xếp
-        result, comparisons, assignments = algorithm(
-            books,
-            key
-        )
-
-        # --------------------------------------------------------
-        # HIỂN THỊ KẾT QUẢ
-        # --------------------------------------------------------
+        result, comparisons, assignments = strategy.sort(books, key)
 
         self.console.print(
-            f"\n[bold cyan]===== 📊 KẾT QUẢ {algorithm_name.upper()} =====[/bold cyan]"
+            f"\n[bold cyan]===== 📊 KẾT QUẢ {strategy.name.upper()} =====[/bold cyan]"
         )
-
-        # Tạo bảng kết quả
-        table = self.create_book_table(
-            f"📊 KẾT QUẢ {algorithm_name.upper()}"
-        )
-
-        # Thêm từng sách sau khi sắp xếp vào bảng
+        table = self.create_book_table(f"📊 KẾT QUẢ {strategy.name.upper()}")
         for book in result:
             self.add_book_to_table(table, book)
 
-        # Hiển thị bảng
         self.console.print()
         self.console.print(table)
-
-        # --------------------------------------------------------
-        # HIỂN THỊ THỐNG KÊ
-        # --------------------------------------------------------
 
         stats_table = Table(
             title="📈 THỐNG KÊ THUẬT TOÁN",
             header_style="bold magenta",
-            border_style="blue"
+            border_style="blue",
         )
-
-        stats_table.add_column(
-            "CHỈ SỐ",
-            style="cyan"
-        )
-
-        stats_table.add_column(
-            "GIÁ TRỊ",
-            justify="center",
-            style="green"
-        )
-
-        # Số phép so sánh
-        stats_table.add_row(
-            "Số phép so sánh",
-            str(comparisons)
-        )
-
-        # Số phép gán
-        stats_table.add_row(
-            "Số phép gán",
-            str(assignments)
-        )
-
+        stats_table.add_column("CHỈ SỐ", style="cyan")
+        stats_table.add_column("GIÁ TRỊ", justify="center", style="green")
+        stats_table.add_row("Số phép so sánh", str(comparisons))
+        stats_table.add_row("Số phép gán", str(assignments))
         self.console.print()
         self.console.print(stats_table)
-
         self.pause()
 
-    # ============================================================
-    # CHẠY MENU SẮP XẾP
-    # ============================================================
-
     def run(self):
+        strategies = {
+            "1": BubbleSortStrategy(),
+            "2": SelectionSortStrategy(),
+            "3": InsertionSortStrategy(),
+            "4": QuickSortStrategy(),
+            "5": MergeSortStrategy(),
+            "6": HeapSortStrategy(),
+        }
         self.run_menu(
             self.show_menu,
             {
-                "1": lambda: self.sort_books(bubble_sort, "Bubble Sort"),
-                "2": lambda: self.sort_books(selection_sort, "Selection Sort"),
-                "3": lambda: self.sort_books(insertion_sort, "Insertion Sort"),
-                "4": lambda: self.sort_books(quick_sort, "Quick Sort"),
-                "5": lambda: self.sort_books(merge_sort, "Merge Sort"),
-                "6": lambda: self.sort_books(heap_sort, "Heap Sort"),
-                "7": self.run_benchmark,
-            },
+                choice: (lambda strategy=strategy: self.sort_books(strategy))
+                for choice, strategy in strategies.items()
+            }
+            | {"7": self.run_benchmark},
         )
 
     def run_benchmark(self):
