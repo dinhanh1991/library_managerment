@@ -48,7 +48,7 @@ class LibraryService:
     @staticmethod
     def _is_valid_non_negative_number(value):
         return (
-            isinstance(value, (int, float))
+            isinstance(value, int)
             and not isinstance(value, bool)
             and value >= 0
         )
