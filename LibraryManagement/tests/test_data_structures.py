@@ -57,6 +57,15 @@ class DataStructuresTestCase(unittest.TestCase):
         lines = output.getvalue().splitlines()
         self.assertEqual([line.split("|")[0].strip() for line in lines], ["B001", "B002", "B003"])
 
+    def test_bst_rejects_invalid_book(self):
+        tree = BinarySearchTree()
+
+        with self.assertRaises(ValueError):
+            tree.insert(None)
+
+        with self.assertRaises(ValueError):
+            tree.insert(object())
+
     def test_queue_is_fifo(self):
         queue = Queue()
         first = Borrower("R001", "Reader One", "B001")
