@@ -13,11 +13,19 @@ class ReturnHistoryRepository:
                 data = json.load(file)
         except FileNotFoundError:
             return []
+        except json.JSONDecodeError as e:
+            raise ValueError(f"File lịch sử trả sách không hợp lệ: {e}") from e
 
-        return [
-            Borrower.from_dict(item, default_status="returned")
-            for item in data
-        ]
+        if not isinstance(data, list):
+            raise ValueError("Dữ liệu lịch sử trả sách phải có dạng danh sách JSON.")
+
+        history = []
+        for item in data:
+            if not isinstance(item, dict):
+                raise ValueError("Mỗi dữ liệu lịch sử phải có dạng object JSON.")
+            history.append(Borrower.from_dict(item, default_status="returned"))
+
+        return history
 
     def save_history(self, borrowers):
         self.FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
