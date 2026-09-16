@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 class ReaderService:
     def __init__(self, service):
         self.service = service
@@ -27,25 +30,44 @@ class ReaderService:
         name = self.service._normalize_text(updated_reader.name)
         if not reader_id or not name:
             return False
+
         readers = self.service.reader_repo.load_readers()
+        borrowers = self.service.borrower_repo.load_borrowers()
+        queue_snapshot = deepcopy(self.service.borrow_queue.items)
+        reader_snapshot = deepcopy(readers)
+        borrower_snapshot = deepcopy(borrowers)
+
         for i, reader in enumerate(readers):
             if reader.reader_id == reader_id:
                 updated_reader.reader_id, updated_reader.name = reader_id, name
                 readers[i] = updated_reader
-                self.service.reader_repo.save_readers(readers)
 
-                borrowers = self.service.borrower_repo.load_borrowers()
                 changed = False
                 for borrower in borrowers:
                     if borrower.borrower_id == reader_id:
                         borrower.name = name
                         changed = True
-                if changed:
-                    self.service.borrower_repo.save_borrowers(borrowers)
-                    for queued_borrower in self.service.borrow_queue.items:
-                        if queued_borrower.borrower_id == reader_id:
-                            queued_borrower.name = name
-                    self.service.queue_repo.save_queue(self.service.borrow_queue.items)
+
+                queue_items = deepcopy(self.service.borrow_queue.items)
+                for queued_borrower in queue_items:
+                    if queued_borrower.borrower_id == reader_id:
+                        queued_borrower.name = name
+
+                try:
+                    self.service.reader_repo.save_readers(readers)
+                    if changed:
+                        self.service.borrower_repo.save_borrowers(borrowers)
+                    self.service.queue_repo.save_queue(queue_items)
+                except OSError:
+                    self.service._rollback([
+                        (self.service.reader_repo, reader_snapshot),
+                        (self.service.borrower_repo, borrower_snapshot),
+                        (self.service.queue_repo, queue_snapshot),
+                    ])
+                    self.service.borrow_queue.items = queue_snapshot
+                    raise
+
+                self.service.borrow_queue.items = queue_items
                 return True
         return False
 
