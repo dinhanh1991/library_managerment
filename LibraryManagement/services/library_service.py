@@ -24,11 +24,15 @@ class LibraryService:
         from LibraryManagement.repositories.reader_repo import ReaderRepository
         from LibraryManagement.repositories.return_history_repo import ReturnHistoryRepository
 
-        self._repository = repository or BookRepository()
-        self._borrower_repo = borrower_repo or BorrowerRepository()
-        self._queue_repo = queue_repo or QueueRepository()
-        self._reader_repo = reader_repo or ReaderRepository()
-        self._return_history_repo = return_history_repo or ReturnHistoryRepository()
+        self._repository = repository if repository is not None else BookRepository()
+        self._borrower_repo = borrower_repo if borrower_repo is not None else BorrowerRepository()
+        self._queue_repo = queue_repo if queue_repo is not None else QueueRepository()
+        self._reader_repo = reader_repo if reader_repo is not None else ReaderRepository()
+        self._return_history_repo = (
+            return_history_repo
+            if return_history_repo is not None
+            else ReturnHistoryRepository()
+        )
 
         self.state = LibraryState(
             self._repository,
