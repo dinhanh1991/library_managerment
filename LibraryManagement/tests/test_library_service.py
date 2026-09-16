@@ -233,6 +233,41 @@ class LibraryServiceTestCase(unittest.TestCase):
         self.borrower_repo.save_borrowers([])
         self.assertTrue(self.service.remove_reader("R001"))
 
+    def test_reader_validation_rejects_blank_id_or_name(self):
+        self.assertFalse(self.service.add_reader(None))
+        self.assertFalse(self.service.add_reader(Reader("", "Reader One")))
+        self.assertFalse(self.service.add_reader(Reader("R001", "")))
+        self.assertFalse(self.service.add_reader(Reader("   ", "Reader One")))
+        self.assertEqual(self.service.get_all_readers(), [])
+
+        self.assertTrue(self.service.add_reader(Reader("R001", "Reader One")))
+        self.assertFalse(self.service.update_reader(None))
+        self.assertFalse(self.service.update_reader(Reader("", "Updated Name")))
+        self.assertFalse(self.service.update_reader(Reader("R001", "")))
+        self.assertEqual(self.service.get_all_readers()[0].name, "Reader One")
+
+    def test_remove_book_is_blocked_when_book_has_active_transaction(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        self.assertTrue(self.service.book_borrow(borrower))
+
+        self.assertFalse(self.service.remove_book("B001"))
+        self.assertEqual(self.service.get_all_books()[0].book_id, "B001")
+        self.assertEqual(self.service.get_all_books()[0].quantity, 2)
+        self.assertEqual(len(self.borrower_repo.load_borrowers()), 1)
+        self.assertEqual(self.borrower_repo.load_borrowers()[0].book_id, "B001")
+
+    def test_remove_book_still_works_when_no_active_transaction(self):
+        self.assertTrue(self.service.remove_book("B001"))
+        self.assertEqual([book.book_id for book in self.service.get_all_books()], ["B002"])
+
+    def test_update_book_rejects_negative_quantity_without_changing_data(self):
+        updated = Book("B001", "Python Basics", "Alice", 2024, -1)
+
+        self.assertFalse(self.service.update_book(updated))
+        book = self.service.get_all_books()[0]
+        self.assertEqual(book.book_id, "B001")
+        self.assertEqual(book.quantity, 3)
+
     def test_reader_history_and_overdue_lookup(self):
         self.service.add_reader(Reader("R001", "Reader One"))
         overdue = Borrower(
