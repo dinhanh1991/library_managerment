@@ -14,12 +14,15 @@ class BookLinkedList:
 
     # Thêm sách vào danh sách
     def add_book(self, book):
+        if book is None:
+            return False
+
         new_node = Node(book)
 
         # Nếu danh sách rỗng
         if not self.head:
             self.head = new_node
-            return
+            return True
 
         # Duyệt đến Node cuối
         current = self.head
@@ -28,6 +31,7 @@ class BookLinkedList:
 
         # Thêm Node mới vào cuối
         current.next = new_node
+        return True
 
     # Hiển thị danh sách sách
     def display(self):
