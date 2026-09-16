@@ -48,6 +48,18 @@ class LibraryService:
         return self.reader_repo.load_readers()
 
     def add_reader(self, reader):
+        if reader is None:
+            return False
+
+        reader_id = str(reader.reader_id or "").strip()
+        reader_name = str(reader.name or "").strip()
+
+        if not reader_id or not reader_name:
+            return False
+
+        reader.reader_id = reader_id
+        reader.name = reader_name
+
         readers = self.reader_repo.load_readers()
         if any(item.reader_id == reader.reader_id for item in readers):
             return False
@@ -57,6 +69,18 @@ class LibraryService:
         return True
 
     def update_reader(self, updated_reader):
+        if updated_reader is None:
+            return False
+
+        reader_id = str(updated_reader.reader_id or "").strip()
+        reader_name = str(updated_reader.name or "").strip()
+
+        if not reader_id or not reader_name:
+            return False
+
+        updated_reader.reader_id = reader_id
+        updated_reader.name = reader_name
+
         readers = self.reader_repo.load_readers()
         for reader in readers:
             if reader.reader_id == updated_reader.reader_id:
@@ -181,6 +205,10 @@ class LibraryService:
     # Xóa sách theo mã
     def remove_book(self, book_id):
         books = self.repository.load_books()
+        borrowers = self.borrower_repo.load_borrowers()
+
+        if any(item.book_id == book_id for item in borrowers):
+            return False
 
         for book in books:
             if book.book_id == book_id:
@@ -193,6 +221,9 @@ class LibraryService:
 
     # Cập nhật thông tin sách
     def update_book(self, updated_book):
+        if updated_book is None or updated_book.quantity < 0:
+            return False
+
         books = self.repository.load_books()
 
         for i, book in enumerate(books):
