@@ -55,8 +55,17 @@ class ServiceRollbackIOTestCase(unittest.TestCase):
 
     def test_borrow_rolls_back_when_book_save_fails(self):
         borrower = Borrower("C001", "Charlie", "B001")
+        original_save = self.book_repo.save_books
+        calls = 0
 
-        with patch.object(self.book_repo, "save_books", side_effect=OSError("book save failure")):
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("book save failure")
+            return original_save(data)
+
+        with patch.object(self.book_repo, "save_books", side_effect=fail_once):
             with self.assertRaises(OSError):
                 self.service.book_borrow(borrower)
 
@@ -68,8 +77,17 @@ class ServiceRollbackIOTestCase(unittest.TestCase):
 
     def test_borrow_rolls_back_when_queue_save_fails(self):
         borrower = Borrower("C001", "Charlie", "B001")
+        original_save = self.queue_repo.save_queue
+        calls = 0
 
-        with patch.object(self.queue_repo, "save_queue", side_effect=OSError("queue save failure")):
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("queue save failure")
+            return original_save(data)
+
+        with patch.object(self.queue_repo, "save_queue", side_effect=fail_once):
             with self.assertRaises(OSError):
                 self.service.book_borrow(borrower)
 
@@ -82,8 +100,17 @@ class ServiceRollbackIOTestCase(unittest.TestCase):
     def test_return_rolls_back_when_history_save_fails(self):
         borrower = Borrower("C001", "Charlie", "B001")
         self.assertTrue(self.service.book_borrow(borrower))
+        original_save = self.return_history_repo.save_history
+        calls = 0
 
-        with patch.object(self.return_history_repo, "save_history", side_effect=OSError("history save failure")):
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("history save failure")
+            return original_save(data)
+
+        with patch.object(self.return_history_repo, "save_history", side_effect=fail_once):
             with self.assertRaises(OSError):
                 self.service.return_book(borrower)
 
@@ -98,8 +125,17 @@ class ServiceRollbackIOTestCase(unittest.TestCase):
     def test_return_rolls_back_when_queue_save_fails(self):
         borrower = Borrower("C001", "Charlie", "B001")
         self.assertTrue(self.service.book_borrow(borrower))
+        original_save = self.queue_repo.save_queue
+        calls = 0
 
-        with patch.object(self.queue_repo, "save_queue", side_effect=OSError("queue save failure")):
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("queue save failure")
+            return original_save(data)
+
+        with patch.object(self.queue_repo, "save_queue", side_effect=fail_once):
             with self.assertRaises(OSError):
                 self.service.return_book(borrower)
 
