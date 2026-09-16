@@ -118,6 +118,9 @@ class LibraryService:
             return False
         updated_book.book_id = book_id
         books = self.repository.load_books()
+        borrowers = self.borrower_repo.load_borrowers()
+        if any(self._normalize_text(item.book_id) == book_id for item in borrowers):
+            return False
         for i, book in enumerate(books):
             if self._normalize_text(book.book_id) == book_id:
                 books[i] = updated_book
