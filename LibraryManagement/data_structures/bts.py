@@ -15,6 +15,8 @@ class BinarySearchTree:
 
     # Thêm sách vào cây
     def insert(self, book):
+        if book is None or not hasattr(book, "book_id"):
+            raise ValueError("book phải có thuộc tính book_id")
 
         new_node = BSTNode(book)
 
