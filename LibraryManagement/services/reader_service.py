@@ -2,38 +2,53 @@ from copy import deepcopy
 
 
 class ReaderService:
-    def __init__(self, service):
-        self.service = service
+    def __init__(
+        self,
+        reader_repo,
+        borrower_repo,
+        queue_repo,
+        return_history_repo,
+        borrow_queue,
+        normalize_text,
+        rollback,
+    ):
+        self.reader_repo = reader_repo
+        self.borrower_repo = borrower_repo
+        self.queue_repo = queue_repo
+        self.return_history_repo = return_history_repo
+        self.borrow_queue = borrow_queue
+        self.normalize_text = normalize_text
+        self.rollback = rollback
 
     def get_all_readers(self):
-        return self.service.reader_repo.load_readers()
+        return self.reader_repo.load_readers()
 
     def add_reader(self, reader):
         if reader is None:
             return False
-        reader_id = self.service._normalize_text(reader.reader_id)
-        name = self.service._normalize_text(reader.name)
+        reader_id = self.normalize_text(reader.reader_id)
+        name = self.normalize_text(reader.name)
         if not reader_id or not name:
             return False
-        readers = self.service.reader_repo.load_readers()
+        readers = self.reader_repo.load_readers()
         if any(item.reader_id == reader_id for item in readers):
             return False
         reader.reader_id, reader.name = reader_id, name
         readers.append(reader)
-        self.service.reader_repo.save_readers(readers)
+        self.reader_repo.save_readers(readers)
         return True
 
     def update_reader(self, updated_reader):
         if updated_reader is None:
             return False
-        reader_id = self.service._normalize_text(updated_reader.reader_id)
-        name = self.service._normalize_text(updated_reader.name)
+        reader_id = self.normalize_text(updated_reader.reader_id)
+        name = self.normalize_text(updated_reader.name)
         if not reader_id or not name:
             return False
 
-        readers = self.service.reader_repo.load_readers()
-        borrowers = self.service.borrower_repo.load_borrowers()
-        queue_snapshot = deepcopy(self.service.borrow_queue.items)
+        readers = self.reader_repo.load_readers()
+        borrowers = self.borrower_repo.load_borrowers()
+        queue_snapshot = deepcopy(self.borrow_queue.items)
         reader_snapshot = deepcopy(readers)
         borrower_snapshot = deepcopy(borrowers)
 
@@ -48,54 +63,54 @@ class ReaderService:
                         borrower.name = name
                         changed = True
 
-                queue_items = deepcopy(self.service.borrow_queue.items)
+                queue_items = deepcopy(self.borrow_queue.items)
                 for queued_borrower in queue_items:
                     if queued_borrower.borrower_id == reader_id:
                         queued_borrower.name = name
 
                 try:
-                    self.service.reader_repo.save_readers(readers)
+                    self.reader_repo.save_readers(readers)
                     if changed:
-                        self.service.borrower_repo.save_borrowers(borrowers)
-                    self.service.queue_repo.save_queue(queue_items)
+                        self.borrower_repo.save_borrowers(borrowers)
+                    self.queue_repo.save_queue(queue_items)
                 except OSError:
-                    self.service._rollback([
-                        (self.service.reader_repo, reader_snapshot),
-                        (self.service.borrower_repo, borrower_snapshot),
-                        (self.service.queue_repo, queue_snapshot),
+                    self.rollback([
+                        (self.reader_repo, reader_snapshot),
+                        (self.borrower_repo, borrower_snapshot),
+                        (self.queue_repo, queue_snapshot),
                     ])
-                    self.service.borrow_queue.items = queue_snapshot
+                    self.borrow_queue.items = queue_snapshot
                     raise
 
-                self.service.borrow_queue.items = queue_items
+                self.borrow_queue.items = queue_items
                 return True
         return False
 
     def remove_reader(self, reader_id):
-        reader_id = self.service._normalize_text(reader_id)
+        reader_id = self.normalize_text(reader_id)
         if not reader_id:
             return False
-        borrowers = self.service.borrower_repo.load_borrowers()
+        borrowers = self.borrower_repo.load_borrowers()
         if any(item.borrower_id == reader_id for item in borrowers):
             return False
-        readers = self.service.reader_repo.load_readers()
+        readers = self.reader_repo.load_readers()
         for reader in readers:
             if reader.reader_id == reader_id:
                 readers.remove(reader)
-                self.service.reader_repo.save_readers(readers)
+                self.reader_repo.save_readers(readers)
                 return True
         return False
 
     def get_reader_history(self, reader_id):
-        reader_id = self.service._normalize_text(reader_id)
+        reader_id = self.normalize_text(reader_id)
         active = [
             item
-            for item in self.service.borrower_repo.load_borrowers()
+            for item in self.borrower_repo.load_borrowers()
             if item.borrower_id == reader_id
         ]
         history = [
             item
-            for item in self.service.return_history_repo.load_history()
+            for item in self.return_history_repo.load_history()
             if item.borrower_id == reader_id
         ]
         return active + history
