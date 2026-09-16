@@ -43,7 +43,9 @@ class LibraryService:
 
     @staticmethod
     def _normalize_text(value):
-        return str(value or "").strip()
+        if not isinstance(value, str):
+            return ""
+        return value.strip()
 
     @staticmethod
     def _is_valid_non_negative_number(value):
