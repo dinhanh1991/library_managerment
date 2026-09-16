@@ -38,17 +38,15 @@ class BookRepository:
 
     # Lưu danh sách sách vào file
     def save_books(self, books):
+        data = []
+
+        # Chuyển từng đối tượng Book thành Dictionary
+        for book in books:
+            data.append(book.to_dict())
+
         try:
-            data = []
-
-            # Chuyển từng đối tượng Book thành Dictionary
-            for book in books:
-                data.append(book.to_dict())
-
             # Mở file để ghi dữ liệu
             with open(self.FILE_PATH, "w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False, indent=4)
-
-        # Xử lý lỗi khi lưu dữ liệu
         except OSError as e:
-            print(f"Lỗi khi lưu dữ liệu: {e}")
+            raise OSError(f"Không thể lưu dữ liệu sách: {e}") from e
