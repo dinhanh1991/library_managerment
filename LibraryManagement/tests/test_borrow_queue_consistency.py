@@ -25,7 +25,7 @@ class FakeQueueRepository:
         self.saved_queue = list(borrowers)
 
 
-class TestQueue:
+class FakeQueue:
     def __init__(self):
         self.items = []
 
@@ -38,7 +38,7 @@ class TestQueue:
 class TestBorrowQueueConsistency(unittest.TestCase):
     def setUp(self):
         self.service = LibraryService.__new__(LibraryService)
-        self.service.borrow_queue = TestQueue()
+        self.service.borrow_queue = FakeQueue()
         self.service.borrower_repo = FakeBorrowerRepository([])
         self.service.queue_repo = FakeQueueRepository()
 
