@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from LibraryManagement.data_structures.bts import BinarySearchTree
 from LibraryManagement.data_structures.linked_list import BookLinkedList
 from LibraryManagement.data_structures.queue import Queue
@@ -53,20 +51,15 @@ class LibraryState:
         self.reader_repo.save_readers(readers)
 
     def rollback(self, snapshots):
+        """Restore persisted snapshots and propagate I/O failures to the caller."""
         for repository, data in snapshots:
-            try:
-                if repository is self.repository:
-                    repository.save_books(data)
-                elif repository is self.borrower_repo:
-                    repository.save_borrowers(data)
-                elif repository is self.queue_repo:
-                    repository.save_queue(data)
-                elif repository is self.reader_repo:
-                    repository.save_readers(data)
-                elif repository is self.return_history_repo:
-                    repository.save_history(data)
-            except OSError:
-                pass
-
-    def snapshot_queue(self):
-        return deepcopy(self.borrow_queue.items)
+            if repository is self.repository:
+                repository.save_books(data)
+            elif repository is self.borrower_repo:
+                repository.save_borrowers(data)
+            elif repository is self.queue_repo:
+                repository.save_queue(data)
+            elif repository is self.reader_repo:
+                repository.save_readers(data)
+            elif repository is self.return_history_repo:
+                repository.save_history(data)
