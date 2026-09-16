@@ -25,24 +25,38 @@ class Book:
     # Chuyển đối tượng thành Dictionary
     def to_dict(self):
         return {
-            "book_id": self.book_id,              # Mã sách
-            "title": self.title,                  # Tên sách
-            "author": self.author,                # Tác giả
-            "publish_year": self.publish_year,    # Năm xuất bản
-            "quantity": self.quantity,            # Số lượng
-            "category": self.category,            # Thể loại
-            "isbn": self.isbn                     # Mã ISBN
+            "book_id": self.book_id,
+            "title": self.title,
+            "author": self.author,
+            "publish_year": self.publish_year,
+            "quantity": self.quantity,
+            "category": self.category,
+            "isbn": self.isbn
         }
 
     # Tạo đối tượng từ Dictionary
     @staticmethod
     def from_dict(data):
+        required_fields = ["book_id", "title", "author", "publish_year", "quantity"]
+        if any(field not in data for field in required_fields):
+            raise ValueError("Dữ liệu sách thiếu trường bắt buộc")
+        if not isinstance(data["book_id"], str) or not data["book_id"].strip():
+            raise ValueError("book_id của sách không hợp lệ")
+        if not isinstance(data["title"], str) or not data["title"].strip():
+            raise ValueError("title của sách không hợp lệ")
+        if not isinstance(data["author"], str) or not data["author"].strip():
+            raise ValueError("author của sách không hợp lệ")
+        if not isinstance(data["publish_year"], int) or isinstance(data["publish_year"], bool):
+            raise ValueError("publish_year của sách không hợp lệ")
+        if not isinstance(data["quantity"], int) or isinstance(data["quantity"], bool) or data["quantity"] < 0:
+            raise ValueError("quantity của sách không hợp lệ")
+
         return Book(
-            book_id=data.get("book_id"),              # Mã sách
-            title=data.get("title"),                  # Tên sách
-            author=data.get("author"),                # Tác giả
-            publish_year=data.get("publish_year"),    # Năm xuất bản
-            quantity=data.get("quantity"),            # Số lượng
-            category=data.get("category") or "Chưa phân loại",      # Thể loại
-            isbn=data.get("isbn", "")               # Mã ISBN
+            book_id=data["book_id"],
+            title=data["title"],
+            author=data["author"],
+            publish_year=data["publish_year"],
+            quantity=data["quantity"],
+            category=data.get("category") or "Chưa phân loại",
+            isbn=data.get("isbn", "")
         )
