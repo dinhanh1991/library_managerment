@@ -34,12 +34,17 @@ class LibraryView(BaseView):
         overdue = self.service.get_overdue_borrowers()
         total_books = len(books)
         total_available = sum(1 for book in books if book.quantity > 0)
-        current_borrowed = len(active_borrowers)
+        current_borrowed = sum(
+            1 for borrower in active_borrowers
+            if borrower.status == "borrowed"
+        )
         overdue_count = len(overdue)
         categories = {}
 
         book_by_id = {book.book_id: book for book in books}
         for borrower in active_borrowers:
+            if borrower.status != "borrowed":
+                continue
             book = book_by_id.get(borrower.book_id)
             category = getattr(book, "category", "") or "Chưa phân loại"
             categories[category] = categories.get(category, 0) + 1
@@ -48,11 +53,14 @@ class LibraryView(BaseView):
 
     def get_time_window_stats(self, days=30, as_of=None):
         as_of = as_of or date.today()
-        borrowers = self.service.borrower_repo.load_borrowers()
+        active_borrowers = self.service.borrower_repo.load_borrowers()
+        returned_borrowers = self.service.return_history_repo.load_history()
         books = {book.book_id: book for book in self.service.get_all_books()}
 
         active_window = []
-        for borrower in borrowers:
+        returned_window = []
+
+        for borrower in active_borrowers:
             if not borrower.borrow_date:
                 continue
             try:
@@ -62,6 +70,17 @@ class LibraryView(BaseView):
             days_since_borrow = as_of - borrow_date
             if timedelta(days=0) <= days_since_borrow <= timedelta(days=days):
                 active_window.append(borrower)
+
+        for borrower in returned_borrowers:
+            if not borrower.return_date:
+                continue
+            try:
+                return_date = date.fromisoformat(borrower.return_date)
+            except ValueError:
+                continue
+            days_since_return = as_of - return_date
+            if timedelta(days=0) <= days_since_return <= timedelta(days=days):
+                returned_window.append(borrower)
 
         category_summary = {}
         reader_summary = {}
@@ -74,10 +93,12 @@ class LibraryView(BaseView):
 
         for borrower in active_window:
             status = borrower.status
-            status_summary[status] = status_summary.get(status, 0) + 1
+
+            if status in {"borrowed", "pending"}:
+                status_summary[status] += 1
 
             if status in {"borrowed", "pending"} and self.service._is_overdue(borrower, as_of):
-                status_summary["overdue"] = status_summary.get("overdue", 0) + 1
+                status_summary["overdue"] += 1
 
             book = books.get(borrower.book_id)
             category = getattr(book, "category", "") or "Chưa phân loại"
@@ -85,7 +106,15 @@ class LibraryView(BaseView):
 
             reader_summary[borrower.name] = reader_summary.get(borrower.name, 0) + 1
 
-        status_summary["overdue"] = status_summary.get("overdue", 0)
+        for borrower in returned_window:
+            status_summary["returned"] += 1
+
+            book = books.get(borrower.book_id)
+            category = getattr(book, "category", "") or "Chưa phân loại"
+            category_summary[category] = category_summary.get(category, 0) + 1
+
+            reader_summary[borrower.name] = reader_summary.get(borrower.name, 0) + 1
+
         total_active = len(active_window)
         return {
             "days": days,
