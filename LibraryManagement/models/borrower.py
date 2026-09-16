@@ -1,3 +1,6 @@
+from datetime import date
+
+
 class Borrower:
 
     # Khởi tạo thông tin người mượn
@@ -56,6 +59,16 @@ class Borrower:
         status = data.get("status", default_status)
         if status not in {"pending", "borrowed", "returned"}:
             raise ValueError("status của người mượn không hợp lệ")
+
+        for field in ["borrow_date", "due_date", "return_date"]:
+            value = data.get(field)
+            if value is not None:
+                if not isinstance(value, str) or not value.strip():
+                    raise ValueError(f"{field} của người mượn không hợp lệ")
+                try:
+                    date.fromisoformat(value)
+                except ValueError as exc:
+                    raise ValueError(f"{field} của người mượn không hợp lệ") from exc
 
         return Borrower(
             borrower_id=data["borrower_id"],
