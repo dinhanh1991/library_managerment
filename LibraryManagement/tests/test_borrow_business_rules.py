@@ -2,6 +2,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
@@ -105,6 +106,28 @@ class TestBorrowBusinessRules(unittest.TestCase):
         self.assertEqual(self.book_repo.load_books()[1].quantity, 0)
         self.assertEqual(len(self.borrower_repo.load_borrowers()), 1)
         self.assertEqual(len(self.service.borrow_queue.items), 1)
+
+    def test_borrow_rolls_back_when_borrower_save_fails(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        original_save = self.borrower_repo.save_borrowers
+        calls = 0
+
+        def fail_once(data):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("simulated borrower save failure")
+            return original_save(data)
+
+        with patch.object(self.borrower_repo, "save_borrowers", side_effect=fail_once):
+            with self.assertRaises(OSError):
+                self.service.book_borrow(borrower)
+
+        self.assertEqual(self.book_repo.load_books()[0].quantity, 2)
+        self.assertEqual(self.borrower_repo.load_borrowers(), [])
+        self.assertEqual(self.queue_repo.load_queue(), [])
+        self.assertEqual(self.service.borrow_queue.items, [])
+        self.assertEqual(self.reader_repo.load_readers(), [])
 
 
 if __name__ == "__main__":
