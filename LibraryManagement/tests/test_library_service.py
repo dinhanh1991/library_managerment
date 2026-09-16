@@ -117,6 +117,63 @@ class LibraryServiceTestCase(unittest.TestCase):
         self.assertEqual(self.borrower_repo.load_borrowers(), [])
         self.assertTrue(self.service.return_stack.is_empty())
 
+    def test_return_rejects_empty_input_without_changing_data(self):
+        self.assertFalse(self.service.return_book(None))
+        self.assertFalse(self.service.return_book(Borrower("", "Charlie", "B001")))
+        self.assertFalse(self.service.return_book(Borrower("C001", "Charlie", "")))
+        self.assertEqual(self.service.get_all_books()[0].quantity, 3)
+        self.assertEqual(self.borrower_repo.load_borrowers(), [])
+        self.assertTrue(self.service.return_stack.is_empty())
+
+    def test_return_uses_stored_borrower_data_not_return_input_name(self):
+        borrower = Borrower("C001", "Stored Name", "B001")
+        self.assertTrue(self.service.book_borrow(borrower))
+
+        returned = Borrower("  C001  ", "Wrong Input Name", " B001 ")
+        self.assertTrue(self.service.return_book(returned))
+
+        history = self.return_history_repo.load_history()
+        self.assertEqual(len(history), 1)
+        self.assertEqual(history[0].borrower_id, "C001")
+        self.assertEqual(history[0].name, "Stored Name")
+        self.assertEqual(history[0].book_id, "B001")
+        self.assertEqual(history[0].status, "returned")
+
+    def test_return_cannot_be_done_twice(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        self.assertTrue(self.service.book_borrow(borrower))
+        self.assertTrue(self.service.return_book(borrower))
+
+        self.assertFalse(self.service.return_book(borrower))
+        self.assertEqual(self.service.get_all_books()[0].quantity, 3)
+        self.assertEqual(len(self.return_history_repo.load_history()), 1)
+        self.assertEqual(self.borrower_repo.load_borrowers(), [])
+
+    def test_return_rejects_missing_book_without_finishing_transaction(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        self.assertTrue(self.service.book_borrow(borrower))
+
+        self.book_repo.save_books([Book("B002", "Data Structures", "Bob", 2023, 2)])
+        self.assertFalse(self.service.return_book(borrower))
+
+        active = self.borrower_repo.load_borrowers()
+        self.assertEqual(len(active), 1)
+        self.assertEqual(active[0].status, "pending")
+        self.assertEqual(len(self.return_history_repo.load_history()), 0)
+        self.assertEqual(self.service.get_all_books()[0].book_id, "B002")
+
+    def test_return_removes_only_matching_transaction_from_queue(self):
+        first = Borrower("C001", "Charlie", "B001")
+        second = Borrower("C002", "Diana", "B002")
+        self.assertTrue(self.service.book_borrow(first))
+        self.assertTrue(self.service.book_borrow(second))
+
+        self.assertTrue(self.service.return_book(first))
+        self.assertEqual(
+            [(item.borrower_id, item.book_id) for item in self.service.borrow_queue.items],
+            [("C002", "B002")],
+        )
+
     def test_return_removes_queue_entry_and_persists_history(self):
         borrower = Borrower("C001", "Stored Name", "B001")
         self.assertTrue(self.service.book_borrow(borrower))
