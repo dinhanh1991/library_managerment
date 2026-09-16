@@ -13,8 +13,19 @@ class ReaderRepository:
                 data = json.load(file)
         except FileNotFoundError:
             return []
+        except json.JSONDecodeError as e:
+            raise ValueError(f"File dữ liệu người đọc không hợp lệ: {e}") from e
 
-        return [Reader.from_dict(item) for item in data]
+        if not isinstance(data, list):
+            raise ValueError("Dữ liệu người đọc phải có dạng danh sách JSON.")
+
+        readers = []
+        for item in data:
+            if not isinstance(item, dict):
+                raise ValueError("Mỗi dữ liệu người đọc phải có dạng object JSON.")
+            readers.append(Reader.from_dict(item))
+
+        return readers
 
     def save_readers(self, readers):
         self.FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
