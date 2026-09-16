@@ -25,6 +25,11 @@ class RepositoryTestCase(unittest.TestCase):
             ReaderRepository: ReaderRepository.FILE_PATH,
             ReturnHistoryRepository: ReturnHistoryRepository.FILE_PATH,
         }
+        BookRepository.FILE_PATH = self.temp_path / "books.json"
+        BorrowerRepository.FILE_PATH = self.temp_path / "borrowers.json"
+        QueueRepository.FILE_PATH = self.temp_path / "queue.json"
+        ReaderRepository.FILE_PATH = self.temp_path / "readers.json"
+        ReturnHistoryRepository.FILE_PATH = self.temp_path / "history.json"
 
     def tearDown(self):
         for repository_class, file_path in self.original_paths.items():
