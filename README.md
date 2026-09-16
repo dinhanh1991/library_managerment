@@ -2,129 +2,190 @@
 
 ## 1. Giới thiệu
 
-**Library Management** là ứng dụng quản lý thư viện được xây dựng bằng **Python**, áp dụng các kiến thức về **Cấu trúc dữ liệu và Giải thuật**.
+**Library Management** là chương trình quản lý thư viện chạy trên **Console**, được phát triển bằng **Python** để áp dụng kiến thức môn **Cấu trúc dữ liệu và Giải thuật** vào một chương trình thực tế.
 
-Chương trình mô phỏng các nghiệp vụ cơ bản của một thư viện như quản lý sách, quản lý độc giả, mượn sách, trả sách và tìm kiếm sách. Bên cạnh đó, chương trình sử dụng các cấu trúc dữ liệu và thuật toán tự cài đặt để minh họa cách chúng được áp dụng vào một bài toán thực tế.
+Chương trình hiện có các nhóm chức năng chính: quản lý sách, quản lý độc giả, mượn/trả sách, tìm kiếm, sử dụng Queue/Stack/Linked List/Binary Search Tree, sắp xếp sách bằng nhiều thuật toán và đo hiệu năng các thuật toán sắp xếp.
 
----
-
-## 2. Mục tiêu
-
-- Xây dựng chương trình quản lý thư viện bằng Python.
-- Áp dụng các cấu trúc dữ liệu: Queue, Stack, Linked List và Binary Search Tree.
-- Cài đặt các thuật toán sắp xếp và đánh giá hiệu năng.
-- Thực hiện tìm kiếm và quản lý dữ liệu sách.
-- Tổ chức chương trình theo mô hình nhiều thành phần, dễ bảo trì và mở rộng.
+Dữ liệu nghiệp vụ được lưu bằng các file **JSON**; kết quả benchmark được lưu bằng **CSV** và biểu đồ được tạo bằng **Matplotlib**.
 
 ---
 
-## 3. Chức năng chính
+## 2. Chức năng thực tế của chương trình
 
-### 3.1. Quản lý sách
+### 2.1. Quản lý sách
+
+Chương trình hỗ trợ:
 
 - Thêm sách.
-- Xóa sách.
+- Xóa sách theo mã sách.
 - Cập nhật thông tin sách.
 - Hiển thị danh sách sách.
-- Tìm kiếm sách theo tên.
-- Tìm kiếm sách theo tác giả.
-- Tìm kiếm nâng cao.
+- Tìm kiếm theo tên sách.
+- Tìm kiếm theo tác giả.
+- Tìm kiếm nâng cao theo nhiều điều kiện.
 
-Thông tin sách gồm: mã sách, tên sách, tác giả, năm xuất bản, số lượng, thể loại và ISBN.
+Thông tin `Book` hiện gồm:
 
-### 3.2. Quản lý độc giả
+- `book_id`: mã sách.
+- `title`: tên sách.
+- `author`: tác giả.
+- `publish_year`: năm xuất bản.
+- `quantity`: số lượng.
+- `category`: thể loại.
+- `isbn`: mã ISBN.
 
-- Thêm, xóa, cập nhật và hiển thị độc giả.
-- Tìm kiếm độc giả.
+Model `Book` có `to_dict()` để chuyển đối tượng thành dữ liệu JSON và `from_dict()` để tạo lại đối tượng từ dữ liệu đọc được. fileciteturn42file0L2-L6
 
-### 3.3. Mượn và trả sách
+### 2.2. Tìm kiếm nâng cao
 
-Khi mượn sách, chương trình kiểm tra sách tồn tại, số lượng còn lại và trạng thái mượn của độc giả. Sau khi mượn thành công, số lượng sách và thông tin mượn được cập nhật.
+Tìm kiếm nâng cao có thể kết hợp các điều kiện:
 
-Khi trả sách, số lượng được tăng lại, trạng thái được cập nhật, lịch sử trả được lưu và thông tin trả được đưa vào Stack.
+- Tên sách.
+- Tác giả.
+- Thể loại.
+- Năm xuất bản.
+- ISBN.
+- Tình trạng còn sách / hết sách.
+
+### 2.3. Quản lý độc giả
+
+Chương trình có các chức năng:
+
+- Thêm độc giả.
+- Cập nhật độc giả.
+- Xóa độc giả.
+- Hiển thị danh sách độc giả.
+- Xem lịch sử giao dịch của độc giả.
+- Xem danh sách độc giả quá hạn.
+
+Khi cập nhật độc giả, tên độc giả trong các lượt mượn đang hoạt động và trong hàng đợi cũng được cập nhật theo.
+
+### 2.4. Mượn sách
+
+Quy trình mượn sách gồm kiểm tra lượt mượn đang hoạt động, kiểm tra số lượng sách và cập nhật thông tin mượn.
+
+Mỗi lượt mượn có thời hạn **14 ngày**. Lượt mượn mới được đưa vào **Queue** với trạng thái `pending`; khi xử lý người tiếp theo trong hàng đợi, trạng thái được chuyển sang `borrowed`. Số lượng sách được giảm sau khi tạo lượt mượn. fileciteturn33file0L2-L3
+
+Chương trình cũng kiểm tra trường hợp độc giả đang có sách quá hạn và không cho tạo lượt mượn mới trong trường hợp đó.
+
+### 2.5. Trả sách
+
+Khi trả sách:
+
+- Số lượng sách được tăng lại.
+- Lượt mượn được chuyển sang trạng thái `returned`.
+- Ngày trả được ghi nhận.
+- Giao dịch được đưa vào **Stack** và lưu vào lịch sử trả.
+- Lượt mượn đang hoạt động được loại khỏi danh sách mượn.
+- Người mượn được loại khỏi Queue nếu còn trong hàng đợi.
+
+### 2.6. Cấu trúc dữ liệu được sử dụng
+
+Chương trình không chỉ dùng cấu trúc dữ liệu có sẵn của Python mà có các module riêng để cài đặt:
+
+- Queue.
+- Stack.
+- Linked List.
+- Binary Search Tree.
+
+`LibraryService` khởi tạo và sử dụng cả bốn cấu trúc này trong quá trình quản lý thư viện. fileciteturn33file0L2-L3
 
 ---
 
-# 4. Các cấu trúc dữ liệu
+## 3. Các cấu trúc dữ liệu
 
-## 4.1. Queue – Hàng đợi
+### Queue
 
-Queue được sử dụng để quản lý **hàng đợi mượn sách**, hoạt động theo nguyên tắc **FIFO – First In, First Out**.
-
-Các thao tác chính:
-
-- `enqueue()` – thêm phần tử vào cuối Queue.
-- `dequeue()` – lấy phần tử ở đầu Queue.
-- `is_empty()` – kiểm tra Queue rỗng.
-- `remove_by_borrower_id()` – xóa người mượn khỏi hàng đợi.
-
-## 4.2. Stack – Ngăn xếp
-
-Stack được sử dụng để quản lý **lịch sử trả sách**, hoạt động theo nguyên tắc **LIFO – Last In, First Out**.
+`data_structures/queue.py` cài đặt hàng đợi cho các lượt mượn sách.
 
 Các thao tác chính:
 
-- `push()` – thêm phần tử vào Stack.
+- `enqueue()` – thêm vào cuối hàng đợi.
+- `dequeue()` – lấy phần tử đầu hàng đợi.
+- `is_empty()` – kiểm tra rỗng.
+- `remove_by_borrower_id()` – loại lượt mượn của độc giả khỏi hàng đợi.
+
+Queue được sử dụng theo nguyên tắc **FIFO (First In, First Out)**.
+
+### Stack
+
+`data_structures/stack.py` cài đặt Stack cho lịch sử trả sách.
+
+Các thao tác chính:
+
+- `push()` – thêm phần tử lên đỉnh Stack.
 - `pop()` – lấy phần tử trên cùng.
-- `is_empty()` – kiểm tra Stack rỗng.
+- `is_empty()` – kiểm tra rỗng.
 
-## 4.3. Linked List – Danh sách liên kết
+Stack hoạt động theo nguyên tắc **LIFO (Last In, First Out)**.
 
-Chương trình tự xây dựng Linked List để lưu trữ danh sách sách.
+### Linked List
 
-```text
-Node
- ├── data
- └── next
-```
+`data_structures/linked_list.py` cài đặt danh sách liên kết đơn với `Node` gồm dữ liệu và liên kết tới node tiếp theo.
 
-Các thao tác chính: thêm, xóa, tìm kiếm và hiển thị sách.
+Linked List được xây dựng từ dữ liệu sách và hỗ trợ thêm, xóa, hiển thị và tìm kiếm sách.
 
-## 4.4. Binary Search Tree
+### Binary Search Tree
 
-Binary Search Tree được sử dụng để tổ chức và tìm kiếm sách theo `book_id`.
+`data_structures/bts.py` cài đặt Binary Search Tree để tổ chức sách theo `book_id`.
 
-```text
-BSTNode
- ├── book
- ├── left
- └── right
-```
+Chương trình có các thao tác:
 
-Các chức năng:
+- Insert.
+- Search.
+- Inorder.
+- Preorder.
+- Postorder.
 
-- Thêm Node.
-- Tìm kiếm sách.
-- Duyệt Inorder.
-- Duyệt Preorder.
-- Duyệt Postorder.
+`LibraryService` có các chức năng xây dựng lại BST từ dữ liệu sách, tìm kiếm sách bằng BST và hiển thị Preorder/Postorder. fileciteturn33file0L2-L3
 
 ---
 
-# 5. Các thuật toán sắp xếp
+## 4. Các thuật toán sắp xếp
 
-Project tự cài đặt 6 thuật toán sắp xếp:
+File `algorithms/sorting.py` hiện cài đặt **6 thuật toán**:
 
-| Thuật toán | Độ phức tạp trung bình |
-|---|---:|
-| Bubble Sort | O(n²) |
-| Selection Sort | O(n²) |
-| Insertion Sort | O(n²) |
-| Quick Sort | O(n log n) |
-| Merge Sort | O(n log n) |
-| Heap Sort | O(n log n) |
+1. Bubble Sort.
+2. Selection Sort.
+3. Insertion Sort.
+4. Quick Sort.
+5. Merge Sort.
+6. Heap Sort.
 
-Các thuật toán hỗ trợ sắp xếp sách theo các khóa như `title`, `publish_year` và `book_id`.
+Các thuật toán hỗ trợ khóa sắp xếp:
 
-Chương trình thống kê thời gian thực thi, số phép so sánh và số phép gán.
+- `title` – tên sách.
+- `publish_year` – năm xuất bản.
+- `book_id` – mã sách, được dùng mặc định.
+
+Mỗi hàm sắp xếp trả về:
+
+```text
+(danh sách sau sắp xếp, comparisons, assignments)
+```
+
+Trong đó `comparisons` là số phép so sánh và `assignments` là số phép gán được chương trình đếm trong quá trình chạy. fileciteturn34file0L2-L2
+
+### Độ phức tạp lý thuyết
+
+| Thuật toán | Best | Average | Worst |
+|---|---:|---:|---:|
+| Bubble Sort | O(n²) | O(n²) | O(n²) |
+| Selection Sort | O(n²) | O(n²) | O(n²) |
+| Insertion Sort | O(n) | O(n²) | O(n²) |
+| Quick Sort | O(n log n) | O(n log n) | O(n²) |
+| Merge Sort | O(n log n) | O(n log n) | O(n log n) |
+| Heap Sort | O(n log n) | O(n log n) | O(n log n) |
+
+Lưu ý: Bubble Sort trong mã hiện tại không có bước dừng sớm khi danh sách đã được sắp xếp, vì vậy trường hợp tốt nhất của implementation hiện tại vẫn là **O(n²)**.
 
 ---
 
-# 6. Benchmark
+## 5. Benchmark
 
-Project có chương trình Benchmark để đánh giá hiệu năng của các thuật toán sắp xếp.
+Project có `algorithms/benchmark.py` để đo hiệu năng thực tế của 6 thuật toán sắp xếp.
 
-Kích thước dữ liệu kiểm tra:
+Benchmark hiện chạy với các kích thước:
 
 ```text
 25
@@ -134,157 +195,257 @@ Kích thước dữ liệu kiểm tra:
 10000
 ```
 
-Mỗi kích thước dữ liệu được chạy nhiều lần để lấy kết quả trung bình.
+Mỗi kích thước được chạy **5 lần** trên cùng bộ dữ liệu đầu vào đã được xáo trộn, sau đó lấy giá trị trung bình. Tiêu chí sắp xếp của benchmark hiện tại là **tên sách (`title`)**. fileciteturn37file0L2-L6
 
 Các thông số được ghi nhận:
 
-- Execution time (ms).
-- Comparisons.
-- Assignments.
+- Thời gian thực thi trung bình (ms).
+- Số phép so sánh trung bình.
+- Số phép gán trung bình.
 
-Kết quả được lưu vào:
+Kết quả được lưu tại:
 
 ```text
 data/benchmark_results.csv
 ```
 
-Biểu đồ Benchmark:
+`algorithms/plot_benchmark.py` đọc CSV và tạo hai biểu đồ:
 
 ```text
 data/benchmark_all_algorithms.png
 data/benchmark_nlogn.png
 ```
 
+Biểu đồ thứ hai dùng để so sánh nhóm Heap Sort, Quick Sort và Merge Sort. fileciteturn38file0L2-L6
+
+Ngoài benchmark, `algorithms/test_sorting.py` chứa các lần chạy thử trực tiếp 6 thuật toán trên một tập sách mẫu, trong đó có kiểm tra sắp xếp theo tên và năm xuất bản. fileciteturn49file0L2-L6
+
 ---
 
-# 7. Cấu trúc project
+## 6. Kiểm thử chương trình
+
+Thư mục `tests/` hiện có:
+
+```text
+tests/
+└── test_library_service.py
+```
+
+File test kiểm tra nhiều nghiệp vụ của `LibraryService`, gồm quản lý sách, tìm kiếm nâng cao, mượn/trả sách, cập nhật số lượng, Queue FIFO và lưu Queue, ngăn mượn trùng, CRUD độc giả, không cho xóa độc giả đang mượn, lịch sử độc giả, danh sách quá hạn và thống kê Dashboard.
+
+Ngoài ra, các file `__pycache__` xuất hiện trong repository là dữ liệu cache được Python tạo ra khi chạy chương trình, không phải thành phần nghiệp vụ của hệ thống.
+
+---
+
+## 7. Cấu trúc project thực tế
 
 ```text
 LibraryManagement/
 │
 ├── algorithms/
+│   ├── __init__.py
+│   ├── sorting.py
 │   ├── benchmark.py
 │   ├── plot_benchmark.py
-│   ├── sorting.py
 │   └── test_sorting.py
 │
 ├── controllers/
+│   ├── __init__.py
+│   ├── library_controller.py
+│   ├── book_controller.py
+│   ├── borrow_controller.py
+│   └── reader_controller.py
 │
 ├── data/
 │   ├── books.json
 │   ├── borrowers_list.json
+│   ├── borrow_queue.json
+│   ├── readers.json
+│   ├── return_history.json
 │   ├── benchmark_results.csv
 │   ├── benchmark_all_algorithms.png
 │   └── benchmark_nlogn.png
 │
 ├── data_structures/
+│   ├── __init__.py
 │   ├── queue.py
 │   ├── stack.py
 │   ├── linked_list.py
 │   └── bts.py
 │
 ├── models/
-│   └── book.py
+│   ├── book.py
+│   ├── borrower.py
+│   └── reader.py
 │
 ├── repositories/
+│   ├── __init__.py
 │   ├── book_repo.py
 │   ├── borrower_repo.py
-│   └── ...
+│   ├── queue_repo.py
+│   ├── reader_repo.py
+│   └── return_history_repo.py
 │
 ├── services/
 │   └── library_service.py
 │
+├── utils/
+│   ├── ui_helpers.py
+│   └── logging_config.py
+│
 ├── views/
+│   ├── base_view.py
+│   ├── library_view.py
 │   ├── book_view.py
 │   ├── borrow_view.py
 │   ├── return_view.py
-│   ├── sort_view.py
 │   ├── search_view.py
+│   ├── sort_view.py
 │   ├── bst_view.py
-│   └── linked_list_view.py
+│   ├── linked_list_view.py
+│   └── reader_view.py
 │
+├── tests/
+│   └── test_library_service.py
+│
+├── .vscode/
+├── __init__.py
 └── main.py
 ```
 
+Các thư mục `controllers`, `utils` và `tests` là những thành phần có thật trong project hiện tại, không phải thư mục dự kiến. Cấu trúc trên được lập lại theo source hiện có trong repository. fileciteturn35file0L2-L10 fileciteturn41file0L2-L10 fileciteturn46file0L2-L10
+
 ---
 
-# 8. Công nghệ sử dụng
+## 8. Mô tả từng tầng và file chính
+
+### `main.py`
+
+Điểm khởi động của chương trình. File này tạo `LibraryController` và gọi `controller.run()`. Phần điều phối menu không đặt trực tiếp trong `main.py`. fileciteturn43file0L2-L6
+
+### `controllers/`
+
+Tầng Controller điều phối luồng thao tác của người dùng.
+
+- `library_controller.py`: Controller cấp cao; tạo Service/View và kết nối các controller chức năng. Menu chính ánh xạ tới quản lý sách, mượn, trả, tìm kiếm, BST, Linked List, sắp xếp và quản lý độc giả. fileciteturn47file0L2-L6
+- `book_controller.py`: điều phối các thao tác quản lý sách.
+- `borrow_controller.py`: điều phối quy trình mượn và xử lý người tiếp theo trong Queue.
+- `reader_controller.py`: điều phối các thao tác quản lý độc giả, lịch sử và quá hạn. fileciteturn48file0L2-L6
+
+### `services/`
+
+- `library_service.py`: lớp nghiệp vụ trung tâm. File này xử lý sách, độc giả, mượn/trả, quá hạn, tìm kiếm, Queue, Stack, Linked List và BST; đồng thời kết nối các Repository để đọc/ghi dữ liệu. fileciteturn33file0L2-L3
+
+### `models/`
+
+Chứa các lớp biểu diễn dữ liệu:
+
+- `book.py`: đối tượng sách.
+- `borrower.py`: đối tượng lượt mượn.
+- `reader.py`: đối tượng độc giả.
+
+### `repositories/`
+
+Tầng Repository chịu trách nhiệm đọc/ghi dữ liệu của từng nhóm nghiệp vụ:
+
+- `book_repo.py`: dữ liệu sách.
+- `borrower_repo.py`: các lượt mượn đang được lưu.
+- `queue_repo.py`: dữ liệu hàng đợi mượn.
+- `reader_repo.py`: dữ liệu độc giả.
+- `return_history_repo.py`: lịch sử trả sách.
+
+Các Repository hiện lưu dữ liệu vào các file JSON trong `data/`. Danh sách file Repository hiện có được xác nhận trực tiếp từ source repository. fileciteturn39file0L2-L10
+
+### `views/`
+
+Tầng View xử lý giao diện Console và tương tác nhập/xuất với người dùng. Các View hiện có gồm View cơ sở, View thư viện, sách, mượn, trả, tìm kiếm, sắp xếp, BST, Linked List và độc giả.
+
+### `utils/`
+
+- `ui_helpers.py`: các hàm hỗ trợ giao diện và nhập liệu dùng chung, bao gồm xử lý input, kiểm tra số nguyên, hiển thị bảng sách và thông báo.
+- `logging_config.py`: cấu hình logger dùng chung cho chương trình.
+
+### `data_structures/`
+
+Chứa phần cài đặt trực tiếp các cấu trúc dữ liệu Queue, Stack, Linked List và Binary Search Tree. Danh sách file thực tế của thư mục gồm `queue.py`, `stack.py`, `linked_list.py` và `bts.py`. fileciteturn36file0L2-L10
+
+### `algorithms/`
+
+Chứa thuật toán sắp xếp, chương trình benchmark, chương trình tạo biểu đồ và file chạy thử các thuật toán. Các file thực tế gồm `sorting.py`, `benchmark.py`, `plot_benchmark.py` và `test_sorting.py`. fileciteturn45file0L2-L10
+
+### `tests/`
+
+Chứa kiểm thử nghiệp vụ của `LibraryService`, hiện có `test_library_service.py`. fileciteturn46file0L2-L10
+
+### `data/`
+
+Chứa dữ liệu chạy chương trình và kết quả benchmark. Hiện có dữ liệu sách, độc giả, lượt mượn, Queue, lịch sử trả sách, CSV benchmark và hai file ảnh biểu đồ. fileciteturn40file0L2-L10
+
+---
+
+## 9. Luồng xử lý tổng quát
+
+```text
+Người dùng
+    ↓
+main.py
+    ↓
+LibraryController
+    ↓
+┌──────────────────────────────────────────────┐
+│ BookController                               │
+│ BorrowController                             │
+│ ReaderController                              │
+│ Các View chức năng khác                      │
+└──────────────────────────────────────────────┘
+    ↓
+LibraryService
+    ↓
+┌──────────────────────────────────────────────┐
+│ Models                                       │
+│ Data Structures                              │
+│ Repositories                                 │
+└──────────────────────────────────────────────┘
+    ↓
+JSON / CSV / biểu đồ trong data/
+```
+
+Đây là cách tổ chức thực tế của source hiện tại: `main.py` khởi động `LibraryController`; Controller sử dụng `LibraryService` và các View; Service sử dụng các cấu trúc dữ liệu và Repository để xử lý nghiệp vụ và dữ liệu. fileciteturn43file0L2-L6 fileciteturn47file0L2-L6 fileciteturn33file0L2-L3
+
+---
+
+## 10. Công nghệ sử dụng
 
 - **Python 3**
-- **Rich** – xây dựng giao diện Console.
-- **JSON** – lưu trữ dữ liệu.
-- **CSV** – lưu kết quả Benchmark.
-- **Matplotlib** – tạo biểu đồ Benchmark.
+- **Rich** – giao diện Console và bảng dữ liệu.
+- **JSON** – lưu dữ liệu nghiệp vụ.
+- **CSV** – lưu kết quả benchmark.
+- **Matplotlib** – tạo biểu đồ benchmark.
 - **Git / GitHub** – quản lý mã nguồn.
 
 ---
 
-# 9. Lưu trữ dữ liệu
+## 11. Cài đặt và chạy chương trình
 
-Dữ liệu được lưu dưới dạng JSON.
-
-Ví dụ thông tin sách:
-
-```json
-{
-    "book_id": "S001",
-    "title": "Lập trình Python",
-    "author": "Nguyễn Văn A",
-    "publish_year": 2024,
-    "quantity": 6,
-    "category": "",
-    "isbn": ""
-}
-```
-
-Việc tách phần lưu trữ thành Repository giúp chương trình dễ dàng thay đổi cách lưu dữ liệu trong tương lai.
-
----
-
-# 10. Kiến trúc chương trình
-
-```text
-View
-  ↓
-Service
-  ↓
-Repository
-  ↓
-JSON Data
-```
-
-Trong đó:
-
-- **View**: giao diện tương tác với người dùng.
-- **Service**: xử lý nghiệp vụ.
-- **Repository**: đọc và ghi dữ liệu.
-- **Model**: mô tả đối tượng dữ liệu.
-- **Data Structures**: cài đặt Queue, Stack, Linked List, BST.
-- **Algorithms**: cài đặt các thuật toán sắp xếp và Benchmark.
-
----
-
-# 11. Cách chạy chương trình
-
-### Bước 1: Clone project
+Clone repository:
 
 ```bash
 git clone https://github.com/dinhanh1991/library_managerment.git
 ```
 
-### Bước 2: Di chuyển vào thư mục project
+Di chuyển vào thư mục project:
 
 ```bash
 cd library_managerment/LibraryManagement
 ```
 
-### Bước 3: Cài đặt thư viện cần thiết
+Cài thư viện sử dụng cho giao diện và benchmark:
 
 ```bash
 pip install rich matplotlib
 ```
 
-### Bước 4: Chạy chương trình
+Chạy chương trình:
 
 ```bash
 python main.py
@@ -292,15 +453,21 @@ python main.py
 
 ---
 
-# 12. Chạy Benchmark
+## 12. Chạy Benchmark
+
+Chạy benchmark:
 
 ```bash
 python algorithms/benchmark.py
 ```
 
-Kết quả được lưu vào `data/benchmark_results.csv`.
+Sau khi chạy, kết quả được ghi vào:
 
-Tạo biểu đồ:
+```text
+data/benchmark_results.csv
+```
+
+Tạo biểu đồ từ kết quả benchmark:
 
 ```bash
 python algorithms/plot_benchmark.py
@@ -308,80 +475,25 @@ python algorithms/plot_benchmark.py
 
 ---
 
-# 13. Độ phức tạp thuật toán
+## 13. Mục tiêu của project
 
-### Bubble Sort
+Project được phát triển để áp dụng kiến thức **Cấu trúc dữ liệu và Giải thuật** vào một bài toán quản lý cụ thể.
 
-```text
-Best:    O(n)
-Average: O(n²)
-Worst:   O(n²)
-Space:   O(1)
-```
+Các nội dung chính được thực hành trong chương trình:
 
-### Selection Sort
-
-```text
-Best:    O(n²)
-Average: O(n²)
-Worst:   O(n²)
-Space:   O(1)
-```
-
-### Insertion Sort
-
-```text
-Best:    O(n)
-Average: O(n²)
-Worst:   O(n²)
-Space:   O(1)
-```
-
-### Quick Sort
-
-```text
-Best:    O(n log n)
-Average: O(n log n)
-Worst:   O(n²)
-```
-
-### Merge Sort
-
-```text
-Best:    O(n log n)
-Average: O(n log n)
-Worst:   O(n log n)
-Space:   O(n)
-```
-
-### Heap Sort
-
-```text
-Best:    O(n log n)
-Average: O(n log n)
-Worst:   O(n log n)
-Space:   O(1)
-```
+- Thiết kế chương trình thành nhiều module.
+- Quản lý dữ liệu sách và độc giả.
+- Cài đặt Queue, Stack, Linked List và Binary Search Tree.
+- Cài đặt 6 thuật toán sắp xếp.
+- Đếm phép so sánh và phép gán trong thuật toán.
+- Đo thời gian chạy với nhiều kích thước dữ liệu.
+- Lưu và phân tích kết quả benchmark.
+- Viết kiểm thử cho các nghiệp vụ chính.
+- Quản lý source code bằng Git/GitHub.
 
 ---
 
-# 14. Mục tiêu học tập
-
-Project được thực hiện nhằm áp dụng kiến thức môn **Cấu trúc dữ liệu và Giải thuật** vào một bài toán thực tế.
-
-Thông qua project, người thực hiện thực hành:
-
-- Quản lý dữ liệu bằng Python.
-- Xây dựng các cấu trúc dữ liệu cơ bản.
-- Cài đặt thuật toán sắp xếp.
-- Phân tích độ phức tạp thuật toán.
-- Đo và so sánh hiệu năng thực tế.
-- Tổ chức mã nguồn thành các module.
-- Sử dụng Git và GitHub để quản lý source code.
-
----
-
-# 15. Tác giả
+## 14. Tác giả
 
 **Lê Đình Anh**
 
