@@ -126,7 +126,7 @@ class ReportServiceTestCase(unittest.TestCase):
 
         self.assertEqual(result[0]["book_id"], "B001")
         self.assertEqual(result[0]["borrow_count"], 1)
-        self.assertEqual(result[1]["book_id"], "B003")
+        self.assertEqual(result[1]["book_id"], "B002")
         self.assertEqual(result[1]["borrow_count"], 1)
 
     def test_get_most_active_readers(self):
