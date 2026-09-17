@@ -1,49 +1,122 @@
 # 📚 Library Management
 
-Ứng dụng quản lý thư viện chạy trên **Console**, được phát triển bằng **Python** để thực hành **Cấu trúc dữ liệu và Giải thuật** trong một chương trình thực tế.
+Ứng dụng **quản lý thư viện trên Console**, được xây dựng bằng **Python** nhằm thực hành **Cấu trúc dữ liệu và Giải thuật** trong một chương trình thực tế.
 
-## 1. Chức năng chính
+Project được tổ chức theo hướng module, tách phần giao diện, điều phối, nghiệp vụ, lưu trữ dữ liệu, cấu trúc dữ liệu và thuật toán để dễ học, kiểm thử và mở rộng.
 
-### Quản lý sách
-- Thêm, xóa và cập nhật sách.
-- Hiển thị danh sách sách và tình trạng `Có sẵn` / `Hết`.
+---
+
+## 1. Mục tiêu project
+
+Project tập trung vào các nội dung:
+
+- Quản lý sách và độc giả.
+- Quản lý quy trình mượn/trả sách.
+- Thực hành Queue, Stack, Linked List và Binary Search Tree.
+- Cài đặt nhiều thuật toán sắp xếp và so sánh hiệu năng.
+- Tách nghiệp vụ khỏi giao diện Console.
+- Lưu dữ liệu bằng JSON và kết quả benchmark bằng CSV.
+- Viết unit test cho nghiệp vụ, cấu trúc dữ liệu, repository và UI.
+- Thực hành Git/GitHub và GitHub Actions.
+
+---
+
+## 2. Chức năng chính
+
+### 📖 Quản lý sách
+
+- Thêm sách.
+- Cập nhật sách.
+- Xóa sách.
+- Hiển thị danh sách sách.
+- Hiển thị trạng thái `Có sẵn` / `Hết`.
 - Tìm kiếm theo tên sách hoặc tác giả.
-- Tìm kiếm nâng cao theo tên, tác giả, thể loại, năm xuất bản, ISBN và tình trạng.
+- Tìm kiếm nâng cao theo nhiều tiêu chí.
+- Kiểm tra dữ liệu đầu vào của sách.
+- Không cho cập nhật/xóa sách khi còn giao dịch mượn đang hoạt động theo các quy tắc nghiệp vụ của project.
 
-Thông tin sách gồm:
+Thông tin sách hiện gồm:
 
 ```text
 book_id | title | author | publish_year | quantity | category | isbn
 ```
 
-### Quản lý độc giả
-- Thêm, cập nhật và xóa độc giả.
-- Không cho xóa độc giả đang có giao dịch mượn.
+### 👤 Quản lý độc giả
+
+- Thêm độc giả.
+- Cập nhật độc giả.
+- Xóa độc giả.
 - Xem lịch sử giao dịch.
-- Xem các lượt mượn quá hạn.
+- Kiểm tra các lượt mượn quá hạn.
+- Áp dụng các quy tắc nghiệp vụ khi xóa/cập nhật độc giả.
 
-### Mượn và trả sách
-- Kiểm tra sách còn số lượng trước khi mượn.
-- Mỗi lượt mượn có thời hạn 14 ngày.
-- Lượt mượn mới được đưa vào Queue với trạng thái `pending`.
-- Xử lý người tiếp theo trong Queue chuyển trạng thái sang `borrowed`.
+### 📚 Mượn sách
+
+- Kiểm tra số lượng sách trước khi mượn.
+- Tạo lượt mượn mới với thời hạn mặc định 14 ngày.
+- Lượt mượn mới được quản lý qua Queue với trạng thái `pending`.
+- Xử lý người tiếp theo trong Queue theo nguyên tắc FIFO.
+- Chuyển giao dịch sang trạng thái `borrowed` khi được xử lý.
 - Không cho độc giả đang có lượt mượn quá hạn tạo lượt mượn mới.
-- Khi trả sách, số lượng được hoàn lại, giao dịch được chuyển sang `returned` và lưu vào lịch sử.
 
-## 2. Cấu trúc dữ liệu
+### ↩️ Trả sách
+
+- Kiểm tra giao dịch đang mượn.
+- Hoàn lại số lượng sách.
+- Chuyển giao dịch sang `returned`.
+- Lưu lịch sử trả sách.
+- Sử dụng Stack cho phần lịch sử trả theo nguyên tắc LIFO.
+
+### 🔎 Tìm kiếm
+
+Hỗ trợ tìm kiếm nâng cao theo các thông tin như:
+
+- Tên sách.
+- Tác giả.
+- Thể loại.
+- Năm xuất bản.
+- ISBN.
+- Tình trạng sách.
+
+### 📊 Báo cáo và thống kê
+
+Project có `ReportService` và `ReportView` riêng cho phần báo cáo.
+
+Các báo cáo gồm:
+
+- Tổng quan thư viện.
+- Thống kê sách.
+- Thống kê mượn/trả.
+- Thống kê theo thể loại.
+- Danh sách quá hạn.
+- Top sách được mượn nhiều.
+- Top độc giả hoạt động nhiều.
+- Thống kê hoạt động trong một khoảng thời gian.
+
+Dashboard chính cũng lấy dữ liệu thống kê từ `ReportService`, giúp tách phần **tính toán dữ liệu** khỏi phần **hiển thị Console**.
+
+---
+
+## 3. Cấu trúc dữ liệu
 
 Project tự cài đặt các cấu trúc dữ liệu cơ bản:
 
 | Cấu trúc | Mục đích | Nguyên tắc |
 |---|---|---|
 | Queue | Quản lý hàng đợi mượn sách | FIFO |
-| Stack | Lưu lịch sử trả sách | LIFO |
-| Linked List | Lưu và tìm kiếm danh sách sách | Danh sách liên kết đơn |
-| Binary Search Tree | Tổ chức sách theo `book_id` | BST |
+| Stack | Quản lý lịch sử trả sách | LIFO |
+| Linked List | Lưu và thao tác danh sách sách | Danh sách liên kết đơn |
+| Binary Search Tree | Tổ chức/tìm kiếm theo `book_id` | BST |
 
-Các module tương ứng nằm trong `LibraryManagement/data_structures/`.
+Các implementation nằm trong:
 
-## 3. Thuật toán sắp xếp
+```text
+LibraryManagement/data_structures/
+```
+
+---
+
+## 4. Thuật toán sắp xếp
 
 File `algorithms/sorting.py` cài đặt 6 thuật toán:
 
@@ -54,13 +127,13 @@ File `algorithms/sorting.py` cài đặt 6 thuật toán:
 5. Merge Sort
 6. Heap Sort
 
-Các thuật toán hỗ trợ sắp xếp theo:
+Các thuật toán hỗ trợ sắp xếp theo các key như:
 
 - `title`
 - `publish_year`
 - `book_id`
 
-Mỗi thuật toán trả về:
+Kết quả thuật toán bao gồm danh sách sau khi sắp xếp cùng số phép so sánh và phép gán:
 
 ```text
 (sorted_books, comparisons, assignments)
@@ -77,19 +150,25 @@ Mỗi thuật toán trả về:
 | Merge Sort | O(n log n) | O(n log n) | O(n log n) |
 | Heap Sort | O(n log n) | O(n log n) | O(n log n) |
 
-> Lưu ý: implementation Bubble Sort hiện tại không có bước dừng sớm, nên trường hợp tốt nhất thực tế vẫn là O(n²).
+> **Lưu ý:** Bubble Sort hiện tại không có bước dừng sớm, vì vậy trường hợp tốt nhất của implementation này vẫn là O(n²).
 
-## 4. Benchmark
+### Strategy Pattern
+
+Phần chọn thuật toán sắp xếp được tách qua `sort_strategy.py`. Mục đích là để có thể thay đổi thuật toán mà không phải sửa phần code điều phối chính.
+
+---
+
+## 5. Benchmark và biểu đồ
 
 `algorithms/benchmark.py` dùng để so sánh hiệu năng của 6 thuật toán.
 
-Các kích thước dữ liệu hiện tại:
+Các kích thước dữ liệu benchmark hiện tại:
 
 ```text
 25, 100, 500, 1000, 10000
 ```
 
-Mỗi kích thước chạy **5 lần** trên dữ liệu đã được xáo trộn và lấy giá trị trung bình.
+Mỗi kích thước được chạy **5 lần** trên dữ liệu đã xáo trộn và lấy kết quả trung bình.
 
 Benchmark ghi nhận:
 
@@ -103,62 +182,104 @@ Kết quả được lưu tại:
 data/benchmark_results.csv
 ```
 
-`algorithms/plot_benchmark.py` tạo:
+Sau đó `algorithms/plot_benchmark.py` tạo các biểu đồ:
 
 ```text
 data/benchmark_all_algorithms.png
 data/benchmark_nlogn.png
 ```
 
-## 5. Kiểm thử
+---
 
-Project hiện có bộ test trong `LibraryManagement/tests/`, gồm:
+## 6. Kiến trúc chương trình
+
+Luồng xử lý tổng quát:
 
 ```text
-tests/
-├── test_book_view.py
-├── test_borrow_business_rules.py
-├── test_borrow_queue_consistency.py
-├── test_data_structures.py
-├── test_library_service.py
-├── test_reader_business_rules.py
-├── test_repositories.py
-├── test_return_book_borrowed.py
-├── test_search_business_rules.py
-├── test_sorting_business_rules.py
-├── test_ui_and_input.py
-├── test_update_book_borrowing.py
-└── test_book_numeric_validation.py
+Người dùng
+    ↓
+main.py
+    ↓
+LibraryController
+    ↓
+Views / Controllers chức năng
+    ↓
+LibraryService (Facade)
+    ↓
+Domain Services
+    ↓
+Repositories + Data Structures
+    ↓
+JSON / CSV
 ```
 
-Các nhóm test bao phủ:
+### Các tầng chính
 
-- Book CRUD và hiển thị tình trạng sách.
-- Quy tắc mượn sách.
-- Queue và tính nhất quán khi xử lý hàng đợi.
-- Queue, Stack, Linked List và Binary Search Tree.
-- Repository: JSON hợp lệ, JSON lỗi, dữ liệu sai cấu trúc và lỗi ghi file.
-- Return và đồng bộ lịch sử trả.
-- Reader CRUD, lịch sử và quá hạn.
-- Tìm kiếm nâng cao.
-- 6 thuật toán sắp xếp.
-- Input và các luồng UI chính.
-- Chặn cập nhật/xóa sách khi có giao dịch đang hoạt động.
+**Models**
 
-Chạy toàn bộ test từ thư mục `LibraryManagement` bằng:
+- Biểu diễn dữ liệu như sách, độc giả và giao dịch mượn/trả.
 
-```bash
-python -m unittest discover -s tests -v
-```
+**Views**
 
-GitHub Actions cũng chạy toàn bộ unit test trên Python 3.12 khi push hoặc tạo pull request vào `main`.
+- Hiển thị menu.
+- Nhận input từ người dùng.
+- Hiển thị bảng, panel và thông báo bằng Rich.
 
-## 6. Cấu trúc project
+**Controllers**
+
+- Điều phối luồng xử lý từ menu.
+- Tách việc điều phối khỏi phần hiển thị.
+
+**Services**
+
+- Chứa nghiệp vụ của hệ thống.
+- `LibraryService` đóng vai trò Facade cho các nghiệp vụ chính.
+- Các service chuyên trách gồm sách, mượn, trả, độc giả và báo cáo.
+
+**Repositories**
+
+- Đọc/ghi dữ liệu JSON.
+- Tách tầng lưu trữ khỏi nghiệp vụ.
+
+**Data Structures**
+
+- Queue.
+- Stack.
+- Linked List.
+- Binary Search Tree.
+
+**Algorithms**
+
+- Sorting.
+- Strategy cho lựa chọn thuật toán.
+- Benchmark.
+- Plot benchmark.
+
+---
+
+## 7. Một số nguyên tắc thiết kế được áp dụng
+
+Project có áp dụng các nguyên tắc/pattern ở mức phù hợp với bài tập:
+
+- **MVC**: tách View, Controller và phần nghiệp vụ.
+- **Repository Pattern**: tách lưu trữ JSON khỏi business logic.
+- **Service Layer**: gom nghiệp vụ theo từng nhóm chức năng.
+- **Facade**: `LibraryService` cung cấp interface nghiệp vụ thống nhất cho tầng trên.
+- **Strategy Pattern**: tách lựa chọn thuật toán sắp xếp.
+- **Dependency Injection**: cho phép truyền service/view từ bên ngoài trong các thành phần cần test hoặc thay thế implementation.
+- **SRP/OCP/DIP**: được áp dụng ở các phần đã refactor nhằm giảm coupling và dễ kiểm thử.
+
+Mục tiêu của việc áp dụng các nguyên tắc trên là **dễ hiểu, dễ test và dễ mở rộng**, thay vì cố gắng áp dụng pattern một cách máy móc.
+
+---
+
+## 8. Cấu trúc project
 
 ```text
 LibraryManagement/
 ├── algorithms/
 │   ├── sorting.py
+│   ├── sort_strategy.py
 │   ├── benchmark.py
 │   ├── plot_benchmark.py
 │   └── test_sorting.py
@@ -171,9 +292,9 @@ LibraryManagement/
 │
 ├── data/
 │   ├── books.json
+│   ├── readers.json
 │   ├── borrowers_list.json
 │   ├── borrow_queue.json
-│   ├── readers.json
 │   ├── return_history.json
 │   ├── benchmark_results.csv
 │   └── benchmark images
@@ -186,165 +307,210 @@ LibraryManagement/
 │
 ├── models/
 ├── repositories/
+│
 ├── services/
-│   └── library_service.py
+│   ├── book_service.py
+│   ├── borrow_service.py
+│   ├── library_service.py
+│   ├── library_state.py
+│   ├── reader_service.py
+│   ├── report_service.py
+│   └── return_service.py
+│
 ├── utils/
+│
 ├── views/
+│   ├── library_view.py
+│   ├── book_view.py
+│   ├── borrow_view.py
+│   ├── return_view.py
+│   ├── reader_view.py
+│   ├── search_view.py
+│   ├── sort_view.py
+│   ├── bst_view.py
+│   ├── linked_list_view.py
+│   └── report_view.py
+│
 ├── tests/
-├── .gitignore
 ├── __init__.py
 └── main.py
 ```
 
-## 7. Kiến trúc chương trình
+---
+
+## 9. Kiểm thử
+
+Bộ unit test nằm trong `LibraryManagement/tests/` và bao phủ nhiều nhóm chức năng:
+
+- Validation dữ liệu sách.
+- Book View và UI.
+- Quy tắc nghiệp vụ mượn sách.
+- Tính nhất quán của Queue.
+- Validation ngày mượn/trả.
+- Queue, Stack, Linked List và BST.
+- `LibraryService`.
+- Reader business rules.
+- `ReportService`.
+- Repository và xử lý dữ liệu JSON.
+- Return book.
+- Search business rules.
+- Sorting business rules.
+- UI và input.
+- Các trường hợp cập nhật/xóa sách khi đang có giao dịch.
+
+### Kết quả hiện tại
+
+Đã chạy bộ test hiện tại với kết quả:
 
 ```text
-Người dùng
-    ↓
-main.py
-    ↓
-LibraryController
-    ↓
-Views / Controllers
-    ↓
-LibraryService
-    ↓
-Models + Data Structures + Repositories
-    ↓
-JSON / CSV / biểu đồ
+Ran 108 tests
+OK
 ```
 
-- **Models**: biểu diễn dữ liệu.
-- **Views**: giao diện Console và nhập/xuất.
-- **Controllers**: điều phối thao tác người dùng.
-- **Service**: xử lý nghiệp vụ trung tâm.
-- **Repositories**: đọc/ghi dữ liệu JSON.
-- **Data Structures**: cài đặt Queue, Stack, Linked List và BST.
-- **Algorithms**: sắp xếp và benchmark.
+> Kết quả trên phản ánh lần chạy test hiện tại của project; khi code tiếp tục thay đổi, nên chạy lại test trước khi kết luận trạng thái cuối cùng.
 
-## 8. Công nghệ
+### Chạy test
 
-- Python 3
-- Rich
-- Matplotlib
-- JSON
-- CSV
-- Git / GitHub
+Từ thư mục `LibraryManagement`:
 
-## 9. Cài đặt và chạy
+```bash
+python -m unittest discover -s tests -v
+```
 
-### 9.1. Yêu cầu môi trường
+---
+
+## 10. GitHub Actions
+
+Project có workflow kiểm thử tự động khi:
+
+- Push lên `main`.
+- Tạo Pull Request vào `main`.
+
+Workflow cài Python 3.12, cài dependency cần thiết và chạy:
+
+```bash
+python -m unittest discover -s LibraryManagement/tests -v
+```
+
+---
+
+## 11. Công nghệ
+
+- **Python 3.12+**
+- **Rich** — giao diện Console.
+- **Matplotlib** — biểu đồ benchmark.
+- **JSON** — lưu dữ liệu ứng dụng.
+- **CSV** — lưu kết quả benchmark.
+- **unittest** — unit testing.
+- **Git / GitHub** — quản lý source code và CI.
+
+---
+
+## 12. Cài đặt và chạy
+
+### 12.1. Yêu cầu
 
 - Python 3.12 hoặc mới hơn.
-- `pip` để cài đặt thư viện Python.
+- `pip`.
 - Git nếu muốn clone repository.
 
-### 9.2. Clone repository
+### 12.2. Clone repository
 
 ```bash
 git clone https://github.com/dinhanh1991/library_managerment.git
 cd library_managerment/LibraryManagement
 ```
 
-### 9.3. Cài đặt thư viện
-
-Cài các thư viện cần thiết cho chương trình và kiểm thử:
+### 12.3. Cài thư viện
 
 ```bash
 python -m pip install rich matplotlib
 ```
 
-> Nếu máy sử dụng `py` thay cho `python`, có thể dùng `py -m pip install rich matplotlib`.
+Nếu máy sử dụng `py` thay cho `python`:
 
-### 9.4. Chạy chương trình
+```bash
+py -m pip install rich matplotlib
+```
 
-Từ thư mục `LibraryManagement`, chạy:
+### 12.4. Chạy chương trình
 
 ```bash
 python main.py
 ```
 
-Chương trình sẽ mở giao diện quản lý thư viện trên Console.
-
-### 9.5. Chạy toàn bộ unit test
+### 12.5. Chạy unit test
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-Nếu tất cả test thành công, cuối kết quả sẽ hiển thị dạng:
-
-```text
-Ran ... tests
-OK
-```
-
-### 9.6. Chạy benchmark
-
-Chạy benchmark để đo thời gian, số phép so sánh và số phép gán của 6 thuật toán:
+### 12.6. Chạy benchmark
 
 ```bash
 python algorithms/benchmark.py
 ```
 
-Kết quả được ghi vào:
-
-```text
-data/benchmark_results.csv
-```
-
-### 9.7. Tạo biểu đồ benchmark
-
-Sau khi chạy benchmark, tạo các biểu đồ bằng:
+### 12.7. Tạo biểu đồ benchmark
 
 ```bash
 python algorithms/plot_benchmark.py
 ```
 
-Các biểu đồ được tạo tại:
+### Quy trình nhanh
+
+```bash
+python main.py
+python -m unittest discover -s tests -v
+python algorithms/benchmark.py
+python algorithms/plot_benchmark.py
+```
+
+---
+
+## 13. Dữ liệu và kết quả sinh ra
+
+Dữ liệu ứng dụng được lưu trong:
 
 ```text
+data/books.json
+data/readers.json
+data/borrowers_list.json
+data/borrow_queue.json
+data/return_history.json
+```
+
+Kết quả benchmark:
+
+```text
+data/benchmark_results.csv
 data/benchmark_all_algorithms.png
 data/benchmark_nlogn.png
 ```
 
-### 9.8. Quy trình chạy nhanh
+---
 
-Nếu đã cài đủ thư viện, có thể chạy theo thứ tự:
+## 14. Nội dung học tập / yêu cầu bài tập
 
-```bash
-python main.py
-python -m unittest discover -s tests -v
-python algorithms/benchmark.py
-python algorithms/plot_benchmark.py
-```
+Project phục vụ việc thực hành các nội dung chính:
 
-## 10. Chạy benchmark
+| Nội dung | Thực hiện |
+|---|---|
+| Lập kế hoạch | Có |
+| Quản lý sách | Có |
+| Queue | Có |
+| Stack | Có |
+| Linked List | Có |
+| Binary Search Tree | Có |
+| Thuật toán sắp xếp | 6 thuật toán |
+| Benchmark | Có |
+| Phân tích độ phức tạp | Có |
+| Unit Test | Có |
+| Git/GitHub | Có |
 
-```bash
-python algorithms/benchmark.py
-```
+---
 
-Tạo biểu đồ:
-
-```bash
-python algorithms/plot_benchmark.py
-```
-
-## 11. Mục tiêu học tập
-
-Project được xây dựng nhằm thực hành:
-
-- Thiết kế chương trình Python theo module.
-- Áp dụng Queue, Stack, Linked List và Binary Search Tree.
-- Cài đặt và so sánh 6 thuật toán sắp xếp.
-- Đếm phép so sánh và phép gán.
-- Đo hiệu năng trên nhiều kích thước dữ liệu.
-- Thiết kế tầng Repository và Service.
-- Viết kiểm thử cho các nghiệp vụ chính.
-- Quản lý source code bằng Git/GitHub.
-
-## 12. Tác giả
+## 15. Tác giả
 
 **Lê Đình Anh**
 
