@@ -117,9 +117,9 @@ class ReportServiceTestCase(unittest.TestCase):
         )
 
         self.assertEqual(result["total_active"], 2)
-        self.assertEqual(result["reader_summary"]["Nguyễn Văn A"], 2)
+        self.assertEqual(result["reader_summary"]["Nguyễn Văn A"], 1)
         self.assertEqual(result["reader_summary"]["Trần Văn B"], 1)
-        self.assertEqual(result["category_summary"]["Lập trình"], 2)
+        self.assertEqual(result["category_summary"]["Lập trình"], 1)
         self.assertEqual(result["category_summary"]["Cấu trúc dữ liệu"], 1)
         self.assertEqual(result["status_summary"]["borrowed"], 1)
         self.assertEqual(result["status_summary"]["pending"], 1)
