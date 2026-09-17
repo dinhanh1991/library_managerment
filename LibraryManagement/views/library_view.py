@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 
 from rich import box
 from rich.panel import Panel
@@ -14,6 +14,7 @@ from LibraryManagement.views.search_view import SearchView
 from LibraryManagement.views.bst_view import BSTView
 from LibraryManagement.views.linked_list_view import LinkedListView
 from LibraryManagement.views.report_view import ReportView
+from LibraryManagement.services.report_service import ReportService
 
 
 class LibraryView(BaseView):
@@ -28,103 +29,21 @@ class LibraryView(BaseView):
         self.search_view = SearchView(service)
         self.bst_view = BSTView(service)
         self.linked_list_view = LinkedListView(service)
+        self.report_service = ReportService(service)
         self.report_view = ReportView(service)
 
     def get_dashboard_stats(self):
-        books = self.service.get_all_books()
-        active_borrowers = self.service.get_active_borrowers()
-        overdue = self.service.get_overdue_borrowers()
-        total_books = len(books)
-        total_available = sum(1 for book in books if book.quantity > 0)
-        current_borrowed = sum(
-            1 for borrower in active_borrowers
-            if borrower.status == "borrowed"
+        stats = self.report_service.get_dashboard_stats()
+        return (
+            stats["total_books"],
+            stats["total_available"],
+            stats["current_borrowed"],
+            stats["overdue_count"],
+            stats["category_counts"],
         )
-        overdue_count = len(overdue)
-        categories = {}
-
-        book_by_id = {book.book_id: book for book in books}
-        for borrower in active_borrowers:
-            if borrower.status != "borrowed":
-                continue
-            book = book_by_id.get(borrower.book_id)
-            category = getattr(book, "category", "") or "Chưa phân loại"
-            categories[category] = categories.get(category, 0) + 1
-
-        return total_books, total_available, current_borrowed, overdue_count, dict(sorted(categories.items(), key=lambda item: item[1], reverse=True))
 
     def get_time_window_stats(self, days=30, as_of=None):
-        as_of = as_of or date.today()
-        active_borrowers = self.service.get_active_borrowers()
-        returned_borrowers = self.service.get_return_history()
-        books = {book.book_id: book for book in self.service.get_all_books()}
-
-        active_window = []
-        returned_window = []
-
-        for borrower in active_borrowers:
-            if not borrower.borrow_date:
-                continue
-            try:
-                borrow_date = date.fromisoformat(borrower.borrow_date)
-            except ValueError:
-                continue
-            days_since_borrow = as_of - borrow_date
-            if timedelta(days=0) <= days_since_borrow <= timedelta(days=days):
-                active_window.append(borrower)
-
-        for borrower in returned_borrowers:
-            if not borrower.return_date:
-                continue
-            try:
-                return_date = date.fromisoformat(borrower.return_date)
-            except ValueError:
-                continue
-            days_since_return = as_of - return_date
-            if timedelta(days=0) <= days_since_return <= timedelta(days=days):
-                returned_window.append(borrower)
-
-        category_summary = {}
-        reader_summary = {}
-        status_summary = {
-            "borrowed": 0,
-            "pending": 0,
-            "overdue": 0,
-            "returned": 0,
-        }
-
-        for borrower in active_window:
-            status = borrower.status
-
-            if status in {"borrowed", "pending"}:
-                status_summary[status] += 1
-
-            if status in {"borrowed", "pending"} and self.service._is_overdue(borrower, as_of):
-                status_summary["overdue"] += 1
-
-            book = books.get(borrower.book_id)
-            category = getattr(book, "category", "") or "Chưa phân loại"
-            category_summary[category] = category_summary.get(category, 0) + 1
-
-            reader_summary[borrower.name] = reader_summary.get(borrower.name, 0) + 1
-
-        for borrower in returned_window:
-            status_summary["returned"] += 1
-
-            book = books.get(borrower.book_id)
-            category = getattr(book, "category", "") or "Chưa phân loại"
-            category_summary[category] = category_summary.get(category, 0) + 1
-
-            reader_summary[borrower.name] = reader_summary.get(borrower.name, 0) + 1
-
-        total_active = len(active_window)
-        return {
-            "days": days,
-            "total_active": total_active,
-            "reader_summary": dict(sorted(reader_summary.items(), key=lambda item: item[1], reverse=True)),
-            "category_summary": dict(sorted(category_summary.items(), key=lambda item: item[1], reverse=True)),
-            "status_summary": dict(sorted(status_summary.items(), key=lambda item: (item[0] != "borrowed", -item[1]))),
-        }
+        return self.report_service.get_time_window_stats(days, as_of)
 
     def _render_dark_panel(self, body, title, border_color="bright_cyan", accent="white", subtitle=None):
         return Panel(
