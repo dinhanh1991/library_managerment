@@ -77,6 +77,15 @@ class FakeLibraryService:
     def get_all_readers(self):
         return self.readers
 
+    def _is_overdue(self, borrower, current_date):
+        if not borrower.due_date:
+            return False
+        try:
+            due_date = date.fromisoformat(borrower.due_date)
+        except ValueError:
+            return False
+        return borrower.status in {"borrowed", "pending"} and due_date < current_date
+
 
 class ReportServiceTestCase(unittest.TestCase):
     def setUp(self):
@@ -91,6 +100,31 @@ class ReportServiceTestCase(unittest.TestCase):
         self.assertEqual(result["pending"], 1)
         self.assertEqual(result["overdue"], 1)
         self.assertEqual(result["total_readers"], 2)
+
+    def test_get_dashboard_stats(self):
+        result = self.service.get_dashboard_stats()
+
+        self.assertEqual(result["total_books"], 3)
+        self.assertEqual(result["total_available"], 2)
+        self.assertEqual(result["current_borrowed"], 1)
+        self.assertEqual(result["overdue_count"], 1)
+        self.assertEqual(result["category_counts"], {"Lập trình": 1})
+
+    def test_get_time_window_stats(self):
+        result = self.service.get_time_window_stats(
+            days=30,
+            as_of=date(2026, 9, 16),
+        )
+
+        self.assertEqual(result["total_active"], 2)
+        self.assertEqual(result["reader_summary"]["Nguyễn Văn A"], 2)
+        self.assertEqual(result["reader_summary"]["Trần Văn B"], 1)
+        self.assertEqual(result["category_summary"]["Lập trình"], 2)
+        self.assertEqual(result["category_summary"]["Cấu trúc dữ liệu"], 1)
+        self.assertEqual(result["status_summary"]["borrowed"], 1)
+        self.assertEqual(result["status_summary"]["pending"], 1)
+        self.assertEqual(result["status_summary"]["overdue"], 1)
+        self.assertEqual(result["status_summary"]["returned"], 1)
 
     def test_get_book_statistics(self):
         result = self.service.get_book_statistics()
