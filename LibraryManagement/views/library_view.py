@@ -13,6 +13,7 @@ from LibraryManagement.views.sort_view import SortView
 from LibraryManagement.views.search_view import SearchView
 from LibraryManagement.views.bst_view import BSTView
 from LibraryManagement.views.linked_list_view import LinkedListView
+from LibraryManagement.views.report_view import ReportView
 
 
 class LibraryView(BaseView):
@@ -27,6 +28,7 @@ class LibraryView(BaseView):
         self.search_view = SearchView(service)
         self.bst_view = BSTView(service)
         self.linked_list_view = LinkedListView(service)
+        self.report_view = ReportView(service)
 
     def get_dashboard_stats(self):
         books = self.service.get_all_books()
@@ -220,17 +222,8 @@ class LibraryView(BaseView):
         self.console.print()
         self.console.print(cards)
 
-        stats_panel = Table.grid(expand=True)
-        stats_panel.add_column(justify="left")
-        stats_panel.add_column(justify="left")
-
         categories = category_counts or {"Chưa phân loại": 0}
         max_count = max(categories.values()) if categories else 1
-
-        chart_rows = []
-        for name, count in categories.items():
-            bar = self._build_bar_segment(count, max_count, width=30)
-            chart_rows.append((name, count, bar))
 
         chart_table = Table(
             title="📈 BIỂU ĐỒ CỘT - SÁCH ĐANG MƯỢN THEO THỂ LOẠI",
@@ -245,8 +238,8 @@ class LibraryView(BaseView):
         chart_table.add_column("SL", justify="center", style="bold cyan")
         chart_table.add_column("BIỂU ĐỒ", style="bold magenta")
 
-        for name, count, bar in chart_rows[:6]:
-            chart_table.add_row(name, str(count), bar)
+        for name, count in list(categories.items())[:6]:
+            chart_table.add_row(name, str(count), self._build_bar_segment(count, max_count, width=30))
 
         reader_summary = window_stats["reader_summary"]
         reader_table = Table(
@@ -386,6 +379,7 @@ class LibraryView(BaseView):
             " [6] 🔗 Hiển thị Linked List\n"
             " [7] 📊 Sắp xếp sách\n"
             " [8] 👥 Quản lý độc giả\n"
+            " [9] 📊 Báo cáo & thống kê\n"
             " [0] 🚪 Thoát chương trình"
         )
         self.render_menu("📚 LIBRARY MANAGEMENT SYSTEM", menu_content, accent="bright_cyan")
@@ -404,6 +398,7 @@ class LibraryView(BaseView):
                 "6": self.linked_list_view.run,
                 "7": self.sort_view.run,
                 "8": self.reader_view.run,
+                "9": self.report_view.run,
             },
         )
         self.console.print("\n[bold green]👋 Cảm ơn bạn đã sử dụng hệ thống![/bold green]")
