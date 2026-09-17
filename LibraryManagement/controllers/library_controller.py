@@ -1,5 +1,6 @@
 from LibraryManagement.services.library_service import LibraryService
 from LibraryManagement.views.library_view import LibraryView
+from LibraryManagement.views.report_view import ReportView
 from LibraryManagement.controllers.book_controller import BookController
 from LibraryManagement.controllers.borrow_controller import BorrowController
 from LibraryManagement.controllers.reader_controller import ReaderController
@@ -12,11 +13,17 @@ class LibraryController:
         # Có thể truyền service/view từ bên ngoài để test hoặc thay thế implementation.
         self.service = service or LibraryService()
         self.view = view or LibraryView(self.service)
+        self.report_view = ReportView(self.service)
 
         # Controller cấp cao giữ các controller chức năng và dùng chung service/view.
         self.book_controller = BookController(self.service, self.view.book_view)
         self.borrow_controller = BorrowController(self.service, self.view.borrow_view)
         self.reader_controller = ReaderController(self.service, self.view.reader_view)
+
+    def show_main_menu(self):
+        """Hiển thị menu hiện tại và bổ sung mục báo cáo mà không sửa Dashboard cũ."""
+        self.view.show_menu()
+        self.view.console.print(" [9] 📊 Báo cáo & thống kê")
 
     def get_actions(self):
         # Mỗi phím menu ánh xạ tới một hàm xử lý; không cần if/elif dài trong run().
@@ -29,13 +36,14 @@ class LibraryController:
             "6": self.view.linked_list_view.run,
             "7": self.view.sort_view.run,
             "8": self.reader_controller.run,
+            "9": self.report_view.run,
         }
 
     def run(self):
         # View chỉ hiển thị dashboard/menu; Controller quyết định thứ tự gọi chúng.
         self.view.show_welcome_banner()
         self.view.show_dashboard()
-        self.view.run_menu(self.view.show_menu, self.get_actions())
+        self.view.run_menu(self.show_main_menu, self.get_actions())
         self.view.console.print(
             "\n[bold green]👋 Cảm ơn bạn đã sử dụng hệ thống![/bold green]"
         )
