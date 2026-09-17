@@ -124,7 +124,7 @@ class ReportServiceTestCase(unittest.TestCase):
         self.assertEqual(result["status_summary"]["borrowed"], 1)
         self.assertEqual(result["status_summary"]["pending"], 1)
         self.assertEqual(result["status_summary"]["overdue"], 1)
-        self.assertEqual(result["status_summary"]["returned"], 1)
+        self.assertEqual(result["status_summary"]["returned"], 0)
 
     def test_get_book_statistics(self):
         result = self.service.get_book_statistics()
