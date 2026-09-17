@@ -97,7 +97,11 @@ class ReportService:
         books = {book.book_id: book for book in self.library_service.get_all_books()}
         result = []
 
-        for book_id, count in counts.most_common():
+        # Sắp xếp theo lượt mượn giảm dần, sau đó theo mã sách tăng dần.
+        for book_id, count in sorted(
+            counts.items(),
+            key=lambda item: (-item[1], item[0]),
+        ):
             book = books.get(book_id)
             result.append({
                 "book_id": book_id,
