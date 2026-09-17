@@ -1,5 +1,5 @@
 from collections import Counter
-from datetime import date
+from datetime import date, timedelta
 
 
 class ReportService:
@@ -20,6 +20,117 @@ class ReportService:
             "pending": sum(1 for item in borrowers if item.status == "pending"),
             "overdue": len(overdue),
             "total_readers": len(self.library_service.get_all_readers()),
+        }
+
+    def get_dashboard_stats(self):
+        books = self.library_service.get_all_books()
+        borrowers = self.library_service.get_active_borrowers()
+        overdue = self.library_service.get_overdue_borrowers()
+        book_by_id = {book.book_id: book for book in books}
+        categories = Counter()
+
+        for borrower in borrowers:
+            if borrower.status != "borrowed":
+                continue
+            book = book_by_id.get(borrower.book_id)
+            category = getattr(book, "category", "") or "Chưa phân loại"
+            categories[category] += 1
+
+        return {
+            "total_books": len(books),
+            "total_available": sum(1 for book in books if book.quantity > 0),
+            "current_borrowed": sum(
+                1 for borrower in borrowers if borrower.status == "borrowed"
+            ),
+            "overdue_count": len(overdue),
+            "category_counts": dict(
+                sorted(categories.items(), key=lambda item: item[1], reverse=True)
+            ),
+        }
+
+    def get_time_window_stats(self, days=30, as_of=None):
+        as_of = as_of or date.today()
+        active_borrowers = self.library_service.get_active_borrowers()
+        returned_borrowers = self.library_service.get_return_history()
+        books = {book.book_id: book for book in self.library_service.get_all_books()}
+
+        active_window = []
+        returned_window = []
+        window = timedelta(days=days)
+
+        for borrower in active_borrowers:
+            if not borrower.borrow_date:
+                continue
+            try:
+                borrow_date = date.fromisoformat(borrower.borrow_date)
+            except (TypeError, ValueError):
+                continue
+
+            days_since_borrow = as_of - borrow_date
+            if timedelta(0) <= days_since_borrow <= window:
+                active_window.append(borrower)
+
+        for borrower in returned_borrowers:
+            if not borrower.return_date:
+                continue
+            try:
+                return_date = date.fromisoformat(borrower.return_date)
+            except (TypeError, ValueError):
+                continue
+
+            days_since_return = as_of - return_date
+            if timedelta(0) <= days_since_return <= window:
+                returned_window.append(borrower)
+
+        category_summary = Counter()
+        reader_summary = Counter()
+        status_summary = {
+            "borrowed": 0,
+            "pending": 0,
+            "overdue": 0,
+            "returned": 0,
+        }
+
+        for borrower in active_window:
+            status = borrower.status
+
+            if status in {"borrowed", "pending"}:
+                status_summary[status] += 1
+
+            if (
+                status in {"borrowed", "pending"}
+                and self.library_service._is_overdue(borrower, as_of)
+            ):
+                status_summary["overdue"] += 1
+
+            book = books.get(borrower.book_id)
+            category = getattr(book, "category", "") or "Chưa phân loại"
+            category_summary[category] += 1
+            reader_summary[borrower.name] += 1
+
+        for borrower in returned_window:
+            status_summary["returned"] += 1
+
+            book = books.get(borrower.book_id)
+            category = getattr(book, "category", "") or "Chưa phân loại"
+            category_summary[category] += 1
+            reader_summary[borrower.name] += 1
+
+        return {
+            "days": days,
+            "total_active": len(active_window),
+            "reader_summary": dict(
+                sorted(reader_summary.items(), key=lambda item: item[1], reverse=True)
+            ),
+            "category_summary": dict(
+                sorted(category_summary.items(), key=lambda item: item[1], reverse=True)
+            ),
+            "status_summary": dict(
+                sorted(
+                    status_summary.items(),
+                    key=lambda item: (item[0] != "borrowed", -item[1]),
+                )
+            ),
         }
 
     def get_book_statistics(self):
