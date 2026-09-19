@@ -79,36 +79,36 @@ class LibraryService:
         return self.state
 
     def _bootstrap_services(self):
-        self._configure_business_services()
+        self._service_registry = {
+            "book_service": BookService(
+                repository=self._repository,
+                borrower_repo=self._borrower_repo,
+                normalize_text=self._normalize_text,
+                refresh_structures=self._refresh_structures,
+            ),
+            "reader_service": ReaderService(
+                reader_repo=self._reader_repo,
+                borrower_repo=self._borrower_repo,
+                queue_repo=self._queue_repo,
+                return_history_repo=self._return_history_repo,
+                borrow_queue=self._borrow_queue,
+                normalize_text=self._normalize_text,
+                rollback=self._rollback,
+            ),
+        }
 
-    def _configure_business_services(self):
-        self.book_service = BookService(
-            repository=self._repository,
-            borrower_repo=self._borrower_repo,
-            normalize_text=self._normalize_text,
-            refresh_structures=self._refresh_structures,
-        )
-        self.reader_service = ReaderService(
-            reader_repo=self._reader_repo,
-            borrower_repo=self._borrower_repo,
-            queue_repo=self._queue_repo,
-            return_history_repo=self._return_history_repo,
-            borrow_queue=self._borrow_queue,
-            normalize_text=self._normalize_text,
-            rollback=self._rollback,
-        )
-        self.borrow_service = BorrowService(
+        self._service_registry["borrow_service"] = BorrowService(
             repository=self._repository,
             borrower_repo=self._borrower_repo,
             reader_repo=self._reader_repo,
             queue_repo=self._queue_repo,
             borrow_queue=self._borrow_queue,
             normalize_text=self._normalize_text,
-            ensure_reader=self.reader_service.ensure_reader,
+            ensure_reader=self._service_registry["reader_service"].ensure_reader,
             refresh_structures=self._refresh_structures,
             rollback=self._rollback,
         )
-        self.return_service = ReturnService(
+        self._service_registry["return_service"] = ReturnService(
             repository=self._repository,
             borrower_repo=self._borrower_repo,
             queue_repo=self._queue_repo,
@@ -120,9 +120,11 @@ class LibraryService:
             rollback=self._rollback,
         )
 
+        for service_name, service in self._service_registry.items():
+            setattr(self, service_name, service)
+
     def _iter_business_services(self):
-        for service_name in ("book_service", "reader_service", "borrow_service", "return_service"):
-            service = getattr(self, service_name, None)
+        for service in self._service_registry.values():
             if service is not None:
                 yield service
 
