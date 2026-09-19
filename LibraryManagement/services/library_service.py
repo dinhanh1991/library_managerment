@@ -124,7 +124,8 @@ class LibraryService:
             setattr(self, service_name, service)
 
     def _iter_business_services(self):
-        for service in self._service_registry.values():
+        registry = getattr(self, "_service_registry", {})
+        for service in registry.values():
             if service is not None:
                 yield service
 
