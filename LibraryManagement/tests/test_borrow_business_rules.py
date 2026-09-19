@@ -108,6 +108,19 @@ class TestBorrowBusinessRules(unittest.TestCase):
         self.assertEqual(len(self.borrower_repo.load_borrowers()), 1)
         self.assertEqual(len(self.service.borrow_queue.items), 1)
 
+    def test_get_active_borrowers_is_handled_by_borrow_service(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+
+        with patch.object(
+            self.service.borrow_service,
+            "get_active_borrowers",
+            return_value=[borrower],
+        ) as get_active_borrowers:
+            result = self.service.get_active_borrowers()
+
+        get_active_borrowers.assert_called_once_with()
+        self.assertEqual(result, [borrower])
+
     def test_get_overdue_borrowers_is_handled_by_borrow_service(self):
         borrower = Borrower("C001", "Charlie", "B001")
         borrower.status = "borrowed"
