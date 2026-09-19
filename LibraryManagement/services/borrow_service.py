@@ -30,6 +30,15 @@ class BorrowService:
     def get_active_borrowers(self):
         return self.borrower_repo.load_borrowers()
 
+    def is_book_borrowed(self, book_id):
+        book_id = self.normalize_text(book_id)
+        if not book_id:
+            return False
+        return any(
+            item.is_borrowing_book(book_id)
+            for item in self.get_active_borrowers()
+        )
+
     def get_overdue_borrowers(self, current_date=None):
         current_date = current_date or date.today()
         return [
