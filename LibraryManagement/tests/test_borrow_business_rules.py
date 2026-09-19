@@ -121,6 +121,17 @@ class TestBorrowBusinessRules(unittest.TestCase):
         get_active_borrowers.assert_called_once_with()
         self.assertEqual(result, [borrower])
 
+    def test_is_book_borrowed_is_handled_by_borrow_service(self):
+        with patch.object(
+            self.service.borrow_service,
+            "is_book_borrowed",
+            return_value=True,
+        ) as is_book_borrowed:
+            result = self.service.is_book_borrowed(" B001 ")
+
+        is_book_borrowed.assert_called_once_with(" B001 ")
+        self.assertTrue(result)
+
     def test_get_overdue_borrowers_is_handled_by_borrow_service(self):
         borrower = Borrower("C001", "Charlie", "B001")
         borrower.status = "borrowed"
