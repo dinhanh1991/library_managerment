@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from LibraryManagement.models.reader import Reader
 from LibraryManagement.utils.reader_validator import ReaderValidator
 
 
@@ -24,6 +25,13 @@ class ReaderService:
 
     def get_all_readers(self):
         return self.reader_repo.load_readers()
+
+    def ensure_reader(self, borrower):
+        readers = self.reader_repo.load_readers()
+        if any(reader.reader_id == borrower.borrower_id for reader in readers):
+            return
+        readers.append(Reader(borrower.borrower_id, borrower.name))
+        self.reader_repo.save_readers(readers)
 
     def add_reader(self, reader):
         if not ReaderValidator.is_valid_reader_payload(reader):
