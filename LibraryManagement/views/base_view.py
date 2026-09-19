@@ -78,6 +78,12 @@ class BaseView:
         self.console.print("\n[bold red]⚠️ Lựa chọn không hợp lệ![/bold red]")
         self.pause()
 
+    def handle_action_error(self, error):
+        self.console.print(
+            f"\n[bold red]❌ Không thể hoàn thành thao tác: {error}[/bold red]"
+        )
+        self.pause()
+
     def prompt_choice(self, prompt_text="\n👉 Nhập lựa chọn: "):
         return input(prompt_text).strip()
 
