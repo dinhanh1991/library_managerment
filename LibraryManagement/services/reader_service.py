@@ -26,6 +26,13 @@ class ReaderService:
     def get_all_readers(self):
         return self.reader_repo.load_readers()
 
+    def get_active_reader_ids(self):
+        return {
+            borrower.borrower_id
+            for borrower in self.borrower_repo.load_borrowers()
+            if borrower.is_active()
+        }
+
     def ensure_reader(self, borrower):
         readers = self.reader_repo.load_readers()
         if any(reader.reader_id == borrower.borrower_id for reader in readers):
