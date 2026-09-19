@@ -1,11 +1,9 @@
-import sys
 import tempfile
 import unittest
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+from LibraryManagement.utils.project_path import ensure_project_root_on_path
+
+ensure_project_root_on_path()
 
 from LibraryManagement.models.book import Book
 from LibraryManagement.repositories.book_repo import BookRepository

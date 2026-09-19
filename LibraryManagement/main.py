@@ -1,12 +1,7 @@
-import sys
-from pathlib import Path
-
-if __package__ in (None, ""):
-    project_root = Path(__file__).resolve().parent.parent
-    if str(project_root) not in sys.path:
-        sys.path.insert(0, str(project_root))
-
+from LibraryManagement.utils.project_path import ensure_project_root_on_path
 from LibraryManagement.controllers.library_controller import LibraryController
+
+ensure_project_root_on_path()
 
 
 def main():

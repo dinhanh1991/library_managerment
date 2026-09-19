@@ -289,8 +289,8 @@ class LibraryService:
     def update_book(self, updated_book):
         return self.book_service.update_book(updated_book)
 
-    def search_books_by_title(self, key_work):
-        return self.book_service.search_books_by_title(key_work)
+    def search_books_by_title(self, keyword):
+        return self.book_service.search_books_by_title(keyword)
 
     def search_books_by_author(self, author):
         return self.book_service.search_books_by_author(author)

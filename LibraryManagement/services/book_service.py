@@ -92,12 +92,12 @@ class BookService:
                 return True
         return False
 
-    def search_books_by_title(self, key_work):
-        keyword = self.normalize_text(key_work).lower()
-        if not keyword:
+    def search_books_by_title(self, keyword):
+        key_word = self.normalize_text(keyword).lower()
+        if not key_word:
             return []
         books = self.repository.load_books()
-        return [book for book in books if keyword in str(book.title or "").lower()]
+        return [book for book in books if key_word in str(book.title or "").lower()]
 
     def search_books_by_author(self, author):
         keyword = self.normalize_text(author).lower()
