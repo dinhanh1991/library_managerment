@@ -213,16 +213,6 @@ class LibraryService:
         self.state.load_queue()
         self.borrow_queue = self.state.borrow_queue
 
-    @staticmethod
-    def _is_overdue(borrower, as_of):
-        if borrower.status not in {"pending", "borrowed"} or not borrower.due_date:
-            return False
-        try:
-            due_date = date.fromisoformat(borrower.due_date)
-        except ValueError:
-            return False
-        return due_date < as_of
-
     def _ensure_reader(self, borrower):
         self.state.ensure_reader(borrower)
 
@@ -234,7 +224,7 @@ class LibraryService:
         return [
             item
             for item in self.borrower_repo.load_borrowers()
-            if self._is_overdue(item, current_date)
+            if item.is_overdue(current_date)
         ]
 
     def get_active_borrowers(self):
