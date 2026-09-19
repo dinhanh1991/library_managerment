@@ -346,10 +346,10 @@ class LibraryService:
 
     # Borrow facade methods
     def book_borrow(self, borrower):
-        return self._get_borrow_service().book_borrow(borrower)
+        return self.borrow_service.book_borrow(borrower)
 
     def process_next_borrower(self):
-        return self._get_borrow_service().process_next_borrower()
+        return self.borrow_service.process_next_borrower()
 
     # Return facade methods
     def return_book(self, borrower):
