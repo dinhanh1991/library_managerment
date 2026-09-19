@@ -2,12 +2,19 @@ from LibraryManagement.utils.book_validator import BookValidator
 
 
 class BookService:
-    def __init__(self, repository, borrower_repo, normalize_text, validate_number, refresh_structures):
+    def __init__(
+        self,
+        repository=None,
+        borrower_repo=None,
+        normalize_text=None,
+        validate_number=None,
+        refresh_structures=None,
+    ):
         self.repository = repository
         self.borrower_repo = borrower_repo
-        self.normalize_text = normalize_text
-        self.validate_number = validate_number
-        self.refresh_structures = refresh_structures
+        self.normalize_text = normalize_text or (lambda value: value.strip() if isinstance(value, str) else "")
+        self.validate_number = validate_number or (lambda value: isinstance(value, int) and value >= 0)
+        self.refresh_structures = refresh_structures or (lambda: None)
 
     def get_all_books(self):
         return self.repository.load_books()
@@ -111,6 +118,16 @@ class BookService:
 
         if publish_year in (None, ""):
             normalized_year = None
+        elif isinstance(publish_year, str):
+            if not publish_year.strip():
+                normalized_year = None
+            else:
+                try:
+                    normalized_year = int(publish_year.strip())
+                except ValueError:
+                    return []
+                if not BookValidator.is_valid_publish_year(normalized_year):
+                    return []
         elif BookValidator.is_valid_publish_year(publish_year):
             normalized_year = publish_year
         else:

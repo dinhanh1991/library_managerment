@@ -3663,15 +3663,6 @@
         "isbn": ""
     },
     {
-        "book_id": "S408",
-        "title": "Lập trình Java 401",
-        "author": "Nguyễn Văn Bình",
-        "publish_year": 2019,
-        "quantity": 2,
-        "category": "Lập trình",
-        "isbn": ""
-    },
-    {
         "book_id": "S409",
         "title": "Lập trình C++ 402",
         "author": "Trần Văn Nam",
