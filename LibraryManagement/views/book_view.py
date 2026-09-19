@@ -111,11 +111,7 @@ class BookView(BaseView):
             try:
                 publish_year = int(raw_publish_year)
             except ValueError:
-                print_info_error("Năm xuất bản không hợp lệ.")
-                self.pause()
-                return
-            if publish_year < 0:
-                print_info_error("Năm xuất bản không được âm.")
+                print_info_error("Năm xuất bản phải là số nguyên.")
                 self.pause()
                 return
         else:
@@ -126,11 +122,7 @@ class BookView(BaseView):
             try:
                 quantity = int(raw_quantity)
             except ValueError:
-                print_info_error("Số lượng không hợp lệ.")
-                self.pause()
-                return
-            if quantity < 0:
-                print_info_error("Số lượng không được âm.")
+                print_info_error("Số lượng phải là số nguyên.")
                 self.pause()
                 return
         else:
