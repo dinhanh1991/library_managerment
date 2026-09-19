@@ -204,10 +204,14 @@ class BookView(BaseView):
         publish_year = input("👉 Năm xuất bản (để trống nếu không muốn lọc): ").strip() or None
         isbn = input("👉 ISBN (để trống nếu không có): ").strip() or None
         availability = input("👉 Tình trạng [all/available/unavailable] (mặc định all): ").strip().lower() or "all"
-        if availability not in {"all", "available", "unavailable"}:
-            print_info_warning("Tình trạng không hợp lệ. Hiển thị tất cả kết quả.")
-            availability = "all"
-        results = self.service.search_books_advanced(title=title, author=author, genre=genre, publish_year=publish_year, isbn=isbn, availability=availability)
+        results = self.service.search_books_advanced(
+            title=title,
+            author=author,
+            genre=genre,
+            publish_year=publish_year,
+            isbn=isbn,
+            availability=availability,
+        )
         if not results:
             print_info_error("Không tìm thấy sách phù hợp!")
             self.pause()
