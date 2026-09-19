@@ -14,6 +14,23 @@ class AppValidator:
         return isinstance(value, int) and not isinstance(value, bool) and value >= 0
 
     @staticmethod
+    def normalize_identifier(value, field_name="identifier"):
+        if not isinstance(value, str):
+            raise ValueError(f"{field_name} phải là chuỗi.")
+        normalized = value.strip()
+        if not normalized:
+            raise ValueError(f"{field_name} không được để trống.")
+        return normalized
+
+    @staticmethod
+    def normalize_optional_text(value, field_name="text"):
+        if value is None:
+            return ""
+        if not isinstance(value, str):
+            raise ValueError(f"{field_name} phải là chuỗi hoặc rỗng.")
+        return value.strip()
+
+    @staticmethod
     def normalize_text(value):
         if not isinstance(value, str):
             return ""

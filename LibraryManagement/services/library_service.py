@@ -42,15 +42,18 @@ class LibraryService:
             self._reader_repo,
             self._return_history_repo,
         )
+        self._bind_runtime_state()
+        self._load_queue()
+        self._refresh_structures()
+        self._bootstrap_services()
 
+    def _bind_runtime_state(self):
         self._borrow_queue = self.state.borrow_queue
         self._return_stack = self.state.return_stack
         self._book_linked_list = self.state.book_linked_list
         self._book_bst = self.state.book_bst
 
-        self._load_queue()
-        self._refresh_structures()
-
+    def _bootstrap_services(self):
         self.book_service = BookService(
             repository=self._repository,
             borrower_repo=self._borrower_repo,
@@ -90,6 +93,12 @@ class LibraryService:
             rollback=self._rollback,
         )
 
+    def _iter_business_services(self):
+        for service_name in ("book_service", "reader_service", "borrow_service", "return_service"):
+            service = getattr(self, service_name, None)
+            if service is not None:
+                yield service
+
     def _sync_service_dependencies(self, **updates):
         """Propagate shared state to the state object and collaborating services."""
         if not updates:
@@ -104,15 +113,7 @@ class LibraryService:
             if filtered_updates:
                 self.state.set_runtime_state(**filtered_updates)
 
-        for service_name in (
-            "book_service",
-            "reader_service",
-            "borrow_service",
-            "return_service",
-        ):
-            service = getattr(self, service_name, None)
-            if service is None:
-                continue
+        for service in self._iter_business_services():
             for name, value in updates.items():
                 if hasattr(service, name):
                     setattr(service, name, value)

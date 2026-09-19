@@ -19,3 +19,15 @@ class ValidationLayerTestCase(unittest.TestCase):
         self.assertTrue(AppValidator.is_valid_identifier("C-001"))
         self.assertFalse(AppValidator.is_valid_identifier("   "))
         self.assertFalse(AppValidator.is_valid_identifier(None))
+
+    def test_normalize_identifier_and_optional_text(self):
+        self.assertEqual(AppValidator.normalize_identifier("  B001  "), "B001")
+        self.assertEqual(AppValidator.normalize_optional_text("  Python  "), "Python")
+        self.assertEqual(AppValidator.normalize_optional_text(None), "")
+
+        with self.assertRaises(ValueError):
+            AppValidator.normalize_identifier(123)
+        with self.assertRaises(ValueError):
+            AppValidator.normalize_identifier("   ")
+        with self.assertRaises(ValueError):
+            AppValidator.normalize_optional_text(True)

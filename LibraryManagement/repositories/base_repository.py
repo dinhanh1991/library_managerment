@@ -30,7 +30,10 @@ class JsonRepository:
         return items
 
     def _save_json_list(self, items):
-        self.FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        serialized = [item.to_dict() for item in items]
-        with self.FILE_PATH.open("w", encoding="utf-8") as file:
-            json.dump(serialized, file, ensure_ascii=False, indent=4)
+        try:
+            self.FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            serialized = [item.to_dict() for item in items]
+            with self.FILE_PATH.open("w", encoding="utf-8") as file:
+                json.dump(serialized, file, ensure_ascii=False, indent=4)
+        except OSError as exc:
+            raise OSError(f"Không thể lưu {self.ENTITY_NAME}: {exc}") from exc
