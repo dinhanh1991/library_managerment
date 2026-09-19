@@ -1,5 +1,3 @@
-from datetime import date
-
 from LibraryManagement.services.book_service import BookService
 from LibraryManagement.services.reader_service import ReaderService
 from LibraryManagement.services.borrow_service import BorrowService
@@ -217,12 +215,7 @@ class LibraryService:
         self.state.rollback(snapshots)
 
     def get_overdue_borrowers(self, current_date=None):
-        current_date = current_date or date.today()
-        return [
-            item
-            for item in self.borrower_repo.load_borrowers()
-            if item.is_overdue(current_date)
-        ]
+        return self.borrow_service.get_overdue_borrowers(current_date)
 
     def get_active_borrowers(self):
         return self.borrower_repo.load_borrowers()
