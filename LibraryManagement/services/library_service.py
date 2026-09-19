@@ -221,13 +221,7 @@ class LibraryService:
         return self.borrow_service.get_active_borrowers()
 
     def is_book_borrowed(self, book_id):
-        book_id = self._normalize_text(book_id)
-        if not book_id:
-            return False
-        return any(
-            item.is_borrowing_book(book_id)
-            for item in self.get_active_borrowers()
-        )
+        return self.borrow_service.is_book_borrowed(book_id)
 
     def get_active_reader_ids(self):
         return {
