@@ -4482,15 +4482,6 @@
         "isbn": ""
     },
     {
-        "book_id": "S499",
-        "title": "Deep Learning 492",
-        "author": "Lê Thu Hà",
-        "publish_year": 2010,
-        "quantity": 5,
-        "category": "Cấu trúc dữ liệu",
-        "isbn": ""
-    },
-    {
         "book_id": "S500",
         "title": "Mạng máy tính 493",
         "author": "Đặng Văn Sơn",
