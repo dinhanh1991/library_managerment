@@ -280,14 +280,18 @@ class LibraryServiceTestCase(unittest.TestCase):
         borrower = Borrower("C001", "Charlie", "B001")
         self.assertTrue(self.service.book_borrow(borrower))
 
-        self.assertFalse(self.service.remove_book("B001"))
+        self.assertEqual(self.service.remove_book("B001"), "borrowed")
         self.assertEqual(self.service.get_all_books()[0].book_id, "B001")
         self.assertEqual(self.service.get_all_books()[0].quantity, 2)
         self.assertEqual(len(self.borrower_repo.load_borrowers()), 1)
         self.assertEqual(self.borrower_repo.load_borrowers()[0].book_id, "B001")
 
+    def test_remove_book_returns_not_found_for_missing_book(self):
+        self.assertEqual(self.service.remove_book("B999"), "not_found")
+        self.assertEqual([book.book_id for book in self.service.get_all_books()], ["B001", "B002"])
+
     def test_remove_book_still_works_when_no_active_transaction(self):
-        self.assertTrue(self.service.remove_book("B001"))
+        self.assertEqual(self.service.remove_book("B001"), "deleted")
         self.assertEqual([book.book_id for book in self.service.get_all_books()], ["B002"])
 
     def test_update_book_rejects_negative_quantity_without_changing_data(self):
