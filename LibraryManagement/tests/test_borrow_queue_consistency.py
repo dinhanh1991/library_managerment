@@ -1,7 +1,7 @@
 import unittest
 
 from LibraryManagement.models.borrower import Borrower
-from LibraryManagement.services.library_service import LibraryService
+from LibraryManagement.services.borrow_service import BorrowService
 
 
 class FakeBorrowerRepository:
@@ -37,10 +37,17 @@ class FakeQueue:
 
 class TestBorrowQueueConsistency(unittest.TestCase):
     def setUp(self):
-        self.service = LibraryService.__new__(LibraryService)
-        self.service.borrow_queue = FakeQueue()
-        self.service.borrower_repo = FakeBorrowerRepository([])
-        self.service.queue_repo = FakeQueueRepository()
+        self.service = BorrowService(
+            repository=None,
+            borrower_repo=FakeBorrowerRepository([]),
+            reader_repo=None,
+            queue_repo=FakeQueueRepository(),
+            borrow_queue=FakeQueue(),
+            normalize_text=lambda value: value.strip() if isinstance(value, str) else "",
+            ensure_reader=None,
+            refresh_structures=None,
+            rollback=lambda snapshots: None,
+        )
 
     def test_process_next_borrower_keeps_queue_when_borrower_is_missing(self):
         queued_borrower = Borrower("DG001", "Nguyen Van A", "S001")
