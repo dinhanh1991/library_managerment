@@ -264,15 +264,11 @@ class LibraryService:
         return self.book_service.get_all_books()
 
     def build_book_linked_list(self):
-        self.state.refresh_structures()
-        self.book_linked_list = self.state.book_linked_list
-        self.book_bst = self.state.book_bst
+        self._refresh_structures()
         return self.book_linked_list
 
     def build_book_bst(self):
-        self.state.refresh_structures()
-        self.book_linked_list = self.state.book_linked_list
-        self.book_bst = self.state.book_bst
+        self._refresh_structures()
         return self.book_bst
 
     def _refresh_structures(self):
