@@ -227,7 +227,7 @@ class LibraryService:
         return self.reader_service.get_active_reader_ids()
 
     def get_return_history(self):
-        return self.return_history_repo.load_history()
+        return self.return_service.get_return_history()
 
     def get_all_books(self):
         return self.book_service.get_all_books()
