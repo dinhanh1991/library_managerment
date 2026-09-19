@@ -150,7 +150,7 @@ class UiAndInputTestCase(unittest.TestCase):
 
     @patch.object(BaseView, "pause")
     @patch.object(BaseView, "confirm_action", return_value=True)
-    @patch("builtins.input", side_effect=["R202", "Reader Borrow", "B001", "Y"])
+    @patch("builtins.input", side_effect=["R202", "B001", "Y"])
     def test_borrow_view_success_flow(self, _mock_input, _mock_confirm, _mock_pause):
         self.service.repository.save_books([
             __import__("LibraryManagement.models.book", fromlist=["Book"]).Book("B001", "Python Basics", "Alice", 2024, 3)
