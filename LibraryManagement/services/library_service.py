@@ -232,6 +232,9 @@ class LibraryService:
     def get_all_books(self):
         return self.book_service.get_all_books()
 
+    def get_book_by_id(self, book_id):
+        return self.book_service.get_book_by_id(book_id)
+
     def build_book_linked_list(self):
         self._refresh_structures()
         return self.book_linked_list
