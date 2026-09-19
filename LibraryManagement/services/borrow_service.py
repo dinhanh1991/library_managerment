@@ -27,6 +27,9 @@ class BorrowService:
         self.refresh_structures = refresh_structures
         self.rollback = rollback
 
+    def get_active_borrowers(self):
+        return self.borrower_repo.load_borrowers()
+
     def get_overdue_borrowers(self, current_date=None):
         current_date = current_date or date.today()
         return [
