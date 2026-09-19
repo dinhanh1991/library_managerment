@@ -90,6 +90,14 @@ class LibraryServiceTestCase(unittest.TestCase):
         self.assertFalse(self.service.is_book_borrowed("B003"))
         self.assertEqual(self.service.get_active_reader_ids(), {"C001", "C002"})
 
+    def test_get_book_by_id_returns_matching_book(self):
+        book = self.service.get_book_by_id(" B001 ")
+        self.assertIsNotNone(book)
+        self.assertEqual(book.book_id, "B001")
+
+        self.assertIsNone(self.service.get_book_by_id("B999"))
+        self.assertIsNone(self.service.get_book_by_id("   "))
+
     def test_get_all_books_returns_data_from_repo(self):
         books = self.service.get_all_books()
         self.assertEqual(len(books), 2)
