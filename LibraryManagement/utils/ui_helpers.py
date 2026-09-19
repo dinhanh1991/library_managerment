@@ -53,16 +53,16 @@ def prompt_int(prompt, field_name, *, min_value=None, max_value=None):
 
 
 def prompt_optional_int(prompt, field_name):
-    raw = input(prompt).strip()
-    if not raw:
-        return None
+    while True:
+        raw = input(prompt).strip()
+        if not raw:
+            return None
 
-    try:
-        return int(raw)
-    except ValueError:
-        console.print(f"\n[bold red]❌ {field_name} phải là số nguyên.[/bold red]")
-        LOGGER.warning("Invalid optional integer input for %s: %s", field_name, raw)
-        return None
+        try:
+            return int(raw)
+        except ValueError:
+            console.print(f"\n[bold red]❌ {field_name} phải là số nguyên.[/bold red]")
+            LOGGER.warning("Invalid optional integer input for %s: %s", field_name, raw)
 
 
 def create_book_table(title, *, show_index=False):
