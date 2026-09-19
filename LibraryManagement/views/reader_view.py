@@ -22,8 +22,11 @@ class ReaderView(BaseView):
     def add_reader(self):
         self.show_section("===== ➕ THÊM ĐỘC GIẢ =====")
         reader_id = prompt_field("Nhập mã độc giả: ", "Mã độc giả")
+        if reader_id is None:
+            self.pause()
+            return
         name = prompt_field("Nhập tên độc giả: ", "Tên độc giả")
-        if reader_id is None or name is None:
+        if name is None:
             self.pause()
             return
         result = self.service.add_reader(Reader(reader_id, name))
@@ -37,8 +40,11 @@ class ReaderView(BaseView):
     def update_reader(self):
         self.show_section("===== ✏️ SỬA ĐỘC GIẢ =====")
         reader_id = prompt_field("Nhập mã độc giả cần sửa: ", "Mã độc giả")
+        if reader_id is None:
+            self.pause()
+            return
         name = prompt_field("Nhập tên mới: ", "Tên độc giả")
-        if reader_id is None or name is None:
+        if name is None:
             self.pause()
             return
         result = self.service.update_reader(Reader(reader_id, name))
