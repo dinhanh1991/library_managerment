@@ -77,7 +77,7 @@ class LibraryService:
             queue_repo=self._queue_repo,
             borrow_queue=self._borrow_queue,
             normalize_text=self._normalize_text,
-            ensure_reader=self._ensure_reader,
+            ensure_reader=self.reader_service.ensure_reader,
             refresh_structures=self._refresh_structures,
             rollback=self._rollback,
         )
@@ -212,9 +212,6 @@ class LibraryService:
     def _load_queue(self):
         self.state.load_queue()
         self.borrow_queue = self.state.borrow_queue
-
-    def _ensure_reader(self, borrower):
-        self.state.ensure_reader(borrower)
 
     def _rollback(self, snapshots):
         self.state.rollback(snapshots)
