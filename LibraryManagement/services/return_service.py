@@ -27,6 +27,9 @@ class ReturnService:
         self.refresh_structures = refresh_structures
         self.rollback = rollback
 
+    def get_return_history(self):
+        return self.return_history_repo.load_history()
+
     def return_book(self, borrower):
         if not ReturnValidator.is_valid_return_payload(borrower):
             return False
