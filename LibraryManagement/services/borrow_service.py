@@ -51,7 +51,7 @@ class BorrowService:
         reader_snapshot = deepcopy(readers)
 
         book = next((item for item in books if item.book_id == book_id), None)
-        if book is None or book.quantity <= 0:
+        if book is None or not book.is_available():
             return False
 
         borrower.borrower_id = borrower_id
