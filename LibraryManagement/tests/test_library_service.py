@@ -45,12 +45,13 @@ class LibraryServiceTestCase(unittest.TestCase):
         ]
         self.book_repo.save_books(books)
 
-        self.service = LibraryService()
-        self.service.repository = self.book_repo
-        self.service.borrower_repo = self.borrower_repo
-        self.service.queue_repo = self.queue_repo
-        self.service.reader_repo = self.reader_repo
-        self.service.return_history_repo = self.return_history_repo
+        self.service = LibraryService(
+            repository=self.book_repo,
+            borrower_repo=self.borrower_repo,
+            queue_repo=self.queue_repo,
+            reader_repo=self.reader_repo,
+            return_history_repo=self.return_history_repo,
+        )
         self.service.borrow_queue = __import__("LibraryManagement.data_structures.queue", fromlist=["Queue"]).Queue()
         self.service.return_stack = __import__("LibraryManagement.data_structures.stack", fromlist=["Stack"]).Stack()
         self.service.book_linked_list = __import__("LibraryManagement.data_structures.linked_list", fromlist=["BookLinkedList"]).BookLinkedList()
