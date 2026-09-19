@@ -1,6 +1,8 @@
 from copy import deepcopy
 from datetime import date, timedelta
 
+from LibraryManagement.utils.borrow_validator import BorrowValidator
+
 
 class BorrowService:
     def __init__(
@@ -26,13 +28,11 @@ class BorrowService:
         self.rollback = rollback
 
     def book_borrow(self, borrower):
-        if borrower is None:
+        if not BorrowValidator.is_valid_borrow_payload(borrower):
             return False
         borrower_id = self.normalize_text(borrower.borrower_id)
         borrower_name = self.normalize_text(borrower.name)
         book_id = self.normalize_text(borrower.book_id)
-        if not borrower_id or not borrower_name or not book_id:
-            return False
 
         borrowers = self.borrower_repo.load_borrowers()
         if any(item.borrower_id == borrower_id for item in borrowers):

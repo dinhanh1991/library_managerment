@@ -1,3 +1,6 @@
+from LibraryManagement.utils.book_validator import BookValidator
+
+
 class BookService:
     def __init__(self, repository, borrower_repo, normalize_text, validate_number, refresh_structures):
         self.repository = repository
@@ -11,7 +14,7 @@ class BookService:
 
     @staticmethod
     def _is_valid_text(value):
-        return isinstance(value, str) and bool(value.strip())
+        return BookValidator.is_valid_title(value)
 
     def add_book(self, book):
         if book is None:

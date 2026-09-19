@@ -1,6 +1,8 @@
 from copy import deepcopy
 from datetime import date
 
+from LibraryManagement.utils.return_validator import ReturnValidator
+
 
 class ReturnService:
     def __init__(
@@ -26,12 +28,10 @@ class ReturnService:
         self.rollback = rollback
 
     def return_book(self, borrower):
-        if borrower is None:
+        if not ReturnValidator.is_valid_return_payload(borrower):
             return False
         borrower_id = self.normalize_text(borrower.borrower_id)
         book_id = self.normalize_text(borrower.book_id)
-        if not borrower_id or not book_id:
-            return False
 
         borrowers = self.borrower_repo.load_borrowers()
         active = next(

@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+from LibraryManagement.utils.reader_validator import ReaderValidator
+
 
 class ReaderService:
     def __init__(
@@ -24,12 +26,10 @@ class ReaderService:
         return self.reader_repo.load_readers()
 
     def add_reader(self, reader):
-        if reader is None:
+        if not ReaderValidator.is_valid_reader_payload(reader):
             return False
         reader_id = self.normalize_text(reader.reader_id)
         name = self.normalize_text(reader.name)
-        if not reader_id or not name:
-            return False
         readers = self.reader_repo.load_readers()
         if any(item.reader_id == reader_id for item in readers):
             return False
@@ -39,12 +39,10 @@ class ReaderService:
         return True
 
     def update_reader(self, updated_reader):
-        if updated_reader is None:
+        if not ReaderValidator.is_valid_reader_payload(updated_reader):
             return False
         reader_id = self.normalize_text(updated_reader.reader_id)
         name = self.normalize_text(updated_reader.name)
-        if not reader_id or not name:
-            return False
 
         readers = self.reader_repo.load_readers()
         borrowers = self.borrower_repo.load_borrowers()
@@ -88,7 +86,7 @@ class ReaderService:
 
     def remove_reader(self, reader_id):
         reader_id = self.normalize_text(reader_id)
-        if not reader_id:
+        if not ReaderValidator.is_valid_reader_id(reader_id):
             return False
         borrowers = self.borrower_repo.load_borrowers()
         if any(item.borrower_id == reader_id for item in borrowers):

@@ -257,19 +257,66 @@ JSON / CSV
 
 ---
 
-## 7. Một số nguyên tắc thiết kế được áp dụng
+## 7. Điểm cần cải thiện hiện tại và kế hoạch refactor
 
-Project có áp dụng các nguyên tắc/pattern ở mức phù hợp với bài tập:
+Dù project đã có cấu trúc module rõ ràng và test khá đầy đủ, vẫn còn 2 điểm cần tiếp tục cải thiện để dự án dễ mở rộng hơn trong tương lai:
 
-- **MVC**: tách View, Controller và phần nghiệp vụ.
-- **Repository Pattern**: tách lưu trữ JSON khỏi business logic.
-- **Service Layer**: gom nghiệp vụ theo từng nhóm chức năng.
-- **Facade**: `LibraryService` cung cấp interface nghiệp vụ thống nhất cho tầng trên.
-- **Strategy Pattern**: tách lựa chọn thuật toán sắp xếp.
-- **Dependency Injection**: cho phép truyền service/view từ bên ngoài trong các thành phần cần test hoặc thay thế implementation.
-- **SRP/OCP/DIP**: được áp dụng ở các phần đã refactor nhằm giảm coupling và dễ kiểm thử.
+### 7.1. `LibraryService` đang khá "nặng" và stateful
 
-Mục tiêu của việc áp dụng các nguyên tắc trên là **dễ hiểu, dễ test và dễ mở rộng**, thay vì cố gắng áp dụng pattern một cách máy móc.
+Trong `services/library_service.py`, `LibraryService` vừa đóng vai trò Facade, vừa chịu trách nhiệm đồng bộ trạng thái qua nhiều property setter như:
+
+- `repository`
+- `borrower_repo`
+- `queue_repo`
+- `reader_repo`
+- `return_history_repo`
+- `borrow_queue`
+- `return_stack`
+- `book_linked_list`
+- `book_bst`
+
+Những setter này cập nhật dữ liệu thủ công cho `state` và các service con (`book_service`, `borrow_service`, `return_service`, ...). Điểm này không sai về mặt kỹ thuật, nhưng trong dài hạn dễ dẫn đến:
+
+- phụ thuộc chặt chẽ giữa các thành phần;
+- rủi ro khi thêm service mới hoặc thay đổi state;
+- khó debug khi một thuộc tính không được đồng bộ đúng;
+- khó test vì trạng thái được chia rải giữa nhiều object.
+
+### Kế hoạch cải thiện
+
+- Giảm bớt việc đồng bộ state bằng setter thủ công.
+- Chuyển `LibraryService` về dạng Facade thuần hơn, chỉ điều phối và không giữ quá nhiều state.
+- Tách trạng thái chung sang `LibraryState` hoặc một `AppContext` rõ ràng hơn.
+- Cho mọi service phụ thuộc vào cùng một nguồn dữ liệu / state nhất quán, thay vì tự cập nhật lặp lại.
+
+### 7.2. Thiếu cấu trúc chuẩn hóa cho validation
+
+Hiện tại, nhiều phần đang validate dữ liệu riêng lẻ ở các nơi khác nhau, ví dụ:
+
+- `Book` model kiểm tra dữ liệu nhập vào.
+- `BookService` kiểm tra `book_id`, `title`, `quantity`, `publish_year`.
+- Một số view hoặc controller cũng có validation bổ sung.
+
+Kết quả là:
+
+- logic validation bị lặp lại;
+- khó bảo trì khi thay đổi rule nghiệp vụ;
+- dễ xảy ra inconsistencies giữa model, service và UI.
+
+### Kế hoạch cải thiện
+
+- Tạo một layer validation riêng, ví dụ: `utils/validators.py` hoặc `validators/`.
+- Gom các rule chung vào các hàm như:
+  - `is_non_empty_text(value)`
+  - `is_valid_int(value, min_value=0)`
+  - `is_valid_book_id(value)`
+  - `is_valid_publish_year(value)`
+- Model, service và view nên gọi vào cùng một validator thay vì check bằng logic riêng lẻ.
+- Duy trì validation ở 2 mức:
+  - validation cơ bản (type / format / required)
+  - validation nghiệp vụ (ví dụ: không cho mượn khi sách hết, không cho xóa sách đang có giao dịch đang hoạt động)
+
+Mục tiêu của các cải tiến trên là làm project **dễ mở rộng, dễ test và ít lỗi khi phát triển**, thay vì chỉ làm đúng ở thời điểm hiện tại.
 
 ---
 

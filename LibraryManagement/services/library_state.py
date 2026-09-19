@@ -32,6 +32,12 @@ class LibraryState:
         for borrower in self.queue_repo.load_queue():
             self.borrow_queue.enqueue(borrower)
 
+    def set_runtime_state(self, **kwargs):
+        """Update runtime structures in one place for the library state container."""
+        for name, value in kwargs.items():
+            if hasattr(self, name):
+                setattr(self, name, value)
+
     def refresh_structures(self):
         books = self.repository.load_books()
 

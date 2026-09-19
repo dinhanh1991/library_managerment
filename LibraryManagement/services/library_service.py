@@ -5,6 +5,7 @@ from LibraryManagement.services.reader_service import ReaderService
 from LibraryManagement.services.borrow_service import BorrowService
 from LibraryManagement.services.return_service import ReturnService
 from LibraryManagement.services.library_state import LibraryState
+from LibraryManagement.utils.validators import AppValidator
 
 
 class LibraryService:
@@ -89,6 +90,33 @@ class LibraryService:
             rollback=self._rollback,
         )
 
+    def _sync_service_dependencies(self, **updates):
+        """Propagate shared state to the state object and collaborating services."""
+        if not updates:
+            return
+
+        if hasattr(self, "state"):
+            filtered_updates = {
+                name: value
+                for name, value in updates.items()
+                if hasattr(self.state, name)
+            }
+            if filtered_updates:
+                self.state.set_runtime_state(**filtered_updates)
+
+        for service_name in (
+            "book_service",
+            "reader_service",
+            "borrow_service",
+            "return_service",
+        ):
+            service = getattr(self, service_name, None)
+            if service is None:
+                continue
+            for name, value in updates.items():
+                if hasattr(service, name):
+                    setattr(service, name, value)
+
     @property
     def repository(self):
         return self._repository
@@ -96,14 +124,7 @@ class LibraryService:
     @repository.setter
     def repository(self, value):
         self._repository = value
-        if hasattr(self, "state"):
-            self.state.repository = value
-        if hasattr(self, "book_service"):
-            self.book_service.repository = value
-        if hasattr(self, "borrow_service"):
-            self.borrow_service.repository = value
-        if hasattr(self, "return_service"):
-            self.return_service.repository = value
+        self._sync_service_dependencies(repository=value)
 
     @property
     def borrower_repo(self):
@@ -112,16 +133,7 @@ class LibraryService:
     @borrower_repo.setter
     def borrower_repo(self, value):
         self._borrower_repo = value
-        if hasattr(self, "state"):
-            self.state.borrower_repo = value
-        if hasattr(self, "book_service"):
-            self.book_service.borrower_repo = value
-        if hasattr(self, "reader_service"):
-            self.reader_service.borrower_repo = value
-        if hasattr(self, "borrow_service"):
-            self.borrow_service.borrower_repo = value
-        if hasattr(self, "return_service"):
-            self.return_service.borrower_repo = value
+        self._sync_service_dependencies(borrower_repo=value)
 
     @property
     def queue_repo(self):
@@ -130,14 +142,7 @@ class LibraryService:
     @queue_repo.setter
     def queue_repo(self, value):
         self._queue_repo = value
-        if hasattr(self, "state"):
-            self.state.queue_repo = value
-        if hasattr(self, "reader_service"):
-            self.reader_service.queue_repo = value
-        if hasattr(self, "borrow_service"):
-            self.borrow_service.queue_repo = value
-        if hasattr(self, "return_service"):
-            self.return_service.queue_repo = value
+        self._sync_service_dependencies(queue_repo=value)
 
     @property
     def reader_repo(self):
@@ -146,12 +151,7 @@ class LibraryService:
     @reader_repo.setter
     def reader_repo(self, value):
         self._reader_repo = value
-        if hasattr(self, "state"):
-            self.state.reader_repo = value
-        if hasattr(self, "reader_service"):
-            self.reader_service.reader_repo = value
-        if hasattr(self, "borrow_service"):
-            self.borrow_service.reader_repo = value
+        self._sync_service_dependencies(reader_repo=value)
 
     @property
     def return_history_repo(self):
@@ -160,12 +160,7 @@ class LibraryService:
     @return_history_repo.setter
     def return_history_repo(self, value):
         self._return_history_repo = value
-        if hasattr(self, "state"):
-            self.state.return_history_repo = value
-        if hasattr(self, "reader_service"):
-            self.reader_service.return_history_repo = value
-        if hasattr(self, "return_service"):
-            self.return_service.return_history_repo = value
+        self._sync_service_dependencies(return_history_repo=value)
 
     @property
     def borrow_queue(self):
@@ -174,14 +169,7 @@ class LibraryService:
     @borrow_queue.setter
     def borrow_queue(self, value):
         self._borrow_queue = value
-        if hasattr(self, "state"):
-            self.state.borrow_queue = value
-        if hasattr(self, "reader_service"):
-            self.reader_service.borrow_queue = value
-        if hasattr(self, "borrow_service"):
-            self.borrow_service.borrow_queue = value
-        if hasattr(self, "return_service"):
-            self.return_service.borrow_queue = value
+        self._sync_service_dependencies(borrow_queue=value)
 
     @property
     def return_stack(self):
@@ -190,10 +178,7 @@ class LibraryService:
     @return_stack.setter
     def return_stack(self, value):
         self._return_stack = value
-        if hasattr(self, "state"):
-            self.state.return_stack = value
-        if hasattr(self, "return_service"):
-            self.return_service.return_stack = value
+        self._sync_service_dependencies(return_stack=value)
 
     @property
     def book_linked_list(self):
@@ -203,7 +188,7 @@ class LibraryService:
     def book_linked_list(self, value):
         self._book_linked_list = value
         if hasattr(self, "state"):
-            self.state.book_linked_list = value
+            self.state.set_runtime_state(book_linked_list=value)
 
     @property
     def book_bst(self):
@@ -213,21 +198,15 @@ class LibraryService:
     def book_bst(self, value):
         self._book_bst = value
         if hasattr(self, "state"):
-            self.state.book_bst = value
+            self.state.set_runtime_state(book_bst=value)
 
     @staticmethod
     def _normalize_text(value):
-        if not isinstance(value, str):
-            return ""
-        return value.strip()
+        return AppValidator.normalize_text(value)
 
     @staticmethod
     def _is_valid_non_negative_number(value):
-        return (
-            isinstance(value, int)
-            and not isinstance(value, bool)
-            and value >= 0
-        )
+        return AppValidator.is_non_negative_int(value)
 
     def _load_queue(self):
         self.state.load_queue()
