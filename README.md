@@ -322,68 +322,161 @@ Mục tiêu của các cải tiến trên là làm project **dễ mở rộng, d
 
 ## 8. Cấu trúc project
 
+Cấu trúc dưới đây được cập nhật theo **source code thực tế hiện tại trên branch `main`**, bao gồm đầy đủ các file chính trong `models/` và `repositories/`.
+
 ```text
-LibraryManagement/
-├── algorithms/
-│   ├── sorting.py
-│   ├── sort_strategy.py
-│   ├── benchmark.py
-│   ├── plot_benchmark.py
-│   └── test_sorting.py
+library_managerment/
+├── .github/
+│   └── workflows/
+│       └── tests.yml
 │
-├── controllers/
-│   ├── library_controller.py
-│   ├── book_controller.py
-│   ├── borrow_controller.py
-│   └── reader_controller.py
+├── LibraryManagement/
+│   ├── __init__.py
+│   ├── main.py
+│   │
+│   ├── algorithms/
+│   │   ├── __init__.py
+│   │   ├── sorting.py
+│   │   ├── sort_strategy.py
+│   │   ├── benchmark.py
+│   │   ├── plot_benchmark.py
+│   │   └── test_sorting.py
+│   │
+│   ├── controllers/
+│   │   ├── __init__.py
+│   │   ├── library_controller.py
+│   │   ├── book_controller.py
+│   │   ├── borrow_controller.py
+│   │   └── reader_controller.py
+│   │
+│   ├── data/
+│   │   ├── books.json
+│   │   ├── readers.json
+│   │   ├── borrowers_list.json
+│   │   ├── borrow_queue.json
+│   │   ├── return_history.json
+│   │   ├── benchmark_results.csv
+│   │   ├── benchmark_all_algorithms.png
+│   │   └── benchmark_nlogn.png
+│   │
+│   ├── data_structures/
+│   │   ├── __init__.py
+│   │   ├── queue.py
+│   │   ├── stack.py
+│   │   ├── linked_list.py
+│   │   └── bts.py
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── book.py
+│   │   ├── borrower.py
+│   │   └── reader.py
+│   │
+│   ├── repositories/
+│   │   ├── __init__.py
+│   │   ├── book_repo.py
+│   │   ├── borrower_repo.py
+│   │   ├── queue_repo.py
+│   │   ├── reader_repo.py
+│   │   └── return_history_repo.py
+│   │
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── book_service.py
+│   │   ├── borrow_service.py
+│   │   ├── library_service.py
+│   │   ├── library_state.py
+│   │   ├── reader_service.py
+│   │   ├── report_service.py
+│   │   └── return_service.py
+│   │
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── validators.py
+│   │   ├── book_validator.py
+│   │   ├── borrow_validator.py
+│   │   ├── reader_validator.py
+│   │   ├── return_validator.py
+│   │   ├── ui_helpers.py
+│   │   └── logging_config.py
+│   │
+│   ├── views/
+│   │   ├── base_view.py
+│   │   ├── book_view.py
+│   │   ├── borrow_view.py
+│   │   ├── bst_view.py
+│   │   ├── library_view.py
+│   │   ├── linked_list_view.py
+│   │   ├── reader_view.py
+│   │   ├── report_view.py
+│   │   ├── return_view.py
+│   │   ├── search_view.py
+│   │   └── sort_view.py
+│   │
+│   └── tests/
+│       ├── test_book_integer_validation.py
+│       ├── test_book_numeric_validation.py
+│       ├── test_book_text_validation.py
+│       ├── test_book_view.py
+│       ├── test_borrow_business_rules.py
+│       ├── test_borrow_queue_consistency.py
+│       ├── test_borrower_date_validation.py
+│       ├── test_data_structures.py
+│       ├── test_library_service.py
+│       ├── test_reader_business_rules.py
+│       ├── test_report_service.py
+│       ├── test_repositories.py
+│       ├── test_return_book_borrowed.py
+│       ├── test_search_business_rules.py
+│       ├── test_service_rollback_io.py
+│       ├── test_sort_strategy.py
+│       ├── test_sorting_business_rules.py
+│       ├── test_ui_and_input.py
+│       ├── test_update_book_borrowing.py
+│       └── test_validation_layer.py
 │
-├── data/
-│   ├── books.json
-│   ├── readers.json
-│   ├── borrowers_list.json
-│   ├── borrow_queue.json
-│   ├── return_history.json
-│   ├── benchmark_results.csv
-│   └── benchmark images
-│
-├── data_structures/
-│   ├── queue.py
-│   ├── stack.py
-│   ├── linked_list.py
-│   └── bts.py
-│
-├── models/
-├── repositories/
-│
-├── services/
-│   ├── book_service.py
-│   ├── borrow_service.py
-│   ├── library_service.py
-│   ├── library_state.py
-│   ├── reader_service.py
-│   ├── report_service.py
-│   └── return_service.py
-│
-├── utils/
-│
-├── views/
-│   ├── library_view.py
-│   ├── book_view.py
-│   ├── borrow_view.py
-│   ├── return_view.py
-│   ├── reader_view.py
-│   ├── search_view.py
-│   ├── sort_view.py
-│   ├── bst_view.py
-│   ├── linked_list_view.py
-│   └── report_view.py
-│
-├── tests/
-├── __init__.py
-└── main.py
+├── .gitignore
+└── README.md
 ```
 
----
+### Vai trò của từng thư mục
+
+| Thư mục | Vai trò |
+|---|---|
+| `models/` | Các model/domain object: `Book`, `Borrower`, `Reader`. |
+| `repositories/` | Đọc, ghi và quản lý dữ liệu JSON; tách persistence khỏi nghiệp vụ. |
+| `services/` | Chứa nghiệp vụ chính của hệ thống và điều phối state. |
+| `controllers/` | Điều phối thao tác từ menu đến view/service. |
+| `views/` | Giao diện Console và hiển thị dữ liệu bằng Rich. |
+| `data_structures/` | Cài đặt Queue, Stack, Linked List và Binary Search Tree. |
+| `algorithms/` | Sorting, Strategy Pattern, benchmark và biểu đồ hiệu năng. |
+| `utils/` | Validation, hỗ trợ UI và cấu hình logging. |
+| `data/` | Dữ liệu JSON và kết quả benchmark. |
+| `tests/` | Unit test cho model/service/repository/data structure/UI và business rules. |
+
+### Quan hệ giữa Model và Repository
+
+Có thể hiểu đơn giản:
+
+```text
+Model
+  ↓
+Repository
+  ↓
+JSON file
+```
+
+Ví dụ:
+
+```text
+Book
+  ↓
+BookRepository
+  ↓
+data/books.json
+```
+
+Repository chịu trách nhiệm **lưu trữ/đọc dữ liệu**, còn Model biểu diễn **đối tượng dữ liệu**. Service sử dụng Repository để thực hiện nghiệp vụ mà không cần xử lý trực tiếp việc đọc/ghi JSON.
 
 ## 9. Kiểm thử
 
