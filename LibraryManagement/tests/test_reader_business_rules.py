@@ -50,6 +50,16 @@ class ReaderBusinessRulesTestCase(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
+    def test_get_active_reader_ids_is_handled_by_reader_service(self):
+        active = Borrower("R001", "Reader One", "B001")
+        inactive = Borrower("R002", "Reader Two", "B002")
+        inactive.status = "returned"
+        self.borrower_repo.save_borrowers([active, inactive])
+
+        result = self.service.get_active_reader_ids()
+
+        self.assertEqual(result, {"R001"})
+
     def test_borrow_creates_reader_automatically(self):
         borrower = Borrower("R001", "Reader One", "B001")
 
