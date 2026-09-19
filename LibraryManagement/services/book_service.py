@@ -12,6 +12,16 @@ class BookService:
     def get_all_books(self):
         return self.repository.load_books()
 
+    def get_book_by_id(self, book_id):
+        normalized_id = self.normalize_text(book_id)
+        if not normalized_id:
+            return None
+
+        for book in self.repository.load_books():
+            if self.normalize_text(book.book_id) == normalized_id:
+                return book
+        return None
+
     @staticmethod
     def _is_valid_text(value):
         return BookValidator.is_valid_title(value)
