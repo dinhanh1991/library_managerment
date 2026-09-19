@@ -147,9 +147,8 @@ class BookView(BaseView):
 
     def search_by_title(self):
         self.console.print("\n[bold cyan]===== 🔍 TÌM SÁCH THEO TÊN =====[/bold cyan]")
-        keyword = input("Nhập tên sách cần tìm: ").strip()
-        if not keyword:
-            print_info_warning("Tên sách không được để trống.")
+        keyword = prompt_field("Nhập tên sách cần tìm: ", "Tên sách")
+        if keyword is None:
             self.pause()
             return
         results = self.service.search_books_by_title(keyword)
@@ -166,9 +165,8 @@ class BookView(BaseView):
 
     def search_by_author(self):
         self.console.print("\n[bold cyan]===== ✍️ TÌM SÁCH THEO TÁC GIẢ =====[/bold cyan]")
-        author = input("Nhập tên tác giả cần tìm: ").strip()
-        if not author:
-            print_info_warning("Tên tác giả không được để trống.")
+        author = prompt_field("Nhập tên tác giả cần tìm: ", "Tên tác giả")
+        if author is None:
             self.pause()
             return
         results = self.service.search_books_by_author(author)
