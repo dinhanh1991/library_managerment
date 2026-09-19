@@ -6,20 +6,21 @@ from LibraryManagement.controllers.reader_controller import ReaderController
 
 
 class LibraryController:
-    """Coordinate application flow without owning console rendering details."""
+    """Top-level application coordinator.
+
+    This controller is intentionally thin: it delegates feature-specific navigation to
+    child controllers while keeping the main shell and app lifecycle in one place.
+    """
 
     def __init__(self, service=None, view=None):
-        # Có thể truyền service/view từ bên ngoài để test hoặc thay thế implementation.
         self.service = service or LibraryService()
         self.view = view or LibraryView(self.service)
 
-        # Controller cấp cao giữ các controller chức năng và dùng chung service/view.
         self.book_controller = BookController(self.service, self.view.book_view)
         self.borrow_controller = BorrowController(self.service, self.view.borrow_view)
         self.reader_controller = ReaderController(self.service, self.view.reader_view)
 
     def get_actions(self):
-        # Mỗi phím menu ánh xạ tới một hàm xử lý; không cần if/elif dài trong run().
         return {
             "1": self.book_controller.run,
             "2": self.borrow_controller.run,
@@ -33,7 +34,6 @@ class LibraryController:
         }
 
     def run(self):
-        # View chịu trách nhiệm hiển thị; Controller điều phối thứ tự chạy.
         self.view.show_welcome_banner()
         self.view.show_dashboard()
         self.view.run_menu(self.view.show_menu, self.get_actions())

@@ -13,6 +13,13 @@ class LibraryService:
     own business rules itself; it delegates to the appropriate service objects.
     """
 
+    RUNTIME_STATE_FIELDS = (
+        "borrow_queue",
+        "return_stack",
+        "book_linked_list",
+        "book_bst",
+    )
+
     def __init__(
         self,
         repository=None,
@@ -41,25 +48,40 @@ class LibraryService:
         self._bootstrap_services()
 
     def _initialize_runtime_state(self):
-        """Create the runtime state container and hydrate it with the saved queue/structures."""
-        self.state = LibraryState(
+        """Create the runtime state container and hydrate it with persisted queue/structure data."""
+        self.state = self._build_runtime_state()
+        self._bind_runtime_state()
+        self._hydrate_runtime_state()
+
+    def _build_runtime_state(self):
+        return LibraryState(
             self._repository,
             self._borrower_repo,
             self._queue_repo,
             self._reader_repo,
             self._return_history_repo,
         )
-        self._bind_runtime_state()
+
+    def _bind_runtime_state(self):
+        """Expose the live child structures from the runtime state container to the facade."""
+        for field_name in self.RUNTIME_STATE_FIELDS:
+            setattr(self, f"_{field_name}", getattr(self.state, field_name))
+
+    def _hydrate_runtime_state(self):
+        """Load queue and rebuild derived structures after the runtime state is created."""
         self._load_queue()
         self._refresh_structures()
 
-    def _bind_runtime_state(self):
-        self._borrow_queue = self.state.borrow_queue
-        self._return_stack = self.state.return_stack
-        self._book_linked_list = self.state.book_linked_list
-        self._book_bst = self.state.book_bst
+    def refresh_runtime_state(self):
+        """Single entry point to rebuild the runtime data structures and keep the facade in sync."""
+        self._refresh_structures()
+        self._bind_runtime_state()
+        return self.state
 
     def _bootstrap_services(self):
+        self._configure_business_services()
+
+    def _configure_business_services(self):
         self.book_service = BookService(
             repository=self._repository,
             borrower_repo=self._borrower_repo,
@@ -105,7 +127,7 @@ class LibraryService:
                 yield service
 
     def _sync_service_dependencies(self, **updates):
-        """Propagate shared state to the state object and collaborating services."""
+        """Propagate shared state to the runtime state container and collaborating services."""
         if not updates:
             return
 
@@ -122,6 +144,11 @@ class LibraryService:
             for name, value in updates.items():
                 if hasattr(service, name):
                     setattr(service, name, value)
+
+    def sync_runtime_state(self, **updates):
+        """Public alias for syncing runtime state and service dependencies."""
+        self._sync_service_dependencies(**updates)
+        return self
 
     @property
     def repository(self):
