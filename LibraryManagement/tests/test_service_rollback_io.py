@@ -41,12 +41,13 @@ class ServiceRollbackIOTestCase(unittest.TestCase):
         self.return_history_repo = ReturnHistoryRepository()
         self.return_history_repo.FILE_PATH = self.temp_path / "return_history.json"
 
-        self.service = LibraryService()
-        self.service.repository = self.book_repo
-        self.service.borrower_repo = self.borrower_repo
-        self.service.queue_repo = self.queue_repo
-        self.service.reader_repo = self.reader_repo
-        self.service.return_history_repo = self.return_history_repo
+        self.service = LibraryService(
+            repository=self.book_repo,
+            borrower_repo=self.borrower_repo,
+            queue_repo=self.queue_repo,
+            reader_repo=self.reader_repo,
+            return_history_repo=self.return_history_repo,
+        )
         self.service.borrow_queue = Queue()
         self.service.return_stack = Stack()
         self.service._refresh_structures = lambda: None
