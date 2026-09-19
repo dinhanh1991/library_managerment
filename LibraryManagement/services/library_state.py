@@ -52,7 +52,7 @@ class LibraryState:
         return books
 
     def search_linked_list(self, book_id):
-        return self.book_linked_list.search(book_id)
+        return self.book_linked_list.search_book(book_id)
 
     def search_bst(self, book_id):
         return self.book_bst.search(book_id)
