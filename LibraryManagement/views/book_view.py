@@ -6,7 +6,6 @@ from LibraryManagement.utils.ui_helpers import (
     create_book_table,
     print_info_error,
     print_info_success,
-    print_info_warning,
     prompt_field,
     prompt_int,
     prompt_optional_int,
@@ -124,6 +123,19 @@ class BookView(BaseView):
             print_info_error("Cập nhật sách thất bại!")
         self.pause()
 
+    def _display_search_results(self, results):
+        if not results:
+            print_info_error("Không tìm thấy sách!")
+            self.pause()
+            return
+
+        self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
+        table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
+        for book in results:
+            add_book_to_table(table, book, status=self.get_book_status(book))
+        self.console.print(table)
+        self.pause()
+
     @staticmethod
     def get_book_status(book):
         if book.quantity > 0:
@@ -150,16 +162,7 @@ class BookView(BaseView):
             self.pause()
             return
         results = self.service.search_books_by_title(keyword)
-        if not results:
-            print_info_error("Không tìm thấy sách!")
-            self.pause()
-            return
-        self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
-        table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
-        for book in results:
-            add_book_to_table(table, book, status=self.get_book_status(book))
-        self.console.print(table)
-        self.pause()
+        self._display_search_results(results)
 
     def search_by_author(self):
         self.console.print("\n[bold cyan]===== ✍️ TÌM SÁCH THEO TÁC GIẢ =====[/bold cyan]")
@@ -168,16 +171,7 @@ class BookView(BaseView):
             self.pause()
             return
         results = self.service.search_books_by_author(author)
-        if not results:
-            print_info_error("Không tìm thấy sách!")
-            self.pause()
-            return
-        self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
-        table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
-        for book in results:
-            add_book_to_table(table, book, status=self.get_book_status(book))
-        self.console.print(table)
-        self.pause()
+        self._display_search_results(results)
 
     def search_advanced(self):
         self.console.print("\n[bold cyan]===== 🔎 TÌM KIẾM NÂNG CAO =====[/bold cyan]")
@@ -202,16 +196,7 @@ class BookView(BaseView):
             isbn=isbn,
             availability=availability,
         )
-        if not results:
-            print_info_error("Không tìm thấy sách phù hợp!")
-            self.pause()
-            return
-        self.console.print(f"\n[bold green]🔎 Tìm thấy {len(results)} sách:[/bold green]")
-        table = create_book_table("🔎 KẾT QUẢ TÌM KIẾM")
-        for book in results:
-            add_book_to_table(table, book, status=self.get_book_status(book))
-        self.console.print(table)
-        self.pause()
+        self._display_search_results(results)
 
     def run(self):
         self.run_menu(self.show_menu, {"1": self.add_book, "2": self.delete_book, "3": self.update_book, "4": self.display_books, "5": self.search_by_title, "6": self.search_by_author, "7": self.search_advanced})
