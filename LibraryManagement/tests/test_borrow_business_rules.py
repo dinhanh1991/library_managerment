@@ -1,5 +1,6 @@
 import sys
 import tempfile
+from datetime import date
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -114,7 +115,7 @@ class TestBorrowBusinessRules(unittest.TestCase):
         self.borrower_repo.save_borrowers([borrower])
 
         overdue = self.service.get_overdue_borrowers(
-            current_date=__import__("datetime").date(2026, 9, 16)
+            current_date=date(2026, 9, 16)
         )
 
         self.assertEqual(len(overdue), 1)
