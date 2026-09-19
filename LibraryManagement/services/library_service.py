@@ -229,6 +229,28 @@ class LibraryService:
     def get_return_history(self):
         return self.return_service.get_return_history()
 
+    def get_borrow_queue_items(self):
+        return self.state.get_borrow_queue_items()
+
+    def get_next_borrower(self):
+        queue_items = self.state.get_borrow_queue_items()
+        return queue_items[0] if queue_items else None
+
+    def get_return_stack_items(self):
+        return self.state.get_return_stack_items()
+
+    def get_linked_list_books(self):
+        self._refresh_structures()
+        return self.state.get_linked_list_books()
+
+    def search_book_by_linked_list(self, book_id):
+        self._refresh_structures()
+        return self.state.search_linked_list(self._normalize_text(book_id))
+
+    def search_book_by_bst(self, book_id):
+        self._refresh_structures()
+        return self.state.search_bst(self._normalize_text(book_id))
+
     def get_all_books(self):
         return self.book_service.get_all_books()
 
