@@ -1,12 +1,20 @@
 import csv
+from pathlib import Path
+
 import matplotlib.pyplot as plt
+
+
+# ============================================================
+# ĐƯỜNG DẪN DỮ LIỆU
+# ============================================================
+
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+csv_file = DATA_DIR / "benchmark_results.csv"
 
 
 # ============================================================
 # ĐỌC DỮ LIỆU TỪ FILE CSV
 # ============================================================
-
-csv_file = "data/benchmark_results.csv"
 
 data = {}
 
@@ -77,7 +85,7 @@ plt.grid(True)
 plt.tight_layout()
 
 plt.savefig(
-    "data/benchmark_all_algorithms.png",
+    DATA_DIR / "benchmark_all_algorithms.png",
     dpi=300
 )
 
@@ -123,7 +131,7 @@ plt.grid(True)
 plt.tight_layout()
 
 plt.savefig(
-    "data/benchmark_nlogn.png",
+    DATA_DIR / "benchmark_nlogn.png",
     dpi=300
 )
 
@@ -138,6 +146,6 @@ print()
 print("=" * 70)
 print("✅ Đã tạo 2 biểu đồ benchmark:")
 print("=" * 70)
-print("1. data/benchmark_all_algorithms.png")
-print("2. data/benchmark_nlogn.png")
+print(f"1. {DATA_DIR / 'benchmark_all_algorithms.png'}")
+print(f"2. {DATA_DIR / 'benchmark_nlogn.png'}")
 print("=" * 70)
