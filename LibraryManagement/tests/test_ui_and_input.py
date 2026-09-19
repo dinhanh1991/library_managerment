@@ -103,6 +103,18 @@ class UiAndInputTestCase(unittest.TestCase):
         self.view.add_book()
         self.assertEqual(self.service.get_all_books(), [])
 
+    @patch("builtins.input", side_effect=["",])
+    def test_prompt_optional_int_returns_none_for_empty_input(self, _mock_input):
+        from LibraryManagement.utils.ui_helpers import prompt_optional_int
+
+        self.assertIsNone(prompt_optional_int("Năm: ", "Năm"))
+
+    @patch("builtins.input", side_effect=["abc", "2025"])
+    def test_prompt_optional_int_retries_invalid_input(self, _mock_input):
+        from LibraryManagement.utils.ui_helpers import prompt_optional_int
+
+        self.assertEqual(prompt_optional_int("Năm: ", "Năm"), 2025)
+
     def test_book_catalog_has_real_categories(self):
         catalog_path = ROOT / "data" / "books.json"
         with catalog_path.open("r", encoding="utf-8") as handle:
