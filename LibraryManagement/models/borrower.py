@@ -3,6 +3,18 @@ from datetime import date
 
 class Borrower:
 
+    def is_overdue(self, as_of=None):
+        """Return whether this borrower is currently overdue."""
+        if self.status not in {"pending", "borrowed"} or not self.due_date:
+            return False
+        as_of = as_of or date.today()
+        try:
+            due_date = date.fromisoformat(self.due_date)
+        except ValueError:
+            return False
+        return due_date < as_of
+
+
     # Khởi tạo thông tin người mượn
     def __init__(
         self,
