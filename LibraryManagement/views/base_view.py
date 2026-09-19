@@ -47,15 +47,12 @@ class BaseView:
     def confirm_action(self, message):
         while True:
             choice = input(f"\n{message} (Y/N): ").strip().upper()
-
             if choice == "Y":
                 return True
-
             if choice == "N":
                 self.console.print("\n[bold yellow]↩️ Bạn đã hủy thao tác.[/bold yellow]")
                 self.pause()
                 return False
-
             self.console.print("\n[bold red]⚠️ Vui lòng chỉ nhập Y hoặc N![/bold red]")
 
     def render_menu(self, title, options, accent=None):
@@ -100,4 +97,7 @@ class BaseView:
                 self.invalid_choice()
                 continue
 
-            action()
+            try:
+                action()
+            except (OSError, ValueError) as error:
+                self.handle_action_error(error)
