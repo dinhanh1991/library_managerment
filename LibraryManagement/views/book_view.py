@@ -65,15 +65,12 @@ class BookView(BaseView):
         if not self.confirm_action("Bạn có chắc chắn muốn xóa sách này không?"):
             return
         result = self.service.remove_book(book_id)
-        if result:
+        if result == "deleted":
             self.console.print("\n[bold green]✅ Xóa sách thành công![/bold green]")
+        elif result == "borrowed":
+            print_info_warning("Sách đang được mượn, không thể xóa.")
         else:
-            books = self.service.get_all_books()
-            is_existing = any(item.book_id == book_id for item in books)
-            if is_existing and self.service.is_book_borrowed(book_id):
-                print_info_warning("Sách đang được mượn, không thể xóa.")
-            else:
-                print_info_error("Không tìm thấy sách!")
+            print_info_error("Không tìm thấy sách!")
         self.pause()
 
     def update_book(self):
