@@ -10,6 +10,10 @@ class Book:
         self.category = (category or "Chưa phân loại").strip() or "Chưa phân loại"   # Thể loại
         self.isbn = (isbn or "").strip()  # Mã ISBN
 
+    def is_available(self):
+        """Return whether the book has at least one copy available."""
+        return self.quantity > 0
+
     # Hiển thị thông tin sách
     def __str__(self):
         return (

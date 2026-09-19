@@ -161,9 +161,9 @@ class BookService:
                 continue
             if normalized_filters["isbn"] and normalized_filters["isbn"] not in str(getattr(book, "isbn", "") or "").lower():
                 continue
-            if normalized_availability == "available" and book.quantity <= 0:
+            if normalized_availability == "available" and not book.is_available():
                 continue
-            if normalized_availability == "unavailable" and book.quantity > 0:
+            if normalized_availability == "unavailable" and book.is_available():
                 continue
             results.append(book)
         return results

@@ -59,6 +59,13 @@ class LibraryServiceTestCase(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
+    def test_book_availability_helper(self):
+        available = Book("B001", "Python Basics", "Alice", 2024, 2)
+        unavailable = Book("B002", "Data Structures", "Bob", 2023, 0)
+
+        self.assertTrue(available.is_available())
+        self.assertFalse(unavailable.is_available())
+
     def test_borrower_status_helpers(self):
         active = Borrower("C001", "Charlie", "B001", status="borrowed")
         pending = Borrower("C002", "David", "B002", status="pending")
