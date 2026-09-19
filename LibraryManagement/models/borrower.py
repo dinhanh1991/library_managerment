@@ -3,6 +3,12 @@ from datetime import date
 
 class Borrower:
 
+    def is_active(self):
+        return self.status in {"pending", "borrowed"}
+
+    def is_borrowing_book(self, book_id):
+        return self.is_active() and self.book_id == book_id
+
     def is_overdue(self, as_of=None):
         """Return whether this borrower is currently overdue."""
         if self.status not in {"pending", "borrowed"} or not self.due_date:
@@ -13,7 +19,6 @@ class Borrower:
         except ValueError:
             return False
         return due_date < as_of
-
 
     # Khởi tạo thông tin người mượn
     def __init__(
