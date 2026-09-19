@@ -235,16 +235,15 @@ class LibraryService:
         if not book_id:
             return False
         return any(
-            self._normalize_text(item.book_id) == book_id
+            item.is_borrowing_book(book_id)
             for item in self.get_active_borrowers()
-            if item.status in {"pending", "borrowed"}
         )
 
     def get_active_reader_ids(self):
         return {
             borrower.borrower_id
             for borrower in self.get_active_borrowers()
-            if borrower.status in {"pending", "borrowed"}
+            if borrower.is_active()
         }
 
     def get_return_history(self):
