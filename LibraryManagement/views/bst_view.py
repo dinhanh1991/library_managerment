@@ -1,20 +1,10 @@
 from rich.table import Table
 
+from LibraryManagement.utils.ui_helpers import prompt_field
 from LibraryManagement.views.base_view import BaseView
 
+
 class BSTView(BaseView):
-
-    # ============================================================
-    # KHỞI TẠO BST VIEW
-    # ============================================================
-
-    def __init__(self, service):
-        super().__init__(service)
-
-    # ============================================================
-    # HIỂN THỊ MENU QUẢN LÝ BST
-    # ============================================================
-
     def show_menu(self):
         menu_content = (
             " [1] 🔍 Tìm sách theo mã bằng BST\n"
@@ -25,226 +15,69 @@ class BSTView(BaseView):
         )
         self.render_menu("🌳 QUẢN LÝ BST", menu_content)
 
-    # ============================================================
-    # TẠM DỪNG MÀN HÌNH
-    # ============================================================
-
-    # ============================================================
-    # HIỂN THỊ THÔNG TIN SÁCH
-    # ============================================================
-
     def display_book(self, book):
-
-        # Tạo bảng thông tin sách
         table = Table(
             title="📚 KẾT QUẢ TÌM KIẾM",
             header_style="bold magenta",
-            border_style="blue"
+            border_style="blue",
         )
-
-        # Thêm các cột
-        table.add_column(
-            "MÃ SÁCH",
-            justify="center",
-            style="cyan",
-            no_wrap=True
-        )
-
-        table.add_column(
-            "TÊN SÁCH",
-            style="green"
-        )
-
-        table.add_column(
-            "TÁC GIẢ",
-            style="yellow"
-        )
-
-        table.add_column(
-            "NĂM",
-            justify="center"
-        )
-
-        table.add_column(
-            "SL",
-            justify="center"
-        )
-
-        # Thêm thông tin sách vào bảng
+        for column in ("MÃ SÁCH", "TÊN SÁCH", "TÁC GIẢ", "NĂM", "SL"):
+            table.add_column(column, justify="center" if column in {"MÃ SÁCH", "NĂM", "SL"} else "left")
         table.add_row(
             str(book.book_id),
             str(book.title),
             str(book.author),
             str(book.publish_year),
-            str(book.quantity)
+            str(book.quantity),
         )
-
-        # Hiển thị bảng
-        self.console.print()
         self.console.print(table)
 
-    # ============================================================
-    # TÌM SÁCH BẰNG BST
-    # ============================================================
-
     def search_book(self):
-
-        self.console.print(
-            "\n[bold cyan]===== 🔍 TÌM SÁCH BẰNG BST =====[/bold cyan]"
-        )
-
-        # Nhập mã sách
-        book_id = input(
-            "👉 Nhập mã sách cần tìm: "
-        ).strip()
-
-        # Kiểm tra dữ liệu nhập
-        if not book_id:
-
-            self.console.print(
-                "\n[bold yellow]"
-                "⚠️ Mã sách không được để trống."
-                "[/bold yellow]"
-            )
-
+        self.console.print("\n[bold cyan]===== 🔍 TÌM SÁCH BẰNG BST =====[/bold cyan]")
+        book_id = prompt_field("👉 Nhập mã sách cần tìm: ", "Mã sách")
+        if book_id is None:
             self.pause()
             return
 
-        # Gọi Service tìm kiếm bằng BST
-        book = self.service.search_book_by_bst(
-            book_id
-        )
-
-        # Nếu tìm thấy
+        book = self.service.search_book_by_bst(book_id)
         if book:
-
             self.display_book(book)
-
-        # Nếu không tìm thấy
         else:
-
-            self.console.print(
-                "\n[bold red]"
-                "❌ Không tìm thấy sách."
-                "[/bold red]"
-            )
-
+            self.console.print("\n[bold red]❌ Không tìm thấy sách.[/bold red]")
         self.pause()
 
-    # ============================================================
-    # DUYỆT BST - INORDER
-    # ============================================================
+    def _display_traversal(self, title, books):
+        self.console.print(f"\n[bold cyan]===== 📋 BST {title} =====[/bold cyan]")
+        if not books:
+            self.console.print("\n[bold yellow]📭 Thư viện chưa có sách.[/bold yellow]")
+            self.pause()
+            return
+
+        table = Table(title=f"📋 BST {title}", header_style="bold magenta", border_style="blue")
+        table.add_column("MÃ SÁCH", justify="center", style="cyan")
+        table.add_column("TÊN SÁCH", style="green")
+        table.add_column("TÁC GIẢ", style="yellow")
+        table.add_column("NĂM", justify="center")
+        table.add_column("SL", justify="center")
+        for book in books:
+            table.add_row(
+                str(book.book_id),
+                str(book.title),
+                str(book.author),
+                str(book.publish_year),
+                str(book.quantity),
+            )
+        self.console.print(table)
+        self.pause()
 
     def display_inorder(self):
-
-        self.console.print(
-            "\n[bold cyan]===== 📋 BST INORDER =====[/bold cyan]"
-        )
-
-        # Xây dựng BST từ dữ liệu sách
-        bst = self.service.build_book_bst()
-
-        # Kiểm tra BST có rỗng không
-        if bst.root is None:
-
-            self.console.print(
-                "\n[bold yellow]"
-                "📭 Thư viện chưa có sách."
-                "[/bold yellow]"
-            )
-
-            self.pause()
-            return
-
-        # Hiển thị tiêu đề
-        self.console.print(
-            "\n[bold green]"
-            "📋 KẾT QUẢ DUYỆT INORDER:"
-            "[/bold green]"
-        )
-
-        # Thực hiện duyệt Inorder
-        bst.inorder(bst.root)
-
-        self.pause()
-
-    # ============================================================
-    # DUYỆT BST - PREORDER
-    # ============================================================
+        self._display_traversal("INORDER", self.service.get_bst_inorder())
 
     def display_preorder(self):
-
-        self.console.print(
-            "\n[bold cyan]===== 📋 BST PREORDER =====[/bold cyan]"
-        )
-
-        # Xây dựng BST
-        bst = self.service.build_book_bst()
-
-        # Kiểm tra BST rỗng
-        if bst.root is None:
-
-            self.console.print(
-                "\n[bold yellow]"
-                "📭 Thư viện chưa có sách."
-                "[/bold yellow]"
-            )
-
-            self.pause()
-            return
-
-        # Hiển thị tiêu đề
-        self.console.print(
-            "\n[bold green]"
-            "📋 KẾT QUẢ DUYỆT PREORDER:"
-            "[/bold green]"
-        )
-
-        # Thực hiện duyệt Preorder
-        bst.preorder(bst.root)
-
-        self.pause()
-
-    # ============================================================
-    # DUYỆT BST - POSTORDER
-    # ============================================================
+        self._display_traversal("PREORDER", self.service.get_bst_preorder())
 
     def display_postorder(self):
-
-        self.console.print(
-            "\n[bold cyan]===== 📋 BST POSTORDER =====[/bold cyan]"
-        )
-
-        # Xây dựng BST
-        bst = self.service.build_book_bst()
-
-        # Kiểm tra BST rỗng
-        if bst.root is None:
-
-            self.console.print(
-                "\n[bold yellow]"
-                "📭 Thư viện chưa có sách."
-                "[/bold yellow]"
-            )
-
-            self.pause()
-            return
-
-        # Hiển thị tiêu đề
-        self.console.print(
-            "\n[bold green]"
-            "📋 KẾT QUẢ DUYỆT POSTORDER:"
-            "[/bold green]"
-        )
-
-        # Thực hiện duyệt Postorder
-        bst.postorder(bst.root)
-
-        self.pause()
-
-    # ============================================================
-    # CHẠY CHƯƠNG TRÌNH
-    # ============================================================
+        self._display_traversal("POSTORDER", self.service.get_bst_postorder())
 
     def run(self):
         self.run_menu(
