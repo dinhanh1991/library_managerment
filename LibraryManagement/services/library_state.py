@@ -5,7 +5,11 @@ from LibraryManagement.data_structures.stack import Stack
 
 
 class LibraryState:
-    """Quản lý trạng thái dùng chung của thư viện và thao tác rollback."""
+    """Runtime state holder for the library: queue, stack, book structures, and rollback snapshots.
+
+    This class intentionally manages only runtime and persistence-state concerns. Business
+    decisions remain in the service layer.
+    """
 
     def __init__(
         self,
@@ -21,12 +25,17 @@ class LibraryState:
         self.reader_repo = reader_repo
         self.return_history_repo = return_history_repo
 
+        self.reset_runtime_state()
+
+    def reset_runtime_state(self):
+        """Reset the runtime-only data structures to their empty initial state."""
         self.borrow_queue = Queue()
         self.return_stack = Stack()
         self.book_linked_list = BookLinkedList()
         self.book_bst = BinarySearchTree()
 
     def load_queue(self):
+        """Load queue items from the queue repository into the runtime queue."""
         self.borrow_queue = Queue()
         for borrower in self.queue_repo.load_queue():
             self.borrow_queue.enqueue(borrower)
@@ -96,7 +105,8 @@ class LibraryState:
         visit(self.book_bst.root)
         return result
 
-    def refresh_structures(self):
+    def rebuild_book_structures(self):
+        """Rebuild the linked-list and BST views of books from repository data."""
         books = self.repository.load_books()
 
         self.book_linked_list = BookLinkedList()
@@ -106,6 +116,10 @@ class LibraryState:
         self.book_bst = BinarySearchTree()
         for book in books:
             self.book_bst.insert(book)
+
+    def refresh_structures(self):
+        """Compatibility wrapper that keeps the public API while isolating state rebuild logic."""
+        self.rebuild_book_structures()
 
     def rollback(self, snapshots):
         """Restore persisted snapshots and propagate I/O failures to the caller."""

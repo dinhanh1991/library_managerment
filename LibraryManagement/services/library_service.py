@@ -7,7 +7,11 @@ from LibraryManagement.utils.validators import AppValidator
 
 
 class LibraryService:
-    """Facade giữ API cũ và điều phối các service theo nghiệp vụ."""
+    """Facade/orchestrator that keeps the legacy API stable while delegating logic to services.
+
+    This class coordinates repositories, runtime state, and business services. It does not
+    own business rules itself; it delegates to the appropriate service objects.
+    """
 
     def __init__(
         self,
@@ -33,6 +37,11 @@ class LibraryService:
             else ReturnHistoryRepository()
         )
 
+        self._initialize_runtime_state()
+        self._bootstrap_services()
+
+    def _initialize_runtime_state(self):
+        """Create the runtime state container and hydrate it with the saved queue/structures."""
         self.state = LibraryState(
             self._repository,
             self._borrower_repo,
@@ -43,7 +52,6 @@ class LibraryService:
         self._bind_runtime_state()
         self._load_queue()
         self._refresh_structures()
-        self._bootstrap_services()
 
     def _bind_runtime_state(self):
         self._borrow_queue = self.state.borrow_queue

@@ -14,6 +14,8 @@ from LibraryManagement.utils.ui_helpers import (
 
 
 class BookView(BaseView):
+    """Presentation layer for book actions. It should gather UI input and delegate all business rules to the service."""
+
     def __init__(self, service):
         super().__init__(service)
 

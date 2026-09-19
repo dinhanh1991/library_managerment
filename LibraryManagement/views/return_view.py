@@ -6,6 +6,8 @@ from LibraryManagement.views.base_view import BaseView
 
 
 class ReturnView(BaseView):
+    """Presentation layer for return flows. Business rules remain in ReturnService."""
+
     def show_menu(self):
         menu_content = (
             " [1] ↩️ Trả sách\n"

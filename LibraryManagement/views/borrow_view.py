@@ -6,6 +6,8 @@ from LibraryManagement.views.base_view import BaseView
 
 
 class BorrowView(BaseView):
+    """Presentation layer for borrow flows. Business rules remain in BorrowService."""
+
     def show_menu(self):
         menu_content = (
             " [1] 📚 Mượn sách\n"
