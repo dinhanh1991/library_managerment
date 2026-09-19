@@ -27,6 +27,14 @@ class BorrowService:
         self.refresh_structures = refresh_structures
         self.rollback = rollback
 
+    def get_overdue_borrowers(self, current_date=None):
+        current_date = current_date or date.today()
+        return [
+            item
+            for item in self.borrower_repo.load_borrowers()
+            if item.is_overdue(current_date)
+        ]
+
     def book_borrow(self, borrower):
         if not BorrowValidator.is_valid_borrow_payload(borrower):
             return False
