@@ -90,6 +90,10 @@ class ReportService:
             "overdue": 0,
             "returned": 0,
         }
+        overdue_ids = {
+            borrower.borrower_id
+            for borrower in self.library_service.get_overdue_borrowers(as_of)
+        }
 
         for borrower in active_window:
             status = borrower.status
@@ -99,7 +103,7 @@ class ReportService:
 
             if (
                 status in {"borrowed", "pending"}
-                and self.library_service._is_overdue(borrower, as_of)
+                and borrower.borrower_id in overdue_ids
             ):
                 status_summary["overdue"] += 1
 
