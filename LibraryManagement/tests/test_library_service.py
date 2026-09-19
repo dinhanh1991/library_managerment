@@ -103,6 +103,30 @@ class LibraryServiceTestCase(unittest.TestCase):
         self.assertEqual(len(books), 2)
         self.assertEqual(books[0].book_id, "B001")
 
+    def test_runtime_state_queries_are_exposed_without_leaking_state_objects(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        self.assertTrue(self.service.book_borrow(borrower))
+
+        queue_items = self.service.get_borrow_queue_items()
+        self.assertEqual(len(queue_items), 1)
+        self.assertEqual(queue_items[0].borrower_id, "C001")
+
+        queue_items.clear()
+        self.assertEqual(len(self.service.get_borrow_queue_items()), 1)
+
+        returned = self.service.get_return_stack_items()
+        self.assertEqual(returned, [])
+
+    def test_linked_list_and_bst_queries_are_exposed_by_service(self):
+        linked_books = self.service.get_linked_list_books()
+        self.assertEqual([book.book_id for book in linked_books], ["B001", "B002"])
+
+        self.assertEqual(self.service.search_book_by_linked_list("B001").book_id, "B001")
+        self.assertEqual(self.service.search_book_by_bst("B002").book_id, "B002")
+
+        inorder = self.service.get_bst_inorder()
+        self.assertEqual([book.book_id for book in inorder], ["B001", "B002"])
+
     def test_search_books_advanced_filters_by_fields_and_availability(self):
         books = [
             Book("B001", "Python Basics", "Alice", 2024, 0, "Khoa học máy tính", "978-1-2345-6789-0"),
