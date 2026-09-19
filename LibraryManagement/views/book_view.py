@@ -9,6 +9,7 @@ from LibraryManagement.utils.ui_helpers import (
     print_info_warning,
     prompt_field,
     prompt_int,
+    prompt_optional_int,
 )
 
 
@@ -98,27 +99,21 @@ class BookView(BaseView):
         author = input("Tác giả mới (Enter để giữ): ").strip() or book.author
         category = input("Thể loại mới (Enter để giữ): ").strip() or book.category
         isbn = input("ISBN mới (Enter để giữ): ").strip() or book.isbn
-        raw_publish_year = input("Năm xuất bản mới (Enter để giữ): ").strip()
-        if raw_publish_year:
-            try:
-                publish_year = int(raw_publish_year)
-            except ValueError:
-                print_info_error("Năm xuất bản phải là số nguyên.")
-                self.pause()
-                return
-        else:
-            publish_year = book.publish_year
+        publish_year_input = prompt_optional_int(
+            "Năm xuất bản mới (Enter để giữ): ",
+            "Năm xuất bản",
+        )
+        publish_year = (
+            book.publish_year
+            if publish_year_input is None
+            else publish_year_input
+        )
 
-        raw_quantity = input("Số lượng mới (Enter để giữ): ").strip()
-        if raw_quantity:
-            try:
-                quantity = int(raw_quantity)
-            except ValueError:
-                print_info_error("Số lượng phải là số nguyên.")
-                self.pause()
-                return
-        else:
-            quantity = book.quantity
+        quantity_input = prompt_optional_int(
+            "Số lượng mới (Enter để giữ): ",
+            "Số lượng",
+        )
+        quantity = book.quantity if quantity_input is None else quantity_input
 
         updated_book = Book(book_id, title, author, publish_year, quantity, category=category, isbn=isbn)
         if not self.confirm_action("Bạn có chắc chắn muốn cập nhật sách này không?"):
