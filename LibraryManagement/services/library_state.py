@@ -57,6 +57,45 @@ class LibraryState:
     def search_bst(self, book_id):
         return self.book_bst.search(book_id)
 
+    def get_bst_inorder(self):
+        result = []
+
+        def visit(node):
+            if node is None:
+                return
+            visit(node.left)
+            result.append(node.book)
+            visit(node.right)
+
+        visit(self.book_bst.root)
+        return result
+
+    def get_bst_preorder(self):
+        result = []
+
+        def visit(node):
+            if node is None:
+                return
+            result.append(node.book)
+            visit(node.left)
+            visit(node.right)
+
+        visit(self.book_bst.root)
+        return result
+
+    def get_bst_postorder(self):
+        result = []
+
+        def visit(node):
+            if node is None:
+                return
+            visit(node.left)
+            visit(node.right)
+            result.append(node.book)
+
+        visit(self.book_bst.root)
+        return result
+
     def refresh_structures(self):
         books = self.repository.load_books()
 
