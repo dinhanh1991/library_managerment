@@ -59,6 +59,29 @@ class LibraryServiceTestCase(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
+    def test_borrower_status_helpers(self):
+        active = Borrower("C001", "Charlie", "B001", status="borrowed")
+        pending = Borrower("C002", "David", "B002", status="pending")
+        returned = Borrower("C003", "Eve", "B003", status="returned")
+
+        self.assertTrue(active.is_active())
+        self.assertTrue(pending.is_active())
+        self.assertFalse(returned.is_active())
+        self.assertTrue(active.is_borrowing_book("B001"))
+        self.assertFalse(active.is_borrowing_book("B002"))
+
+    def test_library_service_active_borrower_queries_use_borrower_behavior(self):
+        self.borrower_repo.save_borrowers([
+            Borrower("C001", "Charlie", "B001", status="borrowed"),
+            Borrower("C002", "David", "B002", status="pending"),
+            Borrower("C003", "Eve", "B003", status="returned"),
+        ])
+
+        self.assertTrue(self.service.is_book_borrowed("B001"))
+        self.assertTrue(self.service.is_book_borrowed("B002"))
+        self.assertFalse(self.service.is_book_borrowed("B003"))
+        self.assertEqual(self.service.get_active_reader_ids(), {"C001", "C002"})
+
     def test_get_all_books_returns_data_from_repo(self):
         books = self.service.get_all_books()
         self.assertEqual(len(books), 2)
