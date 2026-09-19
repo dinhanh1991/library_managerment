@@ -224,11 +224,7 @@ class LibraryService:
         return self.borrow_service.is_book_borrowed(book_id)
 
     def get_active_reader_ids(self):
-        return {
-            borrower.borrower_id
-            for borrower in self.get_active_borrowers()
-            if borrower.is_active()
-        }
+        return self.reader_service.get_active_reader_ids()
 
     def get_return_history(self):
         return self.return_history_repo.load_history()
