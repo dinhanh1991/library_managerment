@@ -38,8 +38,8 @@ class BookView(BaseView):
         if book_id is None or title is None or author is None:
             self.pause()
             return
-        publish_year = prompt_int("Nhập năm xuất bản: ", "Năm xuất bản", min_value=0)
-        quantity = prompt_int("Nhập số lượng: ", "Số lượng", min_value=0)
+        publish_year = prompt_int("Nhập năm xuất bản: ", "Năm xuất bản")
+        quantity = prompt_int("Nhập số lượng: ", "Số lượng")
         category = prompt_field("Nhập thể loại (nhấn Enter để đặt mặc định): ", "Thể loại", allow_empty=True) or "Chưa phân loại"
         isbn = prompt_field("Nhập ISBN (nhấn Enter nếu không có): ", "ISBN", allow_empty=True) or ""
         if publish_year is None or quantity is None:
@@ -58,9 +58,8 @@ class BookView(BaseView):
 
     def delete_book(self):
         self.console.print("\n[bold cyan]===== 🗑️ XÓA SÁCH =====[/bold cyan]")
-        book_id = input("Nhập mã sách cần xóa: ").strip()
-        if not book_id:
-            print_info_warning("Mã sách không được để trống.")
+        book_id = prompt_field("Nhập mã sách cần xóa: ", "Mã sách")
+        if book_id is None:
             self.pause()
             return
         if not self.confirm_action("Bạn có chắc chắn muốn xóa sách này không?"):
@@ -76,9 +75,8 @@ class BookView(BaseView):
 
     def update_book(self):
         self.console.print("\n[bold cyan]===== ✏️ CẬP NHẬT SÁCH =====[/bold cyan]")
-        book_id = input("Nhập mã sách cần cập nhật: ").strip()
-        if not book_id:
-            print_info_warning("Mã sách không được để trống.")
+        book_id = prompt_field("Nhập mã sách cần cập nhật: ", "Mã sách")
+        if book_id is None:
             self.pause()
             return
         book = self.service.get_book_by_id(book_id)
@@ -95,10 +93,10 @@ class BookView(BaseView):
         print(f"Số lượng: {book.quantity}")
         self.console.print("\n[bold yellow]--- Nhập thông tin mới ---[/bold yellow]")
 
-        title = input("Tên sách mới (Enter để giữ): ").strip() or book.title
-        author = input("Tác giả mới (Enter để giữ): ").strip() or book.author
-        category = input("Thể loại mới (Enter để giữ): ").strip() or book.category
-        isbn = input("ISBN mới (Enter để giữ): ").strip() or book.isbn
+        title = prompt_field("Tên sách mới (Enter để giữ): ", "Tên sách", allow_empty=True) or book.title
+        author = prompt_field("Tác giả mới (Enter để giữ): ", "Tác giả", allow_empty=True) or book.author
+        category = prompt_field("Thể loại mới (Enter để giữ): ", "Thể loại", allow_empty=True) or book.category
+        isbn = prompt_field("ISBN mới (Enter để giữ): ", "ISBN", allow_empty=True) or book.isbn
         publish_year_input = prompt_optional_int(
             "Năm xuất bản mới (Enter để giữ): ",
             "Năm xuất bản",
@@ -183,12 +181,19 @@ class BookView(BaseView):
 
     def search_advanced(self):
         self.console.print("\n[bold cyan]===== 🔎 TÌM KIẾM NÂNG CAO =====[/bold cyan]")
-        title = input("👉 Tên sách (để trống nếu không muốn lọc): ").strip() or None
-        author = input("👉 Tác giả (để trống nếu không muốn lọc): ").strip() or None
-        genre = input("👉 Thể loại (để trống nếu không muốn lọc): ").strip() or None
-        publish_year = input("👉 Năm xuất bản (để trống nếu không muốn lọc): ").strip() or None
-        isbn = input("👉 ISBN (để trống nếu không có): ").strip() or None
-        availability = input("👉 Tình trạng [all/available/unavailable] (mặc định all): ").strip().lower() or "all"
+        title = prompt_field("👉 Tên sách (để trống nếu không muốn lọc): ", "Tên sách", allow_empty=True) or None
+        author = prompt_field("👉 Tác giả (để trống nếu không muốn lọc): ", "Tác giả", allow_empty=True) or None
+        genre = prompt_field("👉 Thể loại (để trống nếu không muốn lọc): ", "Thể loại", allow_empty=True) or None
+        publish_year = prompt_optional_int(
+            "👉 Năm xuất bản (để trống nếu không muốn lọc): ",
+            "Năm xuất bản",
+        )
+        isbn = prompt_field("👉 ISBN (để trống nếu không có): ", "ISBN", allow_empty=True) or None
+        availability = prompt_field(
+            "👉 Tình trạng [all/available/unavailable] (mặc định all): ",
+            "Tình trạng",
+            allow_empty=True,
+        ) or "all"
         results = self.service.search_books_advanced(
             title=title,
             author=author,
