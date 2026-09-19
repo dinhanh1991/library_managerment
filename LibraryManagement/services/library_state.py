@@ -2,7 +2,6 @@ from LibraryManagement.data_structures.bts import BinarySearchTree
 from LibraryManagement.data_structures.linked_list import BookLinkedList
 from LibraryManagement.data_structures.queue import Queue
 from LibraryManagement.data_structures.stack import Stack
-from LibraryManagement.models.reader import Reader
 
 
 class LibraryState:
@@ -48,13 +47,6 @@ class LibraryState:
         self.book_bst = BinarySearchTree()
         for book in books:
             self.book_bst.insert(book)
-
-    def ensure_reader(self, borrower):
-        readers = self.reader_repo.load_readers()
-        if any(reader.reader_id == borrower.borrower_id for reader in readers):
-            return
-        readers.append(Reader(borrower.borrower_id, borrower.name))
-        self.reader_repo.save_readers(readers)
 
     def rollback(self, snapshots):
         """Restore persisted snapshots and propagate I/O failures to the caller."""
