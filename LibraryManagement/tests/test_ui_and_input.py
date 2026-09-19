@@ -125,6 +125,21 @@ class UiAndInputTestCase(unittest.TestCase):
     def test_search_by_author_rejects_empty_input(self, _mock_input, _mock_pause):
         self.view.search_by_author()
 
+    @patch.object(BaseView, "pause")
+    @patch("builtins.input", side_effect=["Python", "Alice", "", "abc", "2024", "", "available"])
+    def test_advanced_search_uses_shared_input_helpers(self, _mock_input, _mock_pause):
+        self.service.search_books_advanced = Mock(return_value=[])
+        self.view.search_advanced()
+
+        self.service.search_books_advanced.assert_called_once_with(
+            title="Python",
+            author="Alice",
+            genre=None,
+            publish_year=2024,
+            isbn=None,
+            availability="available",
+        )
+
     def test_book_catalog_has_real_categories(self):
         catalog_path = ROOT / "data" / "books.json"
         with catalog_path.open("r", encoding="utf-8") as handle:
