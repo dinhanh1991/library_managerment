@@ -107,6 +107,19 @@ class TestBorrowBusinessRules(unittest.TestCase):
         self.assertEqual(len(self.borrower_repo.load_borrowers()), 1)
         self.assertEqual(len(self.service.borrow_queue.items), 1)
 
+    def test_get_overdue_borrowers_is_handled_by_borrow_service(self):
+        borrower = Borrower("C001", "Charlie", "B001")
+        borrower.status = "borrowed"
+        borrower.due_date = "2026-09-15"
+        self.borrower_repo.save_borrowers([borrower])
+
+        overdue = self.service.get_overdue_borrowers(
+            current_date=__import__("datetime").date(2026, 9, 16)
+        )
+
+        self.assertEqual(len(overdue), 1)
+        self.assertEqual(overdue[0].borrower_id, "C001")
+
     def test_borrow_rolls_back_when_borrower_save_fails(self):
         borrower = Borrower("C001", "Charlie", "B001")
         original_save = self.borrower_repo.save_borrowers
