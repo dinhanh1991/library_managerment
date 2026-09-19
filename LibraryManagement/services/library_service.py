@@ -218,7 +218,7 @@ class LibraryService:
         return self.borrow_service.get_overdue_borrowers(current_date)
 
     def get_active_borrowers(self):
-        return self.borrower_repo.load_borrowers()
+        return self.borrow_service.get_active_borrowers()
 
     def is_book_borrowed(self, book_id):
         book_id = self._normalize_text(book_id)
