@@ -84,17 +84,26 @@ class BaseView:
     def prompt_choice(self, prompt_text="\n👉 Nhập lựa chọn: "):
         return input(prompt_text).strip()
 
+    def _resolve_menu_action(self, actions, choice):
+        """Return the action bound to the current menu choice, or a sentinel for invalid input."""
+        if choice == "0":
+            return None
+
+        action = actions.get(choice)
+        if action is None:
+            self.invalid_choice()
+            return "__invalid__"
+        return action
+
     def run_menu(self, show_menu, actions):
         while True:
             show_menu()
             choice = self.prompt_choice()
+            action = self._resolve_menu_action(actions, choice)
 
-            if choice == "0":
-                return
-
-            action = actions.get(choice)
             if action is None:
-                self.invalid_choice()
+                return
+            if action == "__invalid__":
                 continue
 
             try:
