@@ -23,33 +23,36 @@ class BookService:
         return None
 
     @staticmethod
-    def _is_valid_text(value):
-        return BookValidator.is_valid_title(value)
-
-    def add_book(self, book):
+    def _validate_book(book):
         if book is None:
             return False
-        if not self._is_valid_text(book.book_id):
+        return (
+            BookValidator.is_valid_book_id(book.book_id)
+            and BookValidator.is_valid_title(book.title)
+            and BookValidator.is_valid_author(book.author)
+            and BookValidator.is_valid_quantity(book.quantity)
+            and BookValidator.is_valid_publish_year(book.publish_year)
+        )
+
+    def _normalize_book(self, book):
+        book.book_id = self.normalize_text(book.book_id)
+        book.title = self.normalize_text(book.title)
+        book.author = self.normalize_text(book.author)
+        return book
+
+    def add_book(self, book):
+        if not self._validate_book(book):
             return False
-        if not self._is_valid_text(book.title):
-            return False
-        if not self._is_valid_text(book.author):
-            return False
-        if (
-            not self.validate_number(book.quantity)
-            or not self.validate_number(book.publish_year)
+
+        books = self.repository.load_books()
+        if any(
+            self.normalize_text(existing.book_id)
+            == self.normalize_text(book.book_id)
+            for existing in books
         ):
             return False
 
-        book_id = book.book_id.strip()
-        books = self.repository.load_books()
-        for existing in books:
-            if self.normalize_text(existing.book_id) == book_id:
-                return False
-
-        book.book_id = book_id
-        book.title = book.title.strip()
-        book.author = book.author.strip()
+        self._normalize_book(book)
         books.append(book)
         self.repository.save_books(books)
         self.refresh_structures()
@@ -79,34 +82,23 @@ class BookService:
         return "not_found"
 
     def update_book(self, updated_book):
-        if updated_book is None:
-            return False
-        if not self._is_valid_text(updated_book.book_id):
-            return False
-        if not self._is_valid_text(updated_book.title):
-            return False
-        if not self._is_valid_text(updated_book.author):
-            return False
-        if (
-            not self.validate_number(updated_book.quantity)
-            or not self.validate_number(updated_book.publish_year)
-        ):
+        if not self._validate_book(updated_book):
             return False
 
-        book_id = updated_book.book_id.strip()
-        updated_book.book_id = book_id
-        updated_book.title = updated_book.title.strip()
-        updated_book.author = updated_book.author.strip()
+        book_id = self.normalize_text(updated_book.book_id)
         books = self.repository.load_books()
         borrowers = self.borrower_repo.load_borrowers()
+
         if any(self.normalize_text(item.book_id) == book_id for item in borrowers):
             return False
+
         for i, book in enumerate(books):
             if self.normalize_text(book.book_id) == book_id:
-                books[i] = updated_book
+                books[i] = self._normalize_book(updated_book)
                 self.repository.save_books(books)
                 self.refresh_structures()
                 return True
+
         return False
 
     def search_books_by_title(self, keyword):
@@ -133,7 +125,6 @@ class BookService:
         availability=None,
     ):
         books = self.repository.load_books()
-        results = []
 
         text_filters = {
             "title": title,
@@ -150,12 +141,12 @@ class BookService:
             else:
                 normalized_filters[field] = value.strip().lower()
 
-        try:
-            normalized_year = int(publish_year) if publish_year not in (None, "") else None
-        except (TypeError, ValueError):
-            return []
-        if normalized_year is not None and normalized_year < 0:
-            return []
+        if publish_year not in (None, ""):
+            if not BookValidator.is_valid_publish_year(publish_year):
+                return []
+            normalized_year = publish_year
+        else:
+            normalized_year = None
 
         if availability is None:
             normalized_availability = "all"
@@ -182,5 +173,23 @@ class BookService:
                 continue
             if normalized_availability == "unavailable" and book.is_available():
                 continue
-            results.append(book)
-        return results
+            yield_book = book
+            # Giữ luồng xử lý rõ ràng: chỉ thêm bản ghi đã qua toàn bộ filter.
+            if yield_book is not None:
+                pass
+
+        return [
+            book for book in books
+            if (
+                (not normalized_filters["title"] or normalized_filters["title"] in str(book.title or "").lower())
+                and (not normalized_filters["author"] or normalized_filters["author"] in str(book.author or "").lower())
+                and (not normalized_filters["genre"] or normalized_filters["genre"] in str(getattr(book, "category", "") or "").lower())
+                and (normalized_year is None or book.publish_year == normalized_year)
+                and (not normalized_filters["isbn"] or normalized_filters["isbn"] in str(getattr(book, "isbn", "") or "").lower())
+                and (
+                    normalized_availability == "all"
+                    or (normalized_availability == "available" and book.is_available())
+                    or (normalized_availability == "unavailable" and not book.is_available())
+                )
+            )
+        ]
