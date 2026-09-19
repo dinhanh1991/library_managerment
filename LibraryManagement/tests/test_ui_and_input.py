@@ -115,6 +115,16 @@ class UiAndInputTestCase(unittest.TestCase):
 
         self.assertEqual(prompt_optional_int("Năm: ", "Năm"), 2025)
 
+    @patch.object(BaseView, "pause")
+    @patch("builtins.input", side_effect=[""])
+    def test_search_by_title_rejects_empty_input(self, _mock_input, _mock_pause):
+        self.view.search_by_title()
+
+    @patch.object(BaseView, "pause")
+    @patch("builtins.input", side_effect=[""])
+    def test_search_by_author_rejects_empty_input(self, _mock_input, _mock_pause):
+        self.view.search_by_author()
+
     def test_book_catalog_has_real_categories(self):
         catalog_path = ROOT / "data" / "books.json"
         with catalog_path.open("r", encoding="utf-8") as handle:
