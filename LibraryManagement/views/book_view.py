@@ -80,12 +80,7 @@ class BookView(BaseView):
             print_info_warning("Mã sách không được để trống.")
             self.pause()
             return
-        books = self.service.get_all_books()
-        book = None
-        for item in books:
-            if item.book_id == book_id:
-                book = item
-                break
+        book = self.service.get_book_by_id(book_id)
         if book is None:
             print_info_error("Không tìm thấy sách!")
             self.pause()
