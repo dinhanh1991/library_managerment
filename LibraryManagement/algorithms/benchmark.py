@@ -1,8 +1,8 @@
 import copy
 import csv
-import os
 import random
 import time
+from pathlib import Path
 
 from LibraryManagement.models.book import Book
 from LibraryManagement.algorithms.sorting import (
@@ -13,6 +13,13 @@ from LibraryManagement.algorithms.sorting import (
     quick_sort,
     merge_sort
 )
+
+
+# ============================================================
+# ĐƯỜNG DẪN DỮ LIỆU
+# ============================================================
+
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
 
 # ============================================================
@@ -61,9 +68,9 @@ def run_benchmark():
 
     number_of_runs = 5
 
-    os.makedirs("data", exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    csv_file = "data/benchmark_results.csv"
+    csv_file = DATA_DIR / "benchmark_results.csv"
 
     all_results = []
 
