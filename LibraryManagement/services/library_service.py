@@ -251,6 +251,18 @@ class LibraryService:
         self._refresh_structures()
         return self.state.search_bst(self._normalize_text(book_id))
 
+    def get_bst_inorder(self):
+        self._refresh_structures()
+        return self.state.get_bst_inorder()
+
+    def get_bst_preorder(self):
+        self._refresh_structures()
+        return self.state.get_bst_preorder()
+
+    def get_bst_postorder(self):
+        self._refresh_structures()
+        return self.state.get_bst_postorder()
+
     def get_all_books(self):
         return self.book_service.get_all_books()
 
