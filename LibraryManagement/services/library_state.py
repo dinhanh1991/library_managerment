@@ -37,6 +37,26 @@ class LibraryState:
             if hasattr(self, name):
                 setattr(self, name, value)
 
+    def get_borrow_queue_items(self):
+        return list(self.borrow_queue.items)
+
+    def get_return_stack_items(self):
+        return list(self.return_stack.items)
+
+    def get_linked_list_books(self):
+        books = []
+        current = self.book_linked_list.head
+        while current is not None:
+            books.append(current.data)
+            current = current.next
+        return books
+
+    def search_linked_list(self, book_id):
+        return self.book_linked_list.search(book_id)
+
+    def search_bst(self, book_id):
+        return self.book_bst.search(book_id)
+
     def refresh_structures(self):
         books = self.repository.load_books()
 
