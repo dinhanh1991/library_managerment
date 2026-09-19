@@ -48,18 +48,25 @@ class BookService:
     def remove_book(self, book_id):
         book_id = self.normalize_text(book_id)
         if not book_id:
-            return False
+            return "not_found"
+
         books = self.repository.load_books()
         borrowers = self.borrower_repo.load_borrowers()
+
+        if not any(self.normalize_text(book.book_id) == book_id for book in books):
+            return "not_found"
+
         if any(self.normalize_text(item.book_id) == book_id for item in borrowers):
-            return False
+            return "borrowed"
+
         for book in books:
             if self.normalize_text(book.book_id) == book_id:
                 books.remove(book)
                 self.repository.save_books(books)
                 self.refresh_structures()
-                return True
-        return False
+                return "deleted"
+
+        return "not_found"
 
     def update_book(self, updated_book):
         if updated_book is None:
