@@ -2,21 +2,11 @@ from rich import box
 from rich.table import Table
 
 from LibraryManagement.models.reader import Reader
+from LibraryManagement.utils.ui_helpers import prompt_field
 from LibraryManagement.views.base_view import BaseView
 
 
 class ReaderView(BaseView):
-    def _prompt_required(self, prompt, label):
-        value = input(prompt).strip()
-        if value:
-            return value
-
-        self.console.print(
-            f"\n[bold yellow]⚠️ {label} không được để trống.[/bold yellow]"
-        )
-        self.pause()
-        return None
-
     def show_menu(self):
         menu_content = (
             " [1] ➕ Thêm độc giả\n"
@@ -31,49 +21,48 @@ class ReaderView(BaseView):
 
     def add_reader(self):
         self.show_section("===== ➕ THÊM ĐỘC GIẢ =====")
-        reader_id = self._prompt_required("Nhập mã độc giả: ", "Mã độc giả")
-        if reader_id is None:
+        reader_id = prompt_field("Nhập mã độc giả: ", "Mã độc giả")
+        name = prompt_field("Nhập tên độc giả: ", "Tên độc giả")
+        if reader_id is None or name is None:
+            self.pause()
             return
-        name = self._prompt_required("Nhập tên độc giả: ", "Tên độc giả")
-        if name is None:
-            return
-
-        if self.service.add_reader(Reader(reader_id, name)):
-            self.console.print("\n[bold green]✅ Thêm độc giả thành công![/bold green]")
-        else:
-            self.console.print("\n[bold red]❌ Mã độc giả đã tồn tại.[/bold red]")
+        result = self.service.add_reader(Reader(reader_id, name))
+        self.console.print(
+            "\n[bold green]✅ Thêm độc giả thành công![/bold green]"
+            if result else
+            "\n[bold red]❌ Mã độc giả đã tồn tại hoặc dữ liệu không hợp lệ.[/bold red]"
+        )
         self.pause()
 
     def update_reader(self):
         self.show_section("===== ✏️ SỬA ĐỘC GIẢ =====")
-        reader_id = self._prompt_required("Nhập mã độc giả cần sửa: ", "Mã độc giả")
-        if reader_id is None:
+        reader_id = prompt_field("Nhập mã độc giả cần sửa: ", "Mã độc giả")
+        name = prompt_field("Nhập tên mới: ", "Tên độc giả")
+        if reader_id is None or name is None:
+            self.pause()
             return
-        name = self._prompt_required("Nhập tên mới: ", "Tên độc giả")
-        if name is None:
-            return
-
-        if self.service.update_reader(Reader(reader_id, name)):
-            self.console.print("\n[bold green]✅ Cập nhật độc giả thành công![/bold green]")
-        else:
-            self.console.print("\n[bold red]❌ Không tìm thấy độc giả.[/bold red]")
+        result = self.service.update_reader(Reader(reader_id, name))
+        self.console.print(
+            "\n[bold green]✅ Cập nhật độc giả thành công![/bold green]"
+            if result else
+            "\n[bold red]❌ Không tìm thấy độc giả hoặc dữ liệu không hợp lệ.[/bold red]"
+        )
         self.pause()
 
     def delete_reader(self):
         self.show_section("===== 🗑️ XÓA ĐỘC GIẢ =====")
-        reader_id = self._prompt_required("Nhập mã độc giả cần xóa: ", "Mã độc giả")
+        reader_id = prompt_field("Nhập mã độc giả cần xóa: ", "Mã độc giả")
         if reader_id is None:
+            self.pause()
             return
-
         if not self.confirm_action("Bạn có chắc chắn muốn xóa độc giả này không?"):
             return
-
-        if self.service.remove_reader(reader_id):
-            self.console.print("\n[bold green]✅ Xóa độc giả thành công![/bold green]")
-        else:
-            self.console.print(
-                "\n[bold red]❌ Không thể xóa: độc giả không tồn tại hoặc đang mượn sách.[/bold red]"
-            )
+        result = self.service.remove_reader(reader_id)
+        self.console.print(
+            "\n[bold green]✅ Xóa độc giả thành công![/bold green]"
+            if result else
+            "\n[bold red]❌ Không thể xóa: độc giả không tồn tại hoặc đang mượn sách.[/bold red]"
+        )
         self.pause()
 
     def display_readers(self):
@@ -83,20 +72,19 @@ class ReaderView(BaseView):
             self.pause()
             return
 
+        active_ids = self.service.get_active_reader_ids()
         table = Table(
             title="👥 DANH SÁCH ĐỘC GIẢ",
             header_style="bold white",
             border_style="yellow",
             box=box.SQUARE_DOUBLE_HEAD,
             show_lines=True,
-            title_justify="left",
         )
         table.add_column("STT", justify="center", style="bold cyan")
         table.add_column("MÃ ĐỘC GIẢ", justify="center", style="bold yellow")
         table.add_column("TÊN ĐỘC GIẢ", style="bold white")
         table.add_column("ĐANG MƯỢN", justify="center", style="bold green")
 
-        active_ids = self.service.get_active_reader_ids()
         for index, reader in enumerate(readers, start=1):
             table.add_row(
                 str(index),
@@ -104,37 +92,23 @@ class ReaderView(BaseView):
                 reader.name,
                 "Có" if reader.reader_id in active_ids else "Không",
             )
-
         self.console.print(table)
         self.pause()
 
     def display_history(self):
-        reader_id = self._prompt_required(
-            "Nhập mã độc giả cần xem lịch sử: ", "Mã độc giả"
-        )
+        reader_id = prompt_field("Nhập mã độc giả cần xem lịch sử: ", "Mã độc giả")
         if reader_id is None:
+            self.pause()
             return
-
         history = self.service.get_reader_history(reader_id)
         if not history:
             self.console.print("\n[bold yellow]📭 Chưa có lịch sử giao dịch.[/bold yellow]")
             self.pause()
             return
 
-        table = Table(
-            title=f"📚 LỊCH SỬ - {reader_id}",
-            header_style="bold white",
-            border_style="cyan",
-            box=box.SIMPLE_HEAVY,
-            show_lines=True,
-            title_justify="left",
-        )
-        table.add_column("MÃ SÁCH", justify="center", style="bold green")
-        table.add_column("NGÀY MƯỢN", justify="center", style="bold blue")
-        table.add_column("HẠN TRẢ", justify="center", style="bold magenta")
-        table.add_column("NGÀY TRẢ", justify="center", style="bold yellow")
-        table.add_column("TRẠNG THÁI", justify="center", style="bold cyan")
-
+        table = Table(title=f"📚 LỊCH SỬ - {reader_id}", header_style="bold white", border_style="cyan", box=box.SIMPLE_HEAVY)
+        for column in ("MÃ SÁCH", "NGÀY MƯỢN", "HẠN TRẢ", "NGÀY TRẢ", "TRẠNG THÁI"):
+            table.add_column(column, justify="center")
         for borrower in history:
             table.add_row(
                 borrower.book_id,
@@ -143,7 +117,6 @@ class ReaderView(BaseView):
                 borrower.return_date or "-",
                 borrower.status,
             )
-
         self.console.print(table)
         self.pause()
 
@@ -154,20 +127,9 @@ class ReaderView(BaseView):
             self.pause()
             return
 
-        table = Table(
-            title="⚠️ ĐỘC GIẢ QUÁ HẠN",
-            header_style="bold white",
-            border_style="red",
-            box=box.SQUARE_DOUBLE_HEAD,
-            show_lines=True,
-            title_justify="left",
-        )
-        table.add_column("MÃ ĐỘC GIẢ", justify="center", style="bold cyan")
-        table.add_column("TÊN ĐỘC GIẢ", style="bold white")
-        table.add_column("MÃ SÁCH", justify="center", style="bold yellow")
-        table.add_column("HẠN TRẢ", justify="center", style="bold red")
-        table.add_column("TRẠNG THÁI", justify="center", style="bold magenta")
-
+        table = Table(title="⚠️ ĐỘC GIẢ QUÁ HẠN", header_style="bold white", border_style="red", box=box.SQUARE_DOUBLE_HEAD, show_lines=True)
+        for column in ("MÃ ĐỘC GIẢ", "TÊN ĐỘC GIẢ", "MÃ SÁCH", "HẠN TRẢ", "TRẠNG THÁI"):
+            table.add_column(column, justify="center")
         for borrower in overdue:
             table.add_row(
                 borrower.borrower_id,
@@ -176,7 +138,6 @@ class ReaderView(BaseView):
                 borrower.due_date or "-",
                 borrower.status,
             )
-
         self.console.print(table)
         self.pause()
 
