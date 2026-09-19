@@ -17,12 +17,12 @@ class ReturnView(BaseView):
     def return_book(self):
         self.console.print("\n[bold cyan]===== ↩️ TRẢ SÁCH =====[/bold cyan]")
         borrower_id = prompt_field("Nhập mã độc giả: ", "Mã độc giả")
-        book_id = prompt_field("Nhập mã sách trả: ", "Mã sách")
         name = prompt_field(
             "Tên độc giả (Enter nếu không cần): ",
             "Tên độc giả",
             allow_empty=True,
         )
+        book_id = prompt_field("Nhập mã sách trả: ", "Mã sách")
         if borrower_id is None or book_id is None:
             self.pause()
             return
