@@ -56,7 +56,6 @@ class LibraryService:
             repository=self._repository,
             borrower_repo=self._borrower_repo,
             normalize_text=self._normalize_text,
-            validate_number=self._is_valid_non_negative_number,
             refresh_structures=self._refresh_structures,
         )
         self.reader_service = ReaderService(
